@@ -1,0 +1,18 @@
+machine:
+  node:
+    version: 5.11.1
+  post:
+    - npm install -g firebase-tools
+general:
+  artifacts:
+    - "dist"
+test:
+  override:
+    - echo 'no test suite yet'
+  post:
+    - npm run build
+deployment:
+  master:
+    branch: master
+    commands:
+      #- firebase deploy --token "$FIREBASE_TOKEN"

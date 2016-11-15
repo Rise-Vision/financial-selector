@@ -1,0 +1,15 @@
+<auth-form-password
+    error="$ctrl.error"
+    form-title="Password sign in"
+    submit-action="$ctrl.loginWithPassword(user)">
+</auth-form-password>
+
+<auth-form-google
+    form-title="Sign in with Google"
+    submit-action="$ctrl.loginWithGoogle()">
+</auth-form-google>
+
+
+<hr />
+
+<a ui-sref="register">Or Sign Up</a>
