@@ -9,6 +9,11 @@ exports.png = {
   loader: 'url-loader?mimetype=image/png',
 };
 
+exports.risecss = {
+  test: require.resolve(__dirname + "/../../node_modules/rv-common-style/dist/css/rise.css"),
+  loader: 'style-loader!raw-loader',
+};
+
 exports.istanbulInstrumenter = {
   test: /^(.(?!\.test))*\.js$/,
   loader: 'istanbul-instrumenter-loader',
@@ -37,14 +42,15 @@ exports.html = {
 
 exports.css = {
   test: /\.css$/,
-  loader: 'style-loader!css-loader',
+  loader: 'style-loader!css-loader!resolve-url',
+  exclude: require.resolve(__dirname + "/../../node_modules/rv-common-style/dist/css/rise.css"),
 };
 
 exports.svg = { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'url?limit=10000&minetype=image/svg+xml' };
-exports.eot = { test: /\.eot$/, loader: 'file' };
+exports.eot = { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file' };
 exports.woff = { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'url?limit=10000&minetype=application/font-woff' };
 exports.woff2 = { test: /\.woff2$/,
         loader: 'url?limit=10000&minetype=application/font-woff' };
-exports.ttf = { test: /\.ttf$/, loader: 'file' };
+exports.ttf = { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'file' };

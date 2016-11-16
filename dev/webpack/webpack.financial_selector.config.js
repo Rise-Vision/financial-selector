@@ -6,7 +6,7 @@ const postcssInit = require('./postcss');
 module.exports = {
   entry: {
     financial_selector: path.join(
-      __dirname, '..', '..', 'src', 'financial_selector', 'index.js'),
+      __dirname, '..', '..', 'src', 'index.js'),
   },
   output: {
     path: path.join(__dirname, '..', '..', 'dist'),
@@ -31,6 +31,7 @@ module.exports = {
       loaders.ngAnnotate,
       loaders.babel,
       loaders.html,
+      loaders.risecss,
       loaders.css,
       loaders.png,
       loaders.svg,

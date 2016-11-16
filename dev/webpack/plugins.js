@@ -21,7 +21,7 @@ const basePlugins = [
     filename: 'index.html',
     template: path.join(
       __dirname, '..', '..', 'src',
-      'financial_selector', 'index.html'),
+      'index.html'),
     chunks: ['financial_selector'], // inject only financial_selector
     inject: 'body',
   }),
@@ -29,8 +29,13 @@ const basePlugins = [
   new CopyWebpackPlugin([
     {
       from: path.join(
-        __dirname, '..', '..', 'src', 'financial_selector', 'assets'),
+        __dirname, '..', '..', 'src', 'assets'),
       to: 'assets',
+    },
+    {
+      from: path.join(
+        __dirname, '..', '..', 'node_modules', 'rv-common-style', 'dist', 'fonts'),
+      to: 'fonts',
     }
   ]),
 ].concat(sourceMap);
@@ -38,7 +43,7 @@ const basePlugins = [
 const devPlugins = [
   new StyleLintPlugin({
     configFile: path.join(__dirname, '..', '..', '.stylelintrc'),
-    files: ['src/financial_selector/**/*.css'],
+    files: ['src/**/*.css'],
     failOnError: false,
   }),
   new webpack.HotModuleReplacementPlugin(),

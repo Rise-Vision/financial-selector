@@ -4,7 +4,7 @@ import Components from './components/components';
 import Firebase from './firebase';
 import AppComponent from './app.component';
 import UIBootstrap from 'angular-ui-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import 'rv-common-style/dist/css/rise.css';
 import 'normalize.css';
 
 angular.module('app', [

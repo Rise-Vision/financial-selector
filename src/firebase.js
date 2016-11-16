@@ -8,7 +8,7 @@ const m = angular.module('app-firebase', [AngularFire])
     'ngInject';
 
     const $window = $windowProvider.$get();
-    const config = require('../common/firebase_config');
+    const config = require('./config/firebase_config');
 
     $window.firebase = Firebase;
 
