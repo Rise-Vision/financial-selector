@@ -1,26 +1,32 @@
-<form name="authForm" ng-submit="authForm.$valid && $ctrl.submitAction({user: $ctrl.user})" class="form-signin" novalidate>
+<form name="authForm" ng-submit="authForm.$valid && $ctrl.submitAction({user: $ctrl.user})"
+      class="form-signin" novalidate>
 
-    <h3 class="form-signin-heading" ng-bind="$ctrl.formTitle"></h3>
+  <h3 class="form-signin-heading" ng-bind="$ctrl.formTitle"></h3>
 
-    <!--Server authentication error-->
-    <p ng-show="$ctrl.error" class="text-danger" ng-bind="$ctrl.error"></p>
+  <!--Server authentication error-->
+  <p ng-show="$ctrl.error" class="text-danger" ng-bind="$ctrl.error"></p>
 
-    <!--Email input-->
-    <input ng-model="$ctrl.user.email" ng-model-options="{ updateOn: 'default blur', debounce: { default: 1000, blur: 0 } }" type="email" name="email" class="form-control" placeholder="Email address" required autofocus>
+  <!--Email input-->
+  <input ng-model="$ctrl.user.email"
+         ng-model-options="{ updateOn: 'default blur', debounce: { default: 1000, blur: 0 } }"
+         type="email" name="email" class="form-control" placeholder="Email address" required
+         autofocus>
 
-    <!--Email error-->
-    <div ng-show="authForm.$submitted">
-        <p ng-show="authForm.email.$error.required" class="text-danger">Email required</p>
-        <p ng-show="authForm.email.$error.email" class="text-danger">Please enter a valid email.</p>
-    </div>
+  <!--Email error-->
+  <div ng-show="authForm.$submitted">
+    <p ng-show="authForm.email.$error.required" class="text-danger">Email required</p>
 
-    <!--Password input-->
-    <input ng-model="$ctrl.user.password" type="password" name="password" class="form-control" placeholder="Password" required>
+    <p ng-show="authForm.email.$error.email" class="text-danger">Please enter a valid email.</p>
+  </div>
 
-    <!--Password error-->
-    <div ng-show="authForm.$submitted">
-        <p ng-show="authForm.password.$error.required" class="text-danger">Password required</p>
-    </div>
+  <!--Password input-->
+  <input ng-model="$ctrl.user.password" type="password" name="password" class="form-control"
+         placeholder="Password" required>
 
-    <button class="btn btn-lg btn-primary btn-block" ng-bind="$ctrl.formTitle" type="submit"></button>
+  <!--Password error-->
+  <div ng-show="authForm.$submitted">
+    <p ng-show="authForm.password.$error.required" class="text-danger">Password required</p>
+  </div>
+
+  <button class="btn btn-lg btn-primary btn-block" ng-bind="$ctrl.formTitle" type="submit"></button>
 </form>

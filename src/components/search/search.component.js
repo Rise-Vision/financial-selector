@@ -1,11 +1,12 @@
-import template from './search.html';
-import controller from './search.controller';
+import template from "./search.html";
+import controller from "./search.controller";
 
 const searchComponent = {
-  restrict: 'E',
+  restrict: "E",
   bindings: {},
   template,
   controller,
 };
 
-export default searchComponent;
+export default
+searchComponent;

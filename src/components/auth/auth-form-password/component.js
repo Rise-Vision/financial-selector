@@ -1,14 +1,14 @@
-import template from './template.html';
-import controller from './controller';
+import template from "./template.html";
+import controller from "./controller";
 
 const component = {
-  restrict: 'E',
+  restrict: "E",
   template,
   controller,
   bindings: {
-    error: '=',
-    formTitle: '@',
-    submitAction: '&',
+    error: "=",
+    formTitle: "@",
+    submitAction: "&",
   },
 };
 

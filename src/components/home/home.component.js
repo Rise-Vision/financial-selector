@@ -1,8 +1,8 @@
-import template from './home.html';
-import controller from './home.controller';
+import template from "./home.html";
+import controller from "./home.controller";
 
 const homeComponent = {
-  restrict: 'E',
+  restrict: "E",
   bindings: {},
   template,
   controller,

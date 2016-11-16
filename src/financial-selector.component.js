@@ -1,8 +1,9 @@
 const FinancialSelector = {
-  bindings: {
-    errors: '=',
+  bindings:    {
+    errors: "=",
   },
-  templateUrl: 'components/list-errors.html',
+  templateUrl: "components/list-errors.html",
 };
 
-export default FinancialSelector;
+export default
+FinancialSelector;

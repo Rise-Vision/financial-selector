@@ -1,22 +1,20 @@
-import angular from 'angular';
-import uiRouter from 'angular-ui-router';
-import profileComponent from './profile.component';
+import angular from "angular";
+import uiRouter from "angular-ui-router";
+import profileComponent from "./profile.component";
 
-const profileModule = angular.module('profile', [
-  uiRouter,
-])
+const profileModule = angular.module( "profile", [
+  uiRouter, ] )
 
-.config(($stateProvider) => {
-  'ngInject';
-  $stateProvider
-    .state('profile', {
-      url: '/profile',
-      component: 'profile',
-    });
-})
+  .config( ( $stateProvider ) => {
+    "ngInject";
+    $stateProvider.state( "profile", {
+      url: "/profile",
+      component: "profile",
+    } );
+  } )
 
-.component('profile', profileComponent)
+  .component( "profile", profileComponent )
 
-.name;
+  .name;
 
 export default profileModule;

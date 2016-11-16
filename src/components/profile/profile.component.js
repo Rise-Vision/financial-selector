@@ -1,8 +1,8 @@
-import template from './profile.html';
-import controller from './profile.controller';
+import template from "./profile.html";
+import controller from "./profile.controller";
 
 const profileComponent = {
-  restrict: 'E',
+  restrict: "E",
   bindings: {},
   template,
   controller,

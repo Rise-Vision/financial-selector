@@ -1,19 +1,19 @@
-import angular from 'angular';
-import AngularFire from 'angularfire';
-import Firebase from 'firebase';
+import angular from "angular";
+import AngularFire from "angularfire";
+import Firebase from "firebase";
+import config from "./config/firebase_config";
 
-const m = angular.module('app-firebase', [AngularFire])
+const m = angular.module( "app-firebase", [ AngularFire ] )
 
-  .config(($windowProvider) => {
-    'ngInject';
+  .config( ( $windowProvider ) => {
+    "ngInject";
 
     const $window = $windowProvider.$get();
-    const config = require('./config/firebase_config');
 
     $window.firebase = Firebase;
 
-    Firebase.initializeApp(config);
-  })
+    Firebase.initializeApp( config );
+  } )
 
   .name;
 

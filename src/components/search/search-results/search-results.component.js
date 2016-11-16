@@ -1,13 +1,14 @@
-import template from './search-results.html';
-import controller from './search-results.controller';
+import template from "./search-results.html";
+import controller from "./search-results.controller";
 
 const component = {
-  restrict: 'E',
+  restrict: "E",
   bindings: {
-    query: '<',
+    query: "<",
   },
   template,
   controller,
 };
 
-export default component;
+export default
+component;

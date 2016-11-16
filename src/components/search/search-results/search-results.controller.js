@@ -1,7 +1,9 @@
-class SearchResultsController {
+class
+SearchResultsController {
   constructor() {
-    'ngInject';
+    "ngInject";
   }
 }
 
-export default SearchResultsController;
+export default
+SearchResultsController;

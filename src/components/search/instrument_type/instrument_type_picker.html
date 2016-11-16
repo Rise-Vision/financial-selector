@@ -1,10 +1,9 @@
-
 <a ui-sref="lists"><< Back to Instrument Groups</a>
 
 <h2>{{ $ctrl.byId[$ctrl.$state.params.id].label }}</h2>
 
 <div class="user-demo-list">
-Selected:
+  Selected:
 <span ng-repeat="item in $ctrl.userList">
   <span class="label label-primary">
     {{ item.$value }}

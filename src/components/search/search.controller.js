@@ -1,24 +1,24 @@
 class SearchController {
-  constructor(authService, $scope, $state) {
-    'ngInject';
+  constructor( authService, $scope, $state ) {
+    "ngInject";
 
     const ctrl = this;
 
     ctrl.query = null;
     ctrl.$state = $state;
 
+    authService.firebaseAuthObject.$waitForSignIn().then( () => {
+      ctrl.authObj = authService.firebaseAuthObject.$getAuth();
+    } )
+    .then( authService.redirectIfNotLoggedIn );
 
-    authService.firebaseAuthObject.$waitForSignIn()
-    .then(()=> {ctrl.authObj = authService.firebaseAuthObject.$getAuth();})
-    .then(authService.redirectIfNotLoggedIn);
-
-    $scope.$watch('$ctrl.query', function maybeSwitch(newVal) {
-      if (newVal) {
-        $state.go('lists.search', { q: newVal });
+    $scope.$watch( "$ctrl.query", function maybeSwitch( newVal ) {
+      if ( newVal ) {
+        $state.go( "lists.search", { q: newVal } );
       } else {
-        $state.go('lists');
+        $state.go( "lists" );
       }
-    });
+    } );
   }
 }
 

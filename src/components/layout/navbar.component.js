@@ -1,14 +1,14 @@
-import template from './navbar.html';
+import template from "./navbar.html";
 
 const navBarComponent = {
-  restrict: 'E',
+  restrict: "E",
   template,
   bindings: {},
   controller: NavbarController,
 };
 
-function NavbarController($state, authService) {
-  'ngInject';
+function NavbarController( $state, authService ) {
+  "ngInject";
 
   const ctrl = this;
 
@@ -17,7 +17,7 @@ function NavbarController($state, authService) {
 
   function logout() {
     authService.logout();
-    $state.go('home');
+    $state.go( "home" );
   }
 }
 

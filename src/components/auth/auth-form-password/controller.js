@@ -1,12 +1,12 @@
 class Controller {
   constructor() {
-    'ngInject';
+    "ngInject";
 
     const ctrl = this;
 
     ctrl.user = {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     };
   }
 }

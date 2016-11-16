@@ -24,7 +24,7 @@ module.exports = {
   postcss: postcssInit,
 
   module: {
-    preloaders: [
+    preLoaders: [
       loaders.eslint,
     ],
     loaders: [
@@ -43,7 +43,10 @@ module.exports = {
 
     ] : []),
   },
-
+  eslint: {
+    failOnWarning: false,
+    failOnError: true
+  },
   devServer: {
     historyApiFallback: true,
   },

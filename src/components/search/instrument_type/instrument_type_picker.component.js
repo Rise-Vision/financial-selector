@@ -1,10 +1,10 @@
-import template from './instrument_type_picker.html';
-import controller from './instrument_type_picker.controller';
+import template from "./instrument_type_picker.html";
+import controller from "./instrument_type_picker.controller";
 
 const component = {
-  restrict: 'E',
+  restrict: "E",
   bindings: {
-    query: '<',
+    query: "<",
   },
   template,
   controller,

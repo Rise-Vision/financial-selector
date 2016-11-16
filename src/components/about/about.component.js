@@ -1,8 +1,8 @@
-import template from './about.html';
-import controller from './about.controller';
+import template from "./about.html";
+import controller from "./about.controller";
 
 const aboutComponent = {
-  restrict: 'E',
+  restrict: "E",
   bindings: {},
   template,
   controller,

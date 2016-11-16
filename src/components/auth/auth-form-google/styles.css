@@ -1,5 +1,5 @@
 .google-sign-in-button {
-  background-image: url('./btn_google_signin_dark_normal_web.png');
+  background-image: url("./btn_google_signin_dark_normal_web.png");
   cursor: pointer;
   display: inline-block;
   height: 46px;

@@ -1,6 +1,6 @@
 class AuthController {
-  constructor(authService, $scope, $state) {
-    'ngInject';
+  constructor( authService, $scope, $state ) {
+    "ngInject";
 
     const ctrl = $scope.$ctrl = this;
 
@@ -10,34 +10,27 @@ class AuthController {
     ctrl.loginWithPassword = loginWithPassword;
     ctrl.loginWithGoogle = loginWithGoogle;
 
-    function registerWithPassword(user) {
-      return authService.register(user)
-        .then(function loginWithPwd() {
-          return ctrl.loginWithPassword(user);
-        })
-        .then(function sendWelcomeEmail() {
-          // return authService.sendWelcomeEmail(user.email);
-        })
-        .catch(showError);
+    function registerWithPassword( user ) {
+      return authService.register( user ).then( function loginWithPwd() {
+        return ctrl.loginWithPassword( user );
+      } ).then( function sendWelcomeEmail() {
+        // return authService.sendWelcomeEmail(user.email);
+      } ).catch( showError );
     }
 
-    function loginWithPassword(user) {
-      return authService.login(user)
-        .then(switchToProfile)
-        .catch(showError);
+    function loginWithPassword( user ) {
+      return authService.login( user ).then( switchToProfile ).catch( showError );
     }
 
     function loginWithGoogle() {
-      return authService.loginWithGoogle()
-        .then(switchToProfile)
-        .catch(showError);
+      return authService.loginWithGoogle().then( switchToProfile ).catch( showError );
     }
 
     function switchToProfile() {
-      $state.go('profile');
+      $state.go( "profile" );
     }
 
-    function showError(error) {
+    function showError( error ) {
       ctrl.error = error;
     }
   }

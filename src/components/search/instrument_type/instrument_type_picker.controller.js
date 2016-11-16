@@ -1,35 +1,36 @@
-const _ = require('lodash');
+import _ from "lodash";
 
 class ShowListController {
-  constructor($state, authService, $scope,
-    instrumentTypeService, userInstrumentService) {
-    'ngInject';
+  constructor( $state, authService, $scope, instrumentTypeService, userInstrumentService ) {
+    "ngInject";
 
-    const ctrl = this;
+    const ctrl = this,
+      instrumentGroups = instrumentTypeService.getInstrumentGroups();
+
     ctrl.$state = $state;
 
-    $scope.$watch(getUid, function updateUserList(uid) {
-      if (uid) {
-        ctrl.userList = userInstrumentService.getUserList(uid, 'demo1');
+    $scope.$watch( getUid, function updateUserList( uid ) {
+      if ( uid ) {
+        ctrl.userList = userInstrumentService.getUserList( uid, "demo1" );
       }
-    });
+    } );
 
-    ctrl.toggleSelection = function addSelection(item) {
-      const uid = getUid();
-      const member = getMembershipItem(ctrl.userList, item);
-      if (member) {
-        userInstrumentService.removeFromList(ctrl.userList, member);
+    ctrl.toggleSelection = function addSelection( item ) {
+      const uid = getUid(),
+        member = getMembershipItem( ctrl.userList, item );
+
+      if ( member ) {
+        userInstrumentService.removeFromList( ctrl.userList, member );
       } else {
-        userInstrumentService.addToList(uid, 'demo1', item);
+        userInstrumentService.addToList( uid, "demo1", item );
       }
     };
 
     ctrl.getMembershipItem = getMembershipItem;
 
-    const instrumentGroups = instrumentTypeService.getInstrumentGroups();
-    instrumentGroups.$loaded().then(function updateLookupMap(groups) {
-      ctrl.byId = _.keyBy(groups, 'id');
-    });
+    instrumentGroups.$loaded().then( function updateLookupMap( groups ) {
+      ctrl.byId = _.keyBy( groups, "id" );
+    } );
 
     function getUid() {
       // const auth = authService.getAuth();
@@ -38,15 +39,18 @@ class ShowListController {
       // }
       //
       // return null;
-      return '12345';
+      return "12345";
     }
 
-    function getMembershipItem(arr, item) {
-      if (!arr) { return null; }
+    function getMembershipItem( arr, item ) {
+      if ( !arr ) {
+        return null;
+      }
       let c;
-      for ( c = 0; c < arr.length; c++) {
-        if (arr[c].$value === item.label) {
-          return arr[c];
+
+      for ( c = 0; c < arr.length; c++ ) {
+        if ( arr[ c ].$value === item.label ) {
+          return arr[ c ];
         }
       }
       return null;
