@@ -1,0 +1,6 @@
+<h3 ng-bind="$ctrl.formTitle" class="form-signin-heading"></h3>
+
+<form name="authForm" ng-submit="authForm.$valid && $ctrl.submitAction({user: $ctrl.user})"
+      class="form-signin" novalidate>
+  <div ng-click="$ctrl.submitAction()" role="button" class="google-sign-in-button"></div>
+</form>

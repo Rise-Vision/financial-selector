@@ -1,0 +1,15 @@
+<section>
+  <h2>Search Instruments</h2>
+  <section>
+    <input ng-model="$ctrl.query"
+           type="text" class="form-control" placeholder="Search by name or instrument"
+           aria-describedby="sizing-addon1">
+  </section>
+  <section>
+    <div ng-switch on="$ctrl.$state.current.name">
+      <instrument-type-list ng-switch-when="lists"></instrument-type-list>
+      <search-results ng-switch-when="lists.search" query="$ctrl.query"></search-results>
+      <instrument-type-picker ng-switch-when="lists.show"></instrument-type-picker>
+    </div>
+  </section>
+</section>

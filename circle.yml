@@ -1,0 +1,17 @@
+machine:
+  node:
+    version: 6.9.1
+  post:
+
+general:
+  artifacts:
+    - "dist"
+test:
+  override:
+    - echo 'no test suite yet'
+  post:
+    - npm run build
+deployment:
+  master:
+    branch: master
+    commands:

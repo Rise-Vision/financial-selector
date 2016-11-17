@@ -1,0 +1,26 @@
+<a ui-sref="lists"><< Back to Instrument Groups</a>
+
+<h2>{{ $ctrl.byId[$ctrl.$state.params.id].label }}</h2>
+
+<div class="user-demo-list">
+  Selected:
+<span ng-repeat="item in $ctrl.userList">
+  <span class="label label-primary">
+    {{ item.$value }}
+  </span>
+  {{$last ? '' : ', '}}
+</span>
+</div>
+
+<div class="list-group">
+  <a
+    ng-repeat="item in $ctrl.byId[$ctrl.$state.params.id].data"
+    ng-click="$ctrl.toggleSelection(item)"
+    href="#" class="list-group-item">
+    <span ng-switch="$ctrl.getMembershipItem($ctrl.userList, item) === null" class="pull-right">
+      <span ng-switch-when="true" class="badge">+</span>
+      <span ng-switch-when="false" class="badge">-</span>
+    </span>
+    {{ item.label }}
+  </a>
+</div>

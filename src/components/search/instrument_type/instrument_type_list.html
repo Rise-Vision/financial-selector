@@ -1,0 +1,12 @@
+<div class="list-group">
+  <a
+    ui-sref="instrument-type-picker({ id:list.id })"
+    ng-repeat="list in $ctrl.stockLists"
+    class="list-group-item">
+    <span class="glyphicon glyphicon-angle-right pull-right">>></span>
+    <span ng-if="list.isPremium" class="label label-danger pull-right">
+      Premium
+    </span>
+    {{ list.label }}
+  </a>
+</div>
