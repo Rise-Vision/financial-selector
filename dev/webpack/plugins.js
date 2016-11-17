@@ -48,6 +48,11 @@ const devPlugins = [
   }),
   new webpack.HotModuleReplacementPlugin(),
   new StringReplacePlugin(),
+  new webpack.DefinePlugin({
+    WEBPACK_IS_DEVELOPMENT: true,
+    WEBPACK_IS_PRODUCTION:  false,
+    WEBPACK_IS_STAGING:     false
+  })
 ];
 
 const prodPlugins = [
@@ -59,6 +64,11 @@ const prodPlugins = [
       warnings: false,
     },
   }),
+  new webpack.DefinePlugin({
+    WEBPACK_IS_DEVELOPMENT: false,
+    WEBPACK_IS_PRODUCTION:  true,
+    WEBPACK_IS_STAGING:     false
+  })
 ];
 
 module.exports = basePlugins
