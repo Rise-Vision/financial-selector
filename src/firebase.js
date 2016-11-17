@@ -1,7 +1,7 @@
 import angular from "angular";
 import AngularFire from "angularfire";
 import Firebase from "firebase";
-import config from "./config/firebase_config";
+import config from "./config/firebase-config";
 
 const m = angular.module( "app-firebase", [ AngularFire ] )
 
