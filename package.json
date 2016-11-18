@@ -13,9 +13,9 @@
     "url": "git+https://github.com/Rise-Vision/financial-selector.git"
   },
   "scripts": {
-    "build": "cross-env NODE_ENV=production node_modules/.bin/webpack",
+    "build": "cross-env node_modules/.bin/webpack",
     "deploy": "node_modules/.bin/firebase deploy",
-    "dev": "node_modules/.bin/cross-env NODE_ENV=development node_modules/.bin/webpack-dev-server --inline",
+    "dev": "node_modules/.bin/cross-env node_modules/.bin/webpack-dev-server --inline",
     "test": "echo \"No tests yet\"",
     "test:lint": "eslint ./src --ext .js --ext .jsx || true"
   },

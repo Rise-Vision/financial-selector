@@ -72,5 +72,4 @@ const prodPlugins = [
 ];
 
 module.exports = basePlugins
-  .concat(process.env.NODE_ENV === 'production' ? prodPlugins : [])
-  .concat(process.env.NODE_ENV === 'development' ? devPlugins : []);
+  .concat(process.env.NODE_ENV === 'production' ? prodPlugins : devPlugins)

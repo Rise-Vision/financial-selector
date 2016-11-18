@@ -5,13 +5,42 @@ machine:
 
 general:
   artifacts:
-    - "dist"
+    - dist.tar.gz
 test:
   override:
     - echo 'no test suite yet'
   post:
     - npm run build
 deployment:
-  master:
+  staging:
+    branch: /(feature|fix|chore).*/
+    commands:
+      - NODE_ENV=development npm run build
+      - ssh selector@webserver-stage.risevision.com 'mkdir -p /rise-front-end/selector';
+      # We have 3 stage environments, selector-stage-0.risevision.com, selector-stage-1.risevision.com and selector-stage-2.risevision.com.
+      # To deploy to one of these environments a tag must be added to the commit message. For instance, [stage-0] for selector-stage-0.risevision.com.
+      # If tag is missing, the [stage-0] is used.
+      - >
+        STAGE_ENV="$(git log -1 --pretty=%B | grep '\[.*\]' |sed -e 's/.*\[\(.*\)\].*/\1/g')";
+        if [ "$STAGE_ENV" != '' ]; then
+          echo "Deploying to $STAGE_ENV";
+        fi;
+        if [ "$STAGE_ENV" == '' ]; then
+          echo "stage deployment environment missing. Deploying to [stage-0].";
+          STAGE_ENV='stage-0';
+        fi;
+        rsync -rptz -e ssh --delete dist selector@webserver-stage.risevision.com:/rise-front-end/selector/$STAGE_ENV;
+      - tar czvf dist.tar.gz dist
+  production:
     branch: master
     commands:
+      - NODE_ENV=production npm run build
+      # It deploys to production server 2.
+      - echo "deploying to production webserver1.risevision.com";
+      - ssh selector@webserver1.risevision.com 'mkdir -p /rise-front-end/selector';
+      - rsync -rptz -e ssh --delete dist selector@webserver1.risevision.com:/rise-front-end/selector;
+      # It deploys to production server 1.
+      - echo "deploying to production webserver.risevision.com";
+      - ssh selector@webserver.risevision.com 'mkdir -p /rise-front-end/selector';
+      - rsync -rptz -e ssh --delete dist selector@webserver.risevision.com:/rise-front-end/selector;
+      - tar czvf dist.tar.gz dist
