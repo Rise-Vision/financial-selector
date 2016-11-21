@@ -31,7 +31,7 @@
    "normalize.css": "^4.2.0",
    "q": "^1.4.1",
    "rv-common-i18n": "https://github.com/Rise-Vision/common-i18n.git",
-   "rv-common-style": "https://github.com/Rise-Vision/common-style.git#feature/financial-selector"
+   "rv-common-style": "https://github.com/Rise-Vision/common-style.git#v1.3.88"
  },
  "devDependencies": {
    "resolve-url-loader": "^1.6.0",
