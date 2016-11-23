@@ -1,31 +1,31 @@
-const path = require('path');
-const loaders = require('./loaders');
-const plugins = require('./plugins');
-const postcssInit = require('./postcss');
+const path = require("path");
+const loaders = require("./loaders");
+const plugins = require("./plugins");
+const postcssInit = require("./postcss");
 
 module.exports = {
   entry: {
     financial_selector: path.join(
-      __dirname, '..', '..', 'src', 'index.js'),
+      __dirname, "..", "..", "src", "index.js"),
   },
   output: {
-    path: path.join(__dirname, '..', '..', 'dist'),
-    filename: '[name].[hash].js',
-    publicPath: '/',
-    sourceMapFilename: '[name].[hash].js.map',
-    chunkFilename: '[id].chunk.js',
+    path: path.join(__dirname, "..", "..", "dist"),
+    filename: "[name].[hash].js",
+    publicPath: "/",
+    sourceMapFilename: "[name].[hash].js.map",
+    chunkFilename: "[id].chunk.js",
   },
 
-  devtool: process.env.NODE_ENV === 'production' ?
-    'source-map' :
-    'inline-source-map',
+  devtool: process.env.NODE_ENV === "production" ?
+    "source-map" :
+    "inline-source-map",
 
   plugins: plugins,
   postcss: postcssInit,
 
   module: {
     preLoaders: [
-      //loaders.eslint,
+      // loaders.eslint,
     ],
     loaders: [
       loaders.ngAnnotate,
@@ -39,13 +39,13 @@ module.exports = {
       loaders.woff,
       loaders.woff2,
       loaders.ttf,
-    ].concat(process.env.NODE_ENV === 'development' ? [
+    ].concat(process.env.NODE_ENV === "development" ? [
 
     ] : []),
   },
   eslint: {
     failOnWarning: false,
-    failOnError: true
+    failOnError: false,
   },
   devServer: {
     historyApiFallback: true,

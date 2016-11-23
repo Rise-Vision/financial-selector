@@ -39,6 +39,8 @@ npm install
 npm run dev
 ```
 
+Then navigate to http://localhost:8080
+
 ### Build Project
 ```bash
 npm run build
