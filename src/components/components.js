@@ -5,9 +5,10 @@ import Profile from "./profile/profile";
 import Search from "./search/search";
 import Auth from "./auth/auth";
 import Layout from "./layout/layout";
+import FinancialLists from "./financialLists/financialLists";
 
 const componentModule = angular.module( "app.components", [
-  Layout, Home, About, Profile, Search, Auth, ] )
+  Layout, Home, About, Profile, Search, Auth, FinancialLists, ] )
 
   .name;
 
