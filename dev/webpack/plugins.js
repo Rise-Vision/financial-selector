@@ -36,6 +36,10 @@ const basePlugins = [
       from: path.join(
         __dirname, '..', '..', 'node_modules', 'rv-common-style', 'dist', 'fonts'),
       to: 'fonts',
+    },
+    {
+      from: path.join(__dirname, '../../fonts'),
+      to: 'fonts',
     }
   ]),
 ].concat(sourceMap);

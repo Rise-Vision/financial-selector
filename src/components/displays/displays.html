@@ -1,0 +1,92 @@
+<div class="container animated fadeIn">
+
+  <div class="row">
+    <div class="col-sm-9">
+      <ol class="breadcrumb">
+        <li class="active"><span><i class="ss-home icon-left"></i> Displays</span></li>
+      </ol>
+    </div><!--col-->
+    <div class="col-sm-3 hidden-xs">
+      <button ng-hide="addDisplay" ng-click="addDisplay = !addDisplay" class="btn btn-primary btn-lg btn-block">Add Display <i class="fa fa-plus icon-right"></i></button>
+    </div>
+  </div><!--row-->
+
+  <div class="row half-top visible-xs">
+    <div class="col-xs-7">
+      <form ng-hide="addDisplay">
+        <div class="input-group add-bottom">
+          <span class="input-group-addon"><i class="fa fa-search"></i></span>
+          <input class="form-control" type="text" placeholder="Search Displays" name="">
+        </div>
+      </form>
+    </div>
+    <div class="col-xs-5">
+      <button ng-hide="addDisplay" ng-click="addDisplay = !addDisplay" class="btn btn-primary btn-block"><span style="font-size: 13px; line-height: 20px">Add Display </span></button>
+    </div>
+  </div><!--visible-xs-->
+
+  <form class="hidden-xs" ng-hide="addDisplay">
+     <div class="input-group half-top add-bottom">
+      <span class="input-group-addon"><i class="fa fa-search"></i></span>
+      <input class="form-control" type="text" placeholder="Search Displays" name="">
+    </div>
+  </form>
+
+  <div class="panel panel-default" ng-hide="addDisplay">
+    <table class="table">
+
+      <thead class="table-header">
+        <tr class="table-header__row">
+          <th class="table-header__cell"><a href="#">Name  <i class="fa fa-long-arrow-up icon-right"></i></a></th>
+          <th class="table-header__cell hidden-xs"><a href="#">ID</a></th>
+          <th class="table-header__cell hidden-xs"><a href="#">Company</a></th>
+          <th class="table-header__cell col-xs-1"></th>
+        </tr>
+      </thead>
+
+      <tbody class="table-body">
+
+        <tr class="table-body__row" ng-repeat="display in $ctrl.displays">
+          <td class="table-body__cell">
+            <a ui-sref="displayFinancialList"><i class="ss-tv icon-left"></i><strong>{{display.name}}</strong></a>
+          </td>
+          <td class="table-body__cell hidden-xs">{{display.id}}</td>
+          <td class="table-body__cell hidden-xs">{{display.company}}</td>
+          <td class="table-header__cell">
+            <div class="btn-group" uib-dropdown is-open="status.isopen">
+              <button id="single-button" type="button" class="btn btn-xs btn-default" uib-dropdown-toggle ng-disabled="disabled">
+                Actions <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" ng-controller="ModalCtrl as $ctrl">
+
+                <li role="menuitem"><a href="#"><span class="text-danger">Remove Display<span></a></li>
+
+              </ul>
+            </div><!-- Single button -->
+          </td>
+        </tr>
+
+      </tbody>
+
+    </table>
+  </div>
+
+  <div class="animated fadeIn" ng-show="addDisplay">
+    <h3 style="font-weight: 400">Add a Display</h3>
+
+    <form class="add-top">
+      <div class="form-group">
+        <label class="control-label">Display ID</label>
+        <input class="form-control" type="text" placeholder="Enter Display ID" name="">
+      </div>
+    </form>
+
+    <div class="text-right">
+    <button class="btn btn-primary disabled" type="button" ng-click="$ctrl.ok()">Add <i class="fa fa-check icon-right"></i></button>
+    <button class="btn btn-default" type="button" ng-click="addDisplay = !addDisplay">Cancel <i class="fa fa-times icon-right"></i></button>
+    </div>
+
+
+  </div><!--fadeIn-->
+
+</div><!--container-->

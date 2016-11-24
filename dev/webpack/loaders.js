@@ -1,7 +1,7 @@
 exports.eslint = {
   test: /\.js$/,
   loader: 'eslint-loader',
-  exclude: /node_modules/,
+  include: /src/
 };
 
 exports.png = {
