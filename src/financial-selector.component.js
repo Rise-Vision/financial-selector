@@ -1,5 +1,5 @@
 const FinancialSelector = {
-  bindings:    {
+  bindings: {
     errors: "=",
   },
   templateUrl: "components/list-errors.html",

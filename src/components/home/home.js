@@ -3,7 +3,7 @@ import uiRouter from "angular-ui-router";
 import homeComponent from "./home.component";
 
 const homeModule = angular.module( "home", [
-  uiRouter, ] )
+  uiRouter, "risevision.core.display" ] )
 
   .config( ( $stateProvider, $urlRouterProvider ) => {
     "ngInject";
