@@ -1,4 +1,4 @@
-# Rise Vision Financial Selector 
+# Rise Vision Financial Selector [![CircleCI](https://circleci.com/gh/Rise-Vision/financial-selector/tree/master.svg?style=svg&circle-token=5d983e8d322beb779dc6e07476bf29cd7f8204ef)](https://circleci.com/gh/Rise-Vision/financial-selector/tree/master)
 ==============
 
 ## Introduction
