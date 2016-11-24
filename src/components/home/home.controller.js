@@ -1,6 +1,24 @@
 class HomeController {
-  constructor() {
-    this.name = "home";
+  constructor( authService, $scope, $state ) {
+    "ngInject";
+
+    const ctrl = $scope.$ctrl = this;
+
+    ctrl.error = null;
+
+    ctrl.loginWithGoogle = loginWithGoogle;
+
+    function loginWithGoogle() {
+      return authService.loginWithGoogle().then( switchToDisplays ).catch( showError );
+    }
+
+    function switchToDisplays() {
+      $state.go( "displays" );
+    }
+
+    function showError( error ) {
+      ctrl.error = error;
+    }
   }
 }
 

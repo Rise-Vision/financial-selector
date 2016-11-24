@@ -1,6 +1,8 @@
-<h3 ng-bind="$ctrl.formTitle" class="form-signin-heading"></h3>
-
 <form name="authForm" ng-submit="authForm.$valid && $ctrl.submitAction({user: $ctrl.user})"
       class="form-signin" novalidate>
-  <div ng-click="$ctrl.submitAction()" role="button" class="google-sign-in-button"></div>
+  <button ng-click="$ctrl.submitAction()" class="btn btn-google-auth btn-lg btn-block add-bottom"><img alt="Google icon"
+                                                                       class="pull-left"
+                                                                       width="20px"
+                                                                       src="https://s3.amazonaws.com/Rise-Images/financial-selector/google-icon.png">
+    <span style="margin-left: -20px">Login with Google</span></button>
 </form>

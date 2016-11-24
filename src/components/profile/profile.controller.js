@@ -4,11 +4,7 @@ class ProfileController {
 
     const ctrl = this;
 
-    authService.firebaseAuthObject.$waitForSignIn().then( assignAuth ).then( authService.redirectIfNotLoggedIn );
-
-    function assignAuth() {
-      ctrl.authObj = authService.firebaseAuthObject.$getAuth();
-    }
+    ctrl.authObj = authService.firebaseAuthObject.$getAuth();
   }
 }
 

@@ -1,6 +1,5 @@
 import template from "./template.html";
 import controller from "./controller";
-import "./styles.css";
 
 const component = {
   restrict: "E",
