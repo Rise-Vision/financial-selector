@@ -25,7 +25,7 @@ module.exports = {
 
   module: {
     preLoaders: [
-      loaders.eslint,
+      //loaders.eslint,
     ],
     loaders: [
       loaders.ngAnnotate,

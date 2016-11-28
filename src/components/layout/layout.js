@@ -1,9 +1,9 @@
 import angular from "angular";
 import navBarComponent from "./navbar.component";
 
-const layoutModule = angular.module( "layout", [] )
+const layoutModule = angular.module("layout", [])
 
-  .component( "fsNavbar", navBarComponent )
+  .component("fsNavbar", navBarComponent)
 
   .name;
 

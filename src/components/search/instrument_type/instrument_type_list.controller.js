@@ -1,5 +1,5 @@
 class InstrumentTypeListController {
-  constructor( instrumentTypeService ) {
+  constructor(instrumentTypeService) {
     "ngInject";
 
     const ctrl = this;

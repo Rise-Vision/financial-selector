@@ -1,5 +1,5 @@
 class HomeController {
-  constructor( authService, $scope, $state ) {
+  constructor(authService, $scope, $state) {
     "ngInject";
 
     const ctrl = $scope.$ctrl = this;
@@ -9,14 +9,14 @@ class HomeController {
     ctrl.loginWithGoogle = loginWithGoogle;
 
     function loginWithGoogle() {
-      return authService.loginWithGoogle().then( switchToDisplays ).catch( showError );
+      return authService.loginWithGoogle().then(switchToDisplays).catch(showError);
     }
 
     function switchToDisplays() {
-      $state.go( "displays" );
+      $state.go("displays");
     }
 
-    function showError( error ) {
+    function showError(error) {
       ctrl.error = error;
     }
   }

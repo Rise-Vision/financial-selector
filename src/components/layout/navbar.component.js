@@ -7,7 +7,7 @@ const navBarComponent = {
   controller: NavbarController,
 };
 
-function NavbarController( $state, authService ) {
+function NavbarController($state, authService) {
   "ngInject";
 
   const ctrl = this;
@@ -17,7 +17,7 @@ function NavbarController( $state, authService ) {
 
   function logout() {
     authService.logout();
-    $state.go( "home" );
+    $state.go("home");
   }
 }
 

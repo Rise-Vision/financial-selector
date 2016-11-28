@@ -1,20 +1,33 @@
 {
   "env": {
     "browser": true,
-    "es6": true
+    "es6": true,
+    "mocha": true,
+    "jasmine": true,
+    "protractor": true,
   },
   "extends": "idiomatic",
   "globals": {
-    "angular": 1
+    "angular": 1,
+    "inspect": 1,
+    "inject": 1,
   },
   "rules": {
     "quotes": [
       "error",
       "double"
     ],
+    "one-var": [
+      "error",
+      "never",
+    ],
     "newline-after-var": [
       "error",
       "always"
+    ],
+    "space-in-parens": [
+      "error",
+      "never",
     ]
   },
   "parserOptions": {

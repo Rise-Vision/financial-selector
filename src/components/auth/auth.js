@@ -3,9 +3,9 @@ import uiRouter from "angular-ui-router";
 import authFormGoogleComponent from "./auth-form-google/component";
 import AuthService from "./auth.service";
 
-const PROTECTED_PATHS = ["profile", "lists"];
-const authModule = angular.module( "app.auth", [
-uiRouter,
+const PROTECTED_PATHS = [ "profile", "lists" ];
+const authModule = angular.module("app.auth", [
+  uiRouter,
 ])
 .component("authFormGoogle", authFormGoogleComponent)
 .service("authService", AuthService)

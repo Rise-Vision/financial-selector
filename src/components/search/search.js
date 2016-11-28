@@ -8,21 +8,21 @@ import instrumentTypePickerComponent from
 import instrumentTypeService from "./instrument_type/instrument_type.service";
 import userInstrumentService from "./instrument_type/user_instrument.service";
 
-const searchModule = angular.module( "search", [] )
+const searchModule = angular.module("search", [])
 
-  .config( ( $stateProvider ) => {
+  .config(($stateProvider) => {
     "ngInject";
-    $stateProvider.state( "lists", {
+    $stateProvider.state("lists", {
       url: "/lists",
       component: "search",
-    } ).state( "lists.search", {
+    }).state("lists.search", {
       url: "/?q",
-    } ).state( "instrument-type-picker", {
+    }).state("instrument-type-picker", {
       url: "/lists/:id",
       component: "instrumentTypePicker",
-    } );
-  } )
-  .component( "search", searchComponent ).component( "instrumentTypeList", stockListsComponent ).component( "searchResults", searchResultsComponent ).component( "instrumentTypePicker", instrumentTypePickerComponent ).service( "instrumentTypeService", instrumentTypeService ).service( "userInstrumentService", userInstrumentService )
+    });
+  })
+  .component("search", searchComponent).component("instrumentTypeList", stockListsComponent).component("searchResults", searchResultsComponent).component("instrumentTypePicker", instrumentTypePickerComponent).service("instrumentTypeService", instrumentTypeService).service("userInstrumentService", userInstrumentService)
 
   .name;
 
