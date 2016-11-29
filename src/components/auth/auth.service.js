@@ -3,7 +3,7 @@
 import Firebase from "firebase";
 
 class AuthService {
-  constructor($firebaseAuth, $state) {
+  constructor( $firebaseAuth, $state ) {
     "ngInject";
     const firebaseAuthObject = $firebaseAuth();
     let _loginRedirectTransitioning = false;
@@ -18,20 +18,20 @@ class AuthService {
       redirectIfNotLoggedIn,
     };
 
-    function register(user) {
-      return firebaseAuthObject.$createUserWithEmailAndPassword(user.email, user.password);
+    function register( user ) {
+      return firebaseAuthObject.$createUserWithEmailAndPassword( user.email, user.password );
     }
 
-    function login(user) {
-      return firebaseAuthObject.$signInWithEmailAndPassword(user.email, user.password);
+    function login( user ) {
+      return firebaseAuthObject.$signInWithEmailAndPassword( user.email, user.password );
     }
 
     function loginWithGoogle() {
       const provider = new Firebase.auth.GoogleAuthProvider();
 
-      provider.addScope("https://www.googleapis.com/auth/userinfo.email");
+      provider.addScope( "https://www.googleapis.com/auth/userinfo.email" );
 
-      return firebaseAuthObject.$signInWithPopup(provider);
+      return firebaseAuthObject.$signInWithPopup( provider );
     }
 
     function logout() {
@@ -43,15 +43,15 @@ class AuthService {
     }
 
     function redirectIfNotLoggedIn() {
-      if (!_loginRedirectTransitioning) {
+      if ( !_loginRedirectTransitioning ) {
         _loginRedirectTransitioning = true;
-        firebaseAuthObject.$waitForSignIn().then(function markAndGoToLogin() {
-          if (!getAuth()) {
-            $state.go("home").then(function markOffTransition() {
+        firebaseAuthObject.$waitForSignIn().then( function markAndGoToLogin() {
+          if ( !getAuth() ) {
+            $state.go( "home" ).then( function markOffTransition() {
               _loginRedirectTransitioning = false;
-            });
+            } );
           }
-        });
+        } );
       }
     }
   }

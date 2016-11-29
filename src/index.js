@@ -7,14 +7,14 @@ import UIBootstrap from "angular-ui-bootstrap";
 import "rv-common-style/dist/css/rise.css";
 import "normalize.css";
 
-angular.module("app", [
-  uiRouter, Components, Firebase, UIBootstrap, ]).config(($locationProvider) => {
+angular.module( "app", [
+  uiRouter, Components, Firebase, UIBootstrap, ] ).config( ( $locationProvider ) => {
     "ngInject";
 
     // @see:
     // https://github.com/angular-ui/ui-router/wiki/Frequently-Asked-Questions
     // #how-to-configure-your-server-to-work-with-html5mode
-    $locationProvider.html5Mode(true).hashPrefix("!");
-  }).component("app", AppComponent);
+    $locationProvider.html5Mode( true ).hashPrefix( "!" );
+  } ).component( "app", AppComponent );
 
 import "./constants";

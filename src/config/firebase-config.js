@@ -2,10 +2,10 @@
 
 let firebaseConfig;
 
-if (WEBPACK_IS_DEVELOPMENT) {
-  firebaseConfig = require("./firebase-config-stage");
+if ( WEBPACK_IS_DEVELOPMENT ) {
+  firebaseConfig = require( "./firebase-config-stage" );
 } else {
-  firebaseConfig = require("./firebase-config-prod");
+  firebaseConfig = require( "./firebase-config-prod" );
 }
 
 export default firebaseConfig

@@ -1,5 +1,5 @@
 class ProfileController {
-  constructor(authService) {
+  constructor( authService ) {
     "ngInject";
 
     const ctrl = this;

@@ -7,8 +7,8 @@ import Search from "./search/search";
 import Auth from "./auth/auth";
 import Layout from "./layout/layout";
 
-const componentModule = angular.module("app.components", [
-  Layout, Home, About, Displays, Profile, Search, Auth, ])
+const componentModule = angular.module( "app.components", [
+  Layout, Home, About, Displays, Profile, Search, Auth, ] )
 
   .name;
 

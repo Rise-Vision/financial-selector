@@ -2,18 +2,18 @@ import angular from "angular";
 import uiRouter from "angular-ui-router";
 import profileComponent from "./profile.component";
 
-const profileModule = angular.module("profile", [
-  uiRouter, ])
+const profileModule = angular.module( "profile", [
+  uiRouter, ] )
 
-  .config(($stateProvider) => {
+  .config( ( $stateProvider ) => {
     "ngInject";
-    $stateProvider.state("profile", {
+    $stateProvider.state( "profile", {
       url: "/profile",
       component: "profile",
-    });
-  })
+    } );
+  } )
 
-  .component("profile", profileComponent)
+  .component( "profile", profileComponent )
 
   .name;
 
