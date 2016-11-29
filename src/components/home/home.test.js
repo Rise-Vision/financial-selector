@@ -4,6 +4,12 @@ describe("Home", () => {
   let $rootScope; let $state; let $location;
   let $componentController; let $compile;
 
+  beforeEach(function() {
+    window.module(function($provide) {
+      $provide.service("authService", function(){});
+    });
+  });
+
   beforeEach(window.module(HomeModule));
 
   beforeEach(inject(($injector) => {
@@ -29,7 +35,7 @@ describe("Home", () => {
 
     beforeEach(() => {
       controller = $componentController("home", {
-        $scope: $rootScope.$new(),
+        $scope: $rootScope.$new()
       });
     });
 

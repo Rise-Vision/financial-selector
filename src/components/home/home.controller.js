@@ -3,6 +3,7 @@ class HomeController {
     "ngInject";
 
     const ctrl = $scope.$ctrl = this;
+    this.name = "home";
 
     ctrl.error = null;
 
