@@ -1,8 +1,17 @@
 import HomeModule from "./home";
 
 describe( "Home", () => {
-  let $rootScope; let $state; let $location;
-  let $componentController; let $compile;
+  let $rootScope,
+    $state,
+    $location,
+    $componentController,
+    $compile;
+
+  beforeEach( () => {
+    window.module( ( $provide ) => {
+      $provide.service( "authService", () => {} );
+    } );
+  } );
 
   beforeEach( window.module( HomeModule ) );
 
@@ -29,7 +38,7 @@ describe( "Home", () => {
 
     beforeEach( () => {
       controller = $componentController( "home", {
-        $scope: $rootScope.$new(),
+        $scope: $rootScope.$new()
       } );
     } );
 
@@ -41,7 +50,8 @@ describe( "Home", () => {
 
   describe( "View", () => {
     // view layer specs.
-    let scope; let template;
+    let scope,
+      template;
 
     beforeEach( () => {
       scope = $rootScope.$new();

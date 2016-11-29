@@ -2,8 +2,11 @@
 import AboutModule from "./about";
 
 describe( "About", () => {
-  let $rootScope; let $state;
-  let $location; let $componentController; let $compile;
+  let $rootScope,
+    $state,
+    $location,
+    $componentController,
+    $compile;
 
   beforeEach( window.module( AboutModule ) );
 
@@ -42,7 +45,8 @@ describe( "About", () => {
 
   describe( "View", () => {
     // view layer specs.
-    let scope; let template;
+    let scope,
+      template;
 
     beforeEach( () => {
       scope = $rootScope.$new();

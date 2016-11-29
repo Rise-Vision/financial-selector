@@ -1,3 +1,5 @@
+/*eslint no-console: ["error", { allow: ["log"] }] */
+
 import Firebase from "firebase";
 
 class AuthService {
@@ -15,8 +17,6 @@ class AuthService {
       firebaseAuthObject,
       redirectIfNotLoggedIn,
     };
-
-    // //////////
 
     function register( user ) {
       return firebaseAuthObject.$createUserWithEmailAndPassword( user.email, user.password );
@@ -47,7 +47,7 @@ class AuthService {
         _loginRedirectTransitioning = true;
         firebaseAuthObject.$waitForSignIn().then( function markAndGoToLogin() {
           if ( !getAuth() ) {
-            $state.go( "login" ).then( function markOffTransition() {
+            $state.go( "home" ).then( function markOffTransition() {
               _loginRedirectTransitioning = false;
             } );
           }

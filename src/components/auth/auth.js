@@ -1,41 +1,17 @@
 import angular from "angular";
 import uiRouter from "angular-ui-router";
-import authFormPasswordComponent from "./auth-form-password/component";
 import authFormGoogleComponent from "./auth-form-google/component";
 import AuthService from "./auth.service";
-import loginTemplate from "./login.html";
-import registerTemplate from "./register.html";
-import AuthController from "./auth.controller";
 
-const PROTECTED_PATHS = [ "profile" ],
+const PROTECTED_PATHS = [ "profile", "lists" ],
   authModule = angular.module( "app.auth", [
-    uiRouter, ] )
-
-  .config( ( $stateProvider ) => {
-    "ngInject";
-    $stateProvider.state( "auth", {
-      url: "/auth",
-      component: "auth",
-    } );
-  } )
-  .config( setupRoutes ).component( "authFormPassword", authFormPasswordComponent ).component( "authFormGoogle", authFormGoogleComponent ).service( "authService", AuthService ).run( injectFirebaseAuthRedirect ).run( setupRouteTransitions )
-
-  .name;
-
-function setupRoutes( $stateProvider ) {
-  "ngInject";
-
-  $stateProvider.state( "register", {
-    url: "/register",
-    template: registerTemplate,
-    controller: AuthController,
-  } );
-  $stateProvider.state( "login", {
-    url: "/login",
-    template: loginTemplate,
-    controller: AuthController,
-  } );
-}
+    uiRouter,
+  ] )
+.component( "authFormGoogle", authFormGoogleComponent )
+.service( "authService", AuthService )
+.run( injectFirebaseAuthRedirect )
+.run( setupRouteTransitions )
+.name;
 
 function injectFirebaseAuthRedirect( $state, authService ) {
   "ngInject";
