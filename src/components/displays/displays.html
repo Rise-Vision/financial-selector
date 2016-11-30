@@ -77,12 +77,12 @@
     <form class="add-top">
       <div class="form-group">
         <label class="control-label">Display ID</label>
-        <input class="form-control" type="text" placeholder="Enter Display ID" name="">
+        <input class="form-control" type="text" placeholder="Enter Display ID" name="" ng-model="$ctrl.displayId" ng-change="$ctrl.submitIdCheck()">
       </div>
     </form>
 
     <div class="text-right">
-    <button class="btn btn-primary disabled" type="button" ng-click="$ctrl.ok()">Add <i class="fa fa-check icon-right"></i></button>
+      <button class="btn btn-primary" ng-class="$ctrl.displayValidations()[$ctrl.displayId] ? '' : 'disabled'" type="button" ng-click="$ctrl.ok()">Add <i class="fa fa-check icon-right"></i></button>
     <button class="btn btn-default" type="button" ng-click="addDisplay = !addDisplay">Cancel <i class="fa fa-times icon-right"></i></button>
     </div>
 
