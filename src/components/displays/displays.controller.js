@@ -1,5 +1,5 @@
 class DisplaysController {
-  constructor( displayValidationService ) {
+  constructor( displayValidationService, displaySaveService ) {
     "ngInject";
 
     this.displayValidations = displayValidationService.results;
@@ -10,7 +10,22 @@ class DisplaysController {
       }
 
       displayValidationService.validate( this.displayId );
-    }
+    };
+
+    this.saveDisplay = () => {
+      this.saving = true;
+      displaySaveService.save( this.displayId ).then( this.postSave ).catch( this.saveError );
+    };
+
+    this.postSave = () => {
+      this.displayId = ""
+      this.saving = false;
+      this.addDisplay = false;
+    };
+
+    this.saveError = (err) => {
+      console.log(err);
+    };
   }
 }
 

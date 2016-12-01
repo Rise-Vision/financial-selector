@@ -7,13 +7,13 @@
       </ol>
     </div><!--col-->
     <div class="col-sm-3 hidden-xs">
-      <button ng-hide="addDisplay" ng-click="addDisplay = !addDisplay" class="btn btn-primary btn-lg btn-block">Add Display <i class="fa fa-plus icon-right"></i></button>
+      <button ng-hide="$ctrl.addDisplay" ng-click="$ctrl.addDisplay = !$ctrl.addDisplay" class="btn btn-primary btn-lg btn-block">Add Display <i class="fa fa-plus icon-right"></i></button>
     </div>
   </div><!--row-->
 
   <div class="row half-top visible-xs">
     <div class="col-xs-7">
-      <form ng-hide="addDisplay">
+      <form ng-hide="$ctrl.addDisplay">
         <div class="input-group add-bottom">
           <span class="input-group-addon"><i class="fa fa-search"></i></span>
           <input class="form-control" type="text" placeholder="Search Displays" name="">
@@ -21,18 +21,18 @@
       </form>
     </div>
     <div class="col-xs-5">
-      <button id="add-display" ng-hide="addDisplay" ng-click="addDisplay = !addDisplay" class="btn btn-primary btn-block"><span style="font-size: 13px; line-height: 20px">Add Display </span></button>
+      <button id="add-display" ng-hide="$ctrl.addDisplay" ng-click="$ctrl.addDisplay = !$ctrl.addDisplay" class="btn btn-primary btn-block"><span style="font-size: 13px; line-height: 20px">Add Display </span></button>
     </div>
   </div><!--visible-xs-->
 
-  <form class="hidden-xs" ng-hide="addDisplay">
+  <form class="hidden-xs" ng-hide="$ctrl.addDisplay">
      <div class="input-group half-top add-bottom">
       <span class="input-group-addon"><i class="fa fa-search"></i></span>
       <input class="form-control" type="text" placeholder="Search Displays" name="">
     </div>
   </form>
 
-  <div class="panel panel-default" ng-hide="addDisplay">
+  <div class="panel panel-default" ng-hide="$ctrl.addDisplay">
     <table class="table">
 
       <thead class="table-header">
@@ -71,7 +71,7 @@
     </table>
   </div>
 
-  <div class="animated fadeIn" ng-show="addDisplay">
+  <div class="animated fadeIn" ng-show="$ctrl.addDisplay">
     <h3 style="font-weight: 400">Add a Display</h3>
 
     <form class="add-top">
@@ -82,8 +82,8 @@
     </form>
 
     <div class="text-right">
-      <button class="btn btn-primary" ng-class="$ctrl.displayValidations()[$ctrl.displayId] ? '' : 'disabled'" type="button" ng-click="$ctrl.ok()">Add <i class="fa fa-check icon-right"></i></button>
-    <button class="btn btn-default" type="button" ng-click="addDisplay = !addDisplay">Cancel <i class="fa fa-times icon-right"></i></button>
+      <button class="btn btn-primary" ng-class="$ctrl.saving || !$ctrl.displayValidations()[$ctrl.displayId] ? 'disabled' : ''" type="button" ng-click="$ctrl.saveDisplay()">Add <i class="fa fa-check icon-right"></i></button>
+    <button class="btn btn-default" type="button" ng-click="$ctrl.addDisplay = !$ctrl.addDisplay">Cancel <i class="fa fa-times icon-right"></i></button>
     </div>
 
 
