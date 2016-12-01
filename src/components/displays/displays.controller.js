@@ -3,7 +3,8 @@ class DisplaysController {
     "ngInject";
 
     this.displayValidations = displayValidationService.results;
-    this.displayList = displayListService.list;
+
+    displayListService.attachListTo(this);
 
     this.submitIdCheck = () => {
       if ( ![ 12, 34, 36 ].includes( this.displayId.length ) ) {

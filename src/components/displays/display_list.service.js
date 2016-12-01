@@ -5,7 +5,11 @@ class displayListService {
     const root = $window.firebase.database().ref();
 
     return {
-      list: $firebaseObject( root.child( "users" ).child( authService.getAuth().uid ).child( "displays" ) )
+      attachListTo(target) {
+        authService.waitForAuthThen((auth)=>{
+          target.displayList = $firebaseObject( root.child( "users" ).child( auth.uid ).child( "displays" ) );
+        });
+      }
     };
   }
 }

@@ -16,6 +16,7 @@ class AuthService {
       getAuth,
       firebaseAuthObject,
       redirectIfNotLoggedIn,
+      waitForAuthThen,
     };
 
     function register( user ) {
@@ -40,6 +41,10 @@ class AuthService {
 
     function getAuth() {
       return firebaseAuthObject.$getAuth();
+    }
+
+    function waitForAuthThen(doSomething) {
+      return firebaseAuthObject.$waitForSignIn().then(doSomething);
     }
 
     function redirectIfNotLoggedIn() {
