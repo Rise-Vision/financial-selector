@@ -1,8 +1,9 @@
 class DisplaysController {
-  constructor( displayValidationService, displaySaveService ) {
+  constructor( displayValidationService, displaySaveService, displayListService ) {
     "ngInject";
 
     this.displayValidations = displayValidationService.results;
+    this.displayList = displayListService.list;
 
     this.submitIdCheck = () => {
       if ( ![ 12, 34, 36 ].includes( this.displayId.length ) ) {
