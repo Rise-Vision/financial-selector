@@ -20,7 +20,7 @@ class displayValidationService {
         } )
         .catch( () => {
           cache[ displayId ] = false;
-          return Promise.reject(Error(`Could not validate ${displayId}.`));
+          return Promise.reject( Error( `Could not validate ${displayId}.` ) );
         } );
       }
     };

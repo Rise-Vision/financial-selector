@@ -5,9 +5,10 @@ class displaySaveService {
     const root = $window.firebase.database().ref();
 
     return {
-      save(displayId) {
+      save( displayId ) {
         let displays = $firebaseObject( root.child( "users" ).child( authService.getAuth().uid ).child( "displays" ) );
-        displays[displayId] = displayValidationService.results()[displayId];
+
+        displays[ displayId ] = displayValidationService.results()[ displayId ];
         return displays.$save();
       }
     };

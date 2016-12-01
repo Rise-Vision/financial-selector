@@ -5,11 +5,11 @@ class DisplaysController {
     this.displayValidations = displayValidationService.results;
     this.errorMessage = "";
 
-    displayListService.attachListTo(this);
+    displayListService.attachListTo( this );
 
     this.submitIdCheck = () => {
       if ( ![ 12, 34, 36 ].includes( this.displayId.length ) ) {
-        this.validationFailed(Error("Invalid display id length."));
+        this.validationFailed( Error( "Invalid display id length." ) );
         return;
       }
 
@@ -30,11 +30,11 @@ class DisplaysController {
       this.errorMessage = ""
     };
 
-    this.saveError = (err) => {
+    this.saveError = ( err ) => {
       this.errorMessage = err.message;
     };
 
-    this.validationFailed = (err) => {
+    this.validationFailed = ( err ) => {
       this.errorMessage = err.message;
     };
 

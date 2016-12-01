@@ -43,8 +43,8 @@ class AuthService {
       return firebaseAuthObject.$getAuth();
     }
 
-    function waitForAuthThen(doSomething) {
-      return firebaseAuthObject.$waitForSignIn().then(doSomething);
+    function waitForAuthThen( doSomething ) {
+      return firebaseAuthObject.$waitForSignIn().then( doSomething );
     }
 
     function redirectIfNotLoggedIn() {
