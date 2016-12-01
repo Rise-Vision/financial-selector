@@ -3,31 +3,44 @@ class DisplaysController {
     "ngInject";
 
     this.displayValidations = displayValidationService.results;
+    this.errorMessage = "";
 
     displayListService.attachListTo(this);
 
     this.submitIdCheck = () => {
       if ( ![ 12, 34, 36 ].includes( this.displayId.length ) ) {
+        this.validationFailed(Error("Invalid display id length."));
         return;
       }
 
-      displayValidationService.validate( this.displayId );
+      displayValidationService.validate( this.displayId )
+      .then( this.validationPassed ).catch( this.validationFailed );
     };
 
     this.saveDisplay = () => {
-      this.saving = true;
-      displaySaveService.save( this.displayId ).then( this.postSave ).catch( this.saveError );
+      this.disableAddButon = true;
+      displaySaveService.save( this.displayId )
+      .then( this.postSave ).catch( this.saveError );
     };
 
     this.postSave = () => {
       this.displayId = ""
-      this.saving = false;
+      this.disableAddButon = false;
       this.addDisplay = false;
+      this.errorMessage = ""
     };
 
     this.saveError = (err) => {
-      console.log(err);
+      this.errorMessage = err.message;
     };
+
+    this.validationFailed = (err) => {
+      this.errorMessage = err.message;
+    };
+
+    this.validationPassed = () => {
+      this.errorMessage = "";
+    }
   }
 }
 
