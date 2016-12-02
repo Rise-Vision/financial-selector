@@ -94,9 +94,11 @@ class displayUsersService {
     }
 
     async function removeInvite( key ) {
-      await ensureAdminRole( displayId );
 
       const rec = $firebaseObject( root.child( `invites/${key}` ) );
+      const { displayId } = rec;
+
+      await ensureAdminRole( displayId );
 
       return await rec.$remove();
     }

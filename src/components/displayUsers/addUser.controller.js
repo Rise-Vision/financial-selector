@@ -6,6 +6,8 @@ class displayAddUserController {
 
     this.name = "addUser";
 
+    ctrl.role = "Editor"; //default
+
     ctrl.sendInvitation = async () => {
       const { displayId, email, role } = ctrl;
 
