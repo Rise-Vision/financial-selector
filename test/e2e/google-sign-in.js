@@ -1,4 +1,6 @@
-const assert = require("assert");
+const assert = require("assert"),
+  path = require("path"),
+  jenkinsCreds = require(path.join(__dirname, "private-keys", "financial-selector", "jenkins-creds.json"));
 
 describe("Sign in", function() {
   this.timeout(50000);
@@ -13,11 +15,11 @@ describe("Sign in", function() {
     browser.window(browser.windowHandles().value[1]);
 
     browser.waitForExist("#Email");
-    browser.element("#Email").setValue("jenkins@risevision.com");
+    browser.element("#Email").setValue(jenkinsCreds.email);
     browser.element("#next").click();
 
     browser.waitForVisible("#Passwd");
-    browser.element("#Passwd").setValue(process.env.JENKINSPASS);
+    browser.element("#Passwd").setValue(jenkinsCreds.pass)
     browser.element("#signIn").click();
 
     browser.waitUntil(()=>{
