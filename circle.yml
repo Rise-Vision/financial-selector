@@ -9,6 +9,9 @@ general:
 test:
   pre:
     - npm run build
+    - mkdir test/e2e/private-keys
+    - git clone git@github.com:Rise-Vision/private-keys.git
+    - cp -r private-keys/financial-selector test/e2e/private-keys
   override:
     - npm run test:ci
 
