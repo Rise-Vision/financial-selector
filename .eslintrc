@@ -18,9 +18,10 @@
     "newline-after-var": [
       "error",
       "always"
-    ]
+    ],
   },
   "parserOptions": {
-    "sourceType": "module"
+    "sourceType": "module",
+    "ecmaVersion": 8 // or 2017
   }
 }

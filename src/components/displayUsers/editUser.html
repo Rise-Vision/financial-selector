@@ -1,0 +1,35 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-title">Edit User</h4>
+</div>
+
+<div class="modal-body" id="modal-body">
+
+  <form name="inviteForm" class="form">
+    <div class="form-group">
+      <label class="control-label">Name</label>
+      <input ng-model="$ctrl.invite.name" name="name" type="text" class="form-control">
+    </div>
+    <div ng-class="{ 'has-error': inviteForm.email.$dirty && inviteForm.email.$invalid }" class="form-group">
+      <label class="control-label">Email</label>
+      <input ng-model="$ctrl.invite.email" name="email" type="email" class="form-control" value="john@globex.com">
+    </div>
+
+    <div class="row">
+      <div class="col-sm-6">
+        <div ng-class="{ 'has-error': inviteForm.role.$dirty && inviteForm.role.$invalid }" class="form-group">
+          <label class="control-label">Role</label>
+            <select ng-model="$ctrl.invite.role" required name="role" class="form-control">
+              <option>Editor</option>
+              <option>Administrator</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </form>
+
+  </div>
+
+  <div class="modal-footer">
+    <button ng-disabled="inviteForm.$invalid" class="btn btn-primary" type="button" ng-click="$ctrl.ok()">Save <i class="fa fa-check icon-right"></i></button>
+    <button class="btn btn-default" type="button" ng-click="$ctrl.cancel()">Cancel <i class="fa fa-times icon-right"></i></button>
+  </div>
