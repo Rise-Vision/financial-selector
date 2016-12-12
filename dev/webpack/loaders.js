@@ -25,6 +25,7 @@ exports.babel = {
   test: /\.js$/,
   loader: "babel-loader",
   exclude: /(node_modules|bower_components)/,
+  plugins: [ "transform-object-assign" ],
   query: {
     presets: [ "es2015" ],
   },

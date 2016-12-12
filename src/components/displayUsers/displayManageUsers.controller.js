@@ -16,15 +16,16 @@ class displayManageUsersController {
     }
 
     ctrl.editUser = ( user ) => {
-      $state.go( "manageDisplayUsers.editUser", { inviteKey: user.$id } );
+      $state.go( "manageDisplayUsers.editUser", { userId: user.$id } );
     }
 
     ctrl.removeUser = $async( async ( user ) => {
       try {
-        await displayUsersService.removeInvite( user.$id );
+        await displayUsersService.disinvite( user.$id, displayId );
       } catch ( e ) {
         alert( "Failed to remove user: " + e.message );
         console.error( e );
+        throw e;
       }
     } );
 
@@ -34,7 +35,7 @@ class displayManageUsersController {
 
     const _populateUsers = $async( async () => {
       try {
-        ctrl.users = await displayUsersService.getInvites( displayId );
+        ctrl.users = await displayUsersService.getUsersForDisplay( displayId );
       } catch ( e ) {
         alert( "Failed to load users: " + e.message );
         console.error( e );

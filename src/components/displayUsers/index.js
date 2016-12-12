@@ -37,14 +37,14 @@ const displayUsersModule = angular.module( "display-users", [ uiRouter, ] )
         $controller.modalInstance.close();
       }
     } ).state( "manageDisplayUsers.editUser", {
-      url: "/:inviteKey/edit",
+      url: "/:userId/edit",
       component: "displayManageUsers",
       onEnter: ( $stateParams, $state, $uibModal, $controller ) => {
         "ngInject";
-        const { inviteKey } = $stateParams;
+        const { userId, displayId } = $stateParams;
 
         $controller.modalInstance = $uibModal.open( {
-          template: `<edit-user invite-key="${inviteKey}"></edit-user>`,
+          template: `<edit-user user-id="${userId}" display-id="${displayId}"></edit-user>`,
           backdrop: "static",
         } )
       },
@@ -53,14 +53,18 @@ const displayUsersModule = angular.module( "display-users", [ uiRouter, ] )
         $controller.modalInstance.close();
       }
     } ).state( "manageDisplayUsers.inviteSuccess", {
-      url: "/:inviteKey/success",
+      url: "/:userId/success",
       component: "displayManageUsers",
       onEnter: ( $stateParams, $state, $uibModal, $controller ) => {
         "ngInject";
-        const { inviteKey } = $stateParams;
+        const { userId, displayId } = $stateParams;
 
         $controller.modalInstance = $uibModal.open( {
-          template: `<invite-success invite-key="${inviteKey}"></invite-success>`,
+          template: `
+          <invite-success
+            display-id="${displayId}"
+            user-id="${userId}">
+          </invite-success>`,
           backdrop: "static",
         } )
       },

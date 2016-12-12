@@ -5,7 +5,8 @@ import controller from "./editUser.controller";
 export default {
   restrict: "E",
   bindings: {
-    inviteKey: "@"
+    userId: "@",
+    displayId: "@",
   },
   template,
   controller,

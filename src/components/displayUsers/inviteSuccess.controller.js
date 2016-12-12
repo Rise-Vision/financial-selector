@@ -14,7 +14,7 @@ class inviteSuccessController {
 
     const _populateInvite = $async( async () => {
       try {
-        ctrl.invite = await displayUsersService.getInvite( ctrl.inviteKey );
+        ctrl.invite = await displayUsersService.getUserForDisplay( ctrl.userId, ctrl.displayId );
       } catch ( e ) {
         alert( "failed to load invite: " + e.message );
         console.error( e );

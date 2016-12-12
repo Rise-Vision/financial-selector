@@ -19,6 +19,11 @@
       "error",
       "always"
     ],
+    "func-names": [
+      "error",
+      "never"
+    ],
+    "one-var": 0,
   },
   "parserOptions": {
     "sourceType": "module",

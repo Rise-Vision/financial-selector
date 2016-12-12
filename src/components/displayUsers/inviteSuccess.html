@@ -5,7 +5,9 @@
 <div class="modal-body" id="modal-body">
 
   <div style="padding:20px;" class="text-center">
-    <p>An invitation email was sent to
+    <p>An invitation email for display
+      <strong>{{ $ctrl.displayId }}</strong>
+      was sent to
       <strong>{{ $ctrl.invite.email }}</strong>.
     </p>
     <button class="btn btn-default" ng-click="$ctrl.ok()">OK</button>
