@@ -88,18 +88,24 @@ class displayUsersService {
     }
 
     async function getProfileByDisplayIdAndUserId( displayId, userId ) {
-      const profile = $firebaseObject( root.child( `users/${userId}/displays/${displayId}` ) );
+      const profileRec = $firebaseObject( root.child( `users/${userId}/displays/${displayId}` ) );
+      const userRec = $firebaseObject( root.child( `users/${userId}` ) );
 
-      await profile.$loaded();
+      await $q.all( [ profileRec.$loaded(), userRec.$loaded() ] );
+      let { riseAdmin } = userRec;
+      let { role, status } = profileRec || {};
+
+      let profile = Object.assign( { role, status }, riseAdmin ? { role: "RiseAdmin" } : "" );
 
       return profile;
     }
+
 
     async function ensureAdminRole( displayId ) {
       // TODO
       const myRole = await myRoleFor( displayId );
 
-      if ( myRole !== "Administrator" ) {
+      if ( ![ "Administrator", "RiseAdmin" ].includes( myRole ) ) {
         throw new Error( `You are not an admin for this display (${displayId}).` );
       }
     }
@@ -140,7 +146,6 @@ class displayUsersService {
        );
 
       await userArr.$loaded();
-
       return userArr;
     }
 

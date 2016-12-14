@@ -2,9 +2,7 @@ class displayManageUsersController {
   constructor( $state, displayUsersService, $scope, $async ) {
     "ngInject";
 
-    const
-      ctrl = this,
-      { displayId } = ctrl;
+    const ctrl = this;
 
     ctrl.$onInit = async () => {
       _populateUsers();
@@ -20,6 +18,8 @@ class displayManageUsersController {
     }
 
     ctrl.removeUser = $async( async ( user ) => {
+      const { displayId } = ctrl;
+
       try {
         await displayUsersService.disinvite( user.$id, displayId );
       } catch ( e ) {
@@ -28,12 +28,15 @@ class displayManageUsersController {
         throw e;
       }
     } );
-
     let _loadMyRole = $async( async() => {
+        const { displayId } = ctrl;
+
         ctrl.myRole = await displayUsersService.myRoleFor( displayId );
       } ),
 
       _populateUsers = $async( async () => {
+        const { displayId } = ctrl;
+
         try {
           ctrl.users = await displayUsersService.getUsersForDisplay( displayId );
         } catch ( e ) {
