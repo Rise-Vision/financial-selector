@@ -1,13 +1,9 @@
 function emailToPath( email ) {
-  return email
-    .replace( "@", "__at__" )
-    .replace( ".", "__dot__" );
+  return encodeURIComponent( email ).replace( /\./g, "%2E" );
 }
 
 function pathToEmail( path ) {
-  return path
-    .replace( "__at__", "@" )
-    .replace( "__dot__", "." );
+  return decodeURIComponent( path );
 }
 
 class displayUsersService {
