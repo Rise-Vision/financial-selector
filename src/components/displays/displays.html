@@ -48,7 +48,9 @@
 
         <tr class="table-body__row" ng-repeat="(key, value) in $ctrl.displayList">
           <td class="table-body__cell">
-            <a ui-sref="displayFinancialList"><i class="ss-tv icon-left"></i><strong>{{value.displayName}}</strong></a>
+            <a ui-sref="displayFinancialList">
+              <i class="ss-tv icon-left"></i><strong>{{value.displayName}}</strong>
+            </a>
           </td>
           <td class="table-body__cell hidden-xs">{{key}}</td>
           <td class="table-body__cell hidden-xs">{{value.companyId}}</td>

@@ -6,21 +6,22 @@ class displayAddUserController {
 
     this.name = "addUser";
 
-    ctrl.role = "Editor"; //default
+    // default
+    ctrl.role = "Editor";
 
     ctrl.sendInvitation = async () => {
       const { displayId, email, role } = ctrl;
 
       try {
-        const rec = await displayUsersService.addInvite( {
-          displayId, email, role
+        const userId = await displayUsersService.inviteUserToDisplay( {
+          displayId, role, email,
         } );
-        const inviteKey = rec.getKey();
 
-        $state.go( "^.inviteSuccess", { inviteKey } );
+        $state.go( "^.inviteSuccess", { userId, displayId } );
       } catch ( e ) {
-        alert( "failed to add user: " + e.message );
+        alert( "failed to invite user: " + e.message );
         console.error( e );
+        $state.go( "^" );
       }
       // go to a sibling state
     };

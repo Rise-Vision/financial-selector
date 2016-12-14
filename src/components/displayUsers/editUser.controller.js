@@ -11,10 +11,10 @@ class displayEditUserController {
     };
 
     ctrl.ok = async() => {
-      const { key, invite } = ctrl;
+      const { userId, displayId, invite } = ctrl;
 
       try {
-        await displayUsersService.saveInvite( key, invite );
+        await displayUsersService.updateInvite( userId, displayId, invite );
       } catch ( e ) {
         alert( "failed to save: " + e.message );
         console.error( e );
@@ -27,9 +27,11 @@ class displayEditUserController {
       $state.go( "^" );
     }
 
-    const _populateInvite = $async( async () => {
+    let _populateInvite = $async( async () => {
+      const { userId, displayId } = ctrl;
+
       try {
-        ctrl.invite = await displayUsersService.getInvite( ctrl.inviteKey );
+        ctrl.invite = await displayUsersService.getUserForDisplay( userId, displayId );
       } catch ( e ) {
         alert( "failed to load user" );
         console.error( e );

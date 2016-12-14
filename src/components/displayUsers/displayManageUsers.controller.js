@@ -2,9 +2,7 @@ class displayManageUsersController {
   constructor( $state, displayUsersService, $scope, $async ) {
     "ngInject";
 
-    const
-      ctrl = this,
-      { displayId } = ctrl;
+    const ctrl = this;
 
     ctrl.$onInit = async () => {
       _populateUsers();
@@ -16,30 +14,36 @@ class displayManageUsersController {
     }
 
     ctrl.editUser = ( user ) => {
-      $state.go( "manageDisplayUsers.editUser", { inviteKey: user.$id } );
+      $state.go( "manageDisplayUsers.editUser", { userId: user.$id } );
     }
 
     ctrl.removeUser = $async( async ( user ) => {
+      const { displayId } = ctrl;
+
       try {
-        await displayUsersService.removeInvite( user.$id );
+        await displayUsersService.disinvite( user.$id, displayId );
       } catch ( e ) {
         alert( "Failed to remove user: " + e.message );
         console.error( e );
+        throw e;
       }
     } );
+    let _loadMyRole = $async( async() => {
+        const { displayId } = ctrl;
 
-    const _loadMyRole = $async( async() => {
-      ctrl.myRole = await displayUsersService.myRoleFor( displayId );
-    } );
+        ctrl.myRole = await displayUsersService.myRoleFor( displayId );
+      } ),
 
-    const _populateUsers = $async( async () => {
-      try {
-        ctrl.users = await displayUsersService.getInvites( displayId );
-      } catch ( e ) {
-        alert( "Failed to load users: " + e.message );
-        console.error( e );
-      }
-    } );
+      _populateUsers = $async( async () => {
+        const { displayId } = ctrl;
+
+        try {
+          ctrl.users = await displayUsersService.getUsersForDisplay( displayId );
+        } catch ( e ) {
+          alert( "Failed to load users: " + e.message );
+          console.error( e );
+        }
+      } );
 
     ctrl.name = "displayManageUsers";
   }

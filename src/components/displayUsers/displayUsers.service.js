@@ -1,117 +1,199 @@
+function emailToPath( email ) {
+  return encodeURIComponent( email ).replace( /\./g, "%2E" );
+}
+
+function pathToEmail( path ) {
+  return decodeURIComponent( path );
+}
 
 class displayUsersService {
-  constructor( $firebaseArray, $firebaseObject, firebase, $firebaseAuth ) {
+  constructor( $firebaseArray, $firebaseObject, firebase, $firebaseAuth, $q ) {
     "ngInject";
-    const root = firebase.database().ref();
-    const authMethods = $firebaseAuth( );
+    const root = firebase.database().ref(),
+      authMethods = $firebaseAuth( );
 
-    return {
-      addInvite,
-      getInvite,
-      getInvites,
-      removeInvite,
-      saveInvite,
-      myRoleFor,
-    };
-
-    async function myEmail() {
+    async function myUserId() {
       await authMethods.$waitForSignIn();
       const { email } = authMethods.$getAuth();
 
-      return email;
+      return emailToPath( email );
     }
 
     async function myRoleFor( displayId ) {
-      const email = await myEmail();
-      const myInvite = await getInviteByDisplayIdAndEmail( displayId, email );
 
-      if ( myInvite ) {
-        return myInvite.role;
+      const myUid = await myUserId(),
+        myProfile = await getProfileByDisplayIdAndUserId( displayId, myUid );
+
+      if ( myProfile ) {
+        return myProfile.role;
       } else {
         return null;
       }
     }
 
-    async function addInvite( inviteObj ) {
-      const { displayId } = inviteObj;
+    async function inviteUserToDisplay( { displayId, email, role } ) {
 
       ensureAdminRole( displayId );
-      const
-        inviteArray = $firebaseArray( root.child( "invites" ) ),
-        rec = await inviteArray.$add( inviteObj );
+      const userId = emailToPath( email ),
+        //run in parallel
+        [ userFBObj, displayFBObj ] = await $q.all( [ getUser( userId ), getDisplay( displayId ) ] );
 
-      return rec;
+      await associateUserToDisplay( userFBObj, displayFBObj, role );
+      return userId;
     }
 
-    async function getInvite( key ) {
-      const rec = $firebaseObject( root.child( `invites/${key}` ) );
+    async function associateUserToDisplay( userFBObj, displayFBObj, role ) {
+      const displayId = displayFBObj.$id,
+        userId = userFBObj.$id;
 
-      await rec.$loaded();
+      if ( userFBObj.displays && userFBObj.displays[ displayId ] ) {
+        throw new Error( `An invitation is already sent to ${userId} for display ${displayId}` );
+      } else {
+        let dUnderU = { accepted: false, role };
 
-      return rec;
+        if ( !userFBObj.displays ) {
+          Object.assign( userFBObj, { displays: { [ displayId ]: dUnderU } } );
+        } else if ( !userFBObj.displays[ displayId ] ) {
+          userFBObj.displays[ displayId ] = dUnderU;
+        }
+
+        if ( !displayFBObj.users ) {
+          Object.assign( displayFBObj, { users: { [ userId ]: true } } );
+        } else if ( !displayFBObj.users[ userId ] ) {
+          displayFBObj.users[ userId ] = true;
+        }
+
+        await $q.all( [ userFBObj.$save(), displayFBObj.$save() ] );
+      }
     }
 
-    async function getInviteByDisplayIdAndEmail( displayId, email ) {
-      const invites = $firebaseArray(
-        root.child( "invites" )
-            .orderByChild( "email" )
-            .equalTo( email ) );
+    async function getDisplay( displayId ) {
+      const dObj = $firebaseObject( root.child( `displays/${displayId}` ) );
 
-      await invites.$loaded();
-      var results = invites.filter( ( inv ) => inv.displayId === displayId && inv.email === email );
-
-      return results[ 0 ] || null;
+      await dObj.$loaded();
+      return dObj;
     }
+
+    async function getUserForDisplay( userId, displayId ) {
+      const currUser = $firebaseObject( root.child( `users/${userId}` ) );
+
+      await currUser.$loaded();
+      let profileForDisplay = _extractProfileForDisplay( currUser, displayId );
+
+      return profileForDisplay;
+    }
+
+    async function getProfileByDisplayIdAndUserId( displayId, userId ) {
+      const profileRec = $firebaseObject( root.child( `users/${userId}/displays/${displayId}` ) ),
+        userRec = $firebaseObject( root.child( `users/${userId}` ) );
+
+      await $q.all( [ profileRec.$loaded(), userRec.$loaded() ] );
+      let { riseAdmin } = userRec,
+        { role, status } = profileRec || {},
+        profile = Object.assign( { role, status }, riseAdmin ? { role: "RiseAdmin" } : "" );
+
+      return profile;
+    }
+
 
     async function ensureAdminRole( displayId ) {
+      // TODO
       const myRole = await myRoleFor( displayId );
 
-      if ( myRole !== "Administrator" ) {
+      if ( ![ "DisplayAdmin", "RiseAdmin" ].includes( myRole ) ) {
         throw new Error( `You are not an admin for this display (${displayId}).` );
       }
     }
 
-    async function getInvites( displayId ) {
-      const invites = $firebaseArray(
-        root.child( "invites" )
-            .orderByChild( "displayId" )
-            .equalTo( displayId ) );
-
-      await invites.$loaded();
-
-      const myRole = await myRoleFor( displayId );
-      let myInvites;
-
-      //TODO: not secure
-      if ( myRole !== "Administrator" ) {
-        const email = await ( myEmail() );
-
-        myInvites = invites.filter( ( inv ) => email === inv.email )
-      } else {
-        myInvites = invites;
-      }
-      return myInvites;
+    function _UsersWithDisplay( ref, displayId ) {
+      this.displayId = displayId;
+      return $firebaseArray.call( this, ref );
     }
 
-    async function removeInvite( key ) {
+    _UsersWithDisplay.prototype.$$added = async function $$added( snap ) {
+      const userId = snap.getKey();
 
-      const rec = $firebaseObject( root.child( `invites/${key}` ) );
-      const { displayId } = rec;
+      return await getUserForDisplay( userId, this.displayId );
+    }
+
+    _UsersWithDisplay.prototype.$$updated = async function $$updated( snap ) {
+      const userId = snap.getKey(),
+        rec = this.$getRecord( userId );
+
+      Object.assign( rec, await getUserForDisplay( userId, this.displayId ) );
+      return true;
+    };
+
+    let UsersWithDisplay = $firebaseArray.$extend( _UsersWithDisplay );
+
+    async function getUser( userId ) {
+      const user = new $firebaseObject(
+        root.child( `users/${userId}` ) );
+
+      await user.$loaded();
+
+      return user;
+    }
+
+    async function getUsersForDisplay( displayId ) {
+      const userArr = new UsersWithDisplay(
+        root.child( `displays/${displayId}/users` ), displayId
+       );
+
+      await userArr.$loaded();
+      return userArr;
+    }
+
+    async function disinvite( userId, displayId ) {
+
+      const dUnderU = $firebaseObject( root.child( `users/${userId}/displays/${displayId}` ) ),
+        uUnderD = $firebaseObject( root.child( `displays/${displayId}/users/${userId}` ) )
 
       await ensureAdminRole( displayId );
 
-      return await rec.$remove();
+      return await $q.all( [ dUnderU.$remove(), uUnderD.$remove() ] );
     }
 
-    async function saveInvite( key, invite ) {
-      const rec = $firebaseObject( root.child( `invites/${key}` ) );
+    async function updateInvite( userId, displayId, { role, name = "" } ) {
+      await ensureAdminRole( displayId );
 
-      Object.assign( rec, invite );
-      return await rec.$save();
+      const userRec = $firebaseObject( root.child( `users/${userId}` ) ),
+        // need this to trigger a firebase update
+        uUnderD = $firebaseObject( root.child( `displays/${displayId}/users/${userId}` ) );
 
+      await $q.all( [ userRec.$loaded(), uUnderD.$loaded() ] );
+
+      Object.assign( userRec, { name } );
+      Object.assign( userRec.displays[ displayId ], { role } );
+      Object.assign( uUnderD, { $value: uUnderD.$value + 1 } );
+      return await $q.all( [ userRec.$save(), uUnderD.$save() ] );
     }
+
+    async function getTmpUsers() {
+      const users = $firebaseArray( root.child( "users" ).orderByChild( "name" ).limitToLast( 3 ) );
+
+      await users.$loaded();
+      return users;
+    }
+
+    return {
+      inviteUserToDisplay,
+      updateInvite,
+      getUserForDisplay,
+      getUsersForDisplay,
+      disinvite,
+      myRoleFor,
+      getTmpUsers,
+    };
   }
-
 }
+
+function _extractProfileForDisplay( { name, displays, $id }, displayId ) {
+  const { role, accepted } = displays[ displayId ],
+    email = pathToEmail( $id );
+
+  return { email, name, $id, role, accepted };
+}
+
 
 export default displayUsersService;

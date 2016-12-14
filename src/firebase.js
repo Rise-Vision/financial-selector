@@ -10,7 +10,7 @@ const m = angular.module( "app-firebase", [ AngularFire ] )
 
     const $window = $windowProvider.$get();
 
-    $window.firebase = firebase;
+    $window.firebase = $window.Firebase = firebase;
 
     Firebase.initializeApp( config );
   } )

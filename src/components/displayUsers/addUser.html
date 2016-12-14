@@ -3,13 +3,6 @@
 </div>
 
 <div class="modal-body" id="modal-body">
-
-  <div style="padding:20px;" ng-if="invitationSent" class="text-center">
-    <i class="ss-check text-green" style="font-size: 32px;"></i>
-    <p class="half-top">An invitation email was sent to <strong>joe@globex.com</strong>.</p>
-    <button class="btn btn-primary add-top" ng-click="$ctrl.cancel()">OK</button>
-  </div>
-
   <form name="inviteForm" class="form">
     <div ng-class="{ 'has-error': inviteForm.email.$dirty && inviteForm.email.$invalid }" class="form-group">
       <label class="control-label">Email</label>
@@ -21,8 +14,8 @@
         <div ng-class="{ 'has-error': inviteForm.role.$dirty && inviteForm.role.$invalid }" class="form-group">
           <label class="control-label">Role</label>
             <select ng-model="$ctrl.role" required name="role" class="form-control">
+              <option>DisplayAdmin</option>
               <option>Editor</option>
-              <option>Administrator</option>
             </select>
           </div>
         </div>

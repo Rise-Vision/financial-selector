@@ -5,7 +5,8 @@ import controller from "./inviteSuccess.controller";
 const component = {
   restrict: "E",
   bindings: {
-    inviteKey: "@"
+    displayId: "@",
+    userId: "@",
   },
   template,
   controller,

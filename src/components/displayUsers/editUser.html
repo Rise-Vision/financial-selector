@@ -11,7 +11,7 @@
     </div>
     <div ng-class="{ 'has-error': inviteForm.email.$dirty && inviteForm.email.$invalid }" class="form-group">
       <label class="control-label">Email</label>
-      <input ng-model="$ctrl.invite.email" name="email" type="email" class="form-control" value="john@globex.com">
+      <input ng-disabled="true" ng-model="$ctrl.invite.email" name="email" type="email" class="form-control" value="john@globex.com">
     </div>
 
     <div class="row">
@@ -20,7 +20,7 @@
           <label class="control-label">Role</label>
             <select ng-model="$ctrl.invite.role" required name="role" class="form-control">
               <option>Editor</option>
-              <option>Administrator</option>
+              <option>DisplayAdmin</option>
             </select>
           </div>
         </div>
