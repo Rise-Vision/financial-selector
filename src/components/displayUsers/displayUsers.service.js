@@ -84,14 +84,13 @@ class displayUsersService {
     }
 
     async function getProfileByDisplayIdAndUserId( displayId, userId ) {
-      const profileRec = $firebaseObject( root.child( `users/${userId}/displays/${displayId}` ) );
-      const userRec = $firebaseObject( root.child( `users/${userId}` ) );
+      const profileRec = $firebaseObject( root.child( `users/${userId}/displays/${displayId}` ) ),
+        userRec = $firebaseObject( root.child( `users/${userId}` ) );
 
       await $q.all( [ profileRec.$loaded(), userRec.$loaded() ] );
-      let { riseAdmin } = userRec;
-      let { role, status } = profileRec || {};
-
-      let profile = Object.assign( { role, status }, riseAdmin ? { role: "RiseAdmin" } : "" );
+      let { riseAdmin } = userRec,
+        { role, status } = profileRec || {},
+        profile = Object.assign( { role, status }, riseAdmin ? { role: "RiseAdmin" } : "" );
 
       return profile;
     }
@@ -170,6 +169,12 @@ class displayUsersService {
       return await $q.all( [ userRec.$save(), uUnderD.$save() ] );
     }
 
+    async function getTmpUsers() {
+      const users = $firebaseArray( root.child( "users" ).orderByChild( "name" ).limitToLast( 3 ) );
+
+      await users.$loaded();
+      return users;
+    }
 
     return {
       inviteUserToDisplay,
@@ -178,6 +183,7 @@ class displayUsersService {
       getUsersForDisplay,
       disinvite,
       myRoleFor,
+      getTmpUsers,
     };
   }
 }
