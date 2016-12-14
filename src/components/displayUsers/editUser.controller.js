@@ -27,7 +27,7 @@ class displayEditUserController {
       $state.go( "^" );
     }
 
-    const _populateInvite = $async( async () => {
+    let _populateInvite = $async( async () => {
       const { userId, displayId } = ctrl;
 
       try {

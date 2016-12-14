@@ -29,18 +29,18 @@ class displayManageUsersController {
       }
     } );
 
-    const _loadMyRole = $async( async() => {
-      ctrl.myRole = await displayUsersService.myRoleFor( displayId );
-    } );
+    let _loadMyRole = $async( async() => {
+        ctrl.myRole = await displayUsersService.myRoleFor( displayId );
+      } ),
 
-    const _populateUsers = $async( async () => {
-      try {
-        ctrl.users = await displayUsersService.getUsersForDisplay( displayId );
-      } catch ( e ) {
-        alert( "Failed to load users: " + e.message );
-        console.error( e );
-      }
-    } );
+      _populateUsers = $async( async () => {
+        try {
+          ctrl.users = await displayUsersService.getUsersForDisplay( displayId );
+        } catch ( e ) {
+          alert( "Failed to load users: " + e.message );
+          console.error( e );
+        }
+      } );
 
     ctrl.name = "displayManageUsers";
   }

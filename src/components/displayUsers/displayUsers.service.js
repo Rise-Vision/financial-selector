@@ -38,10 +38,9 @@ class displayUsersService {
     async function inviteUserToDisplay( { displayId, email, role } ) {
 
       ensureAdminRole( displayId );
-      const userId = emailToPath( email );
-
-      //run in parallel
-      const [ userFBObj, displayFBObj ] = await $q.all( [ getUser( userId ), getDisplay( displayId ) ] );
+      const userId = emailToPath( email ),
+        //run in parallel
+        [ userFBObj, displayFBObj ] = await $q.all( [ getUser( userId ), getDisplay( displayId ) ] );
 
       await associateUserToDisplay( userFBObj, displayFBObj, role );
       return userId;
@@ -83,7 +82,7 @@ class displayUsersService {
       const currUser = $firebaseObject( root.child( `users/${userId}` ) );
 
       await currUser.$loaded();
-      const profileForDisplay = _extractProfileForDisplay( currUser, displayId );
+      let profileForDisplay = _extractProfileForDisplay( currUser, displayId );
 
       return profileForDisplay;
     }
@@ -110,22 +109,21 @@ class displayUsersService {
       return $firebaseArray.call( this, ref );
     }
 
-    _UsersWithDisplay.prototype.$$added = async function( snap ) {
+    _UsersWithDisplay.prototype.$$added = async function $$added( snap ) {
       const userId = snap.getKey();
 
       return await getUserForDisplay( userId, this.displayId );
     }
 
-    _UsersWithDisplay.prototype.$$updated = async function( snap ) {
-      const userId = snap.getKey();
-
-      const rec = this.$getRecord( userId );
+    _UsersWithDisplay.prototype.$$updated = async function $$updated( snap ) {
+      const userId = snap.getKey(),
+        rec = this.$getRecord( userId );
 
       Object.assign( rec, await getUserForDisplay( userId, this.displayId ) );
       return true;
     };
 
-    const UsersWithDisplay = $firebaseArray.$extend( _UsersWithDisplay );
+    let UsersWithDisplay = $firebaseArray.$extend( _UsersWithDisplay );
 
     async function getUser( userId ) {
       const user = new $firebaseObject(
@@ -148,8 +146,8 @@ class displayUsersService {
 
     async function disinvite( userId, displayId ) {
 
-      const dUnderU = $firebaseObject( root.child( `users/${userId}/displays/${displayId}` ) );
-      const uUnderD = $firebaseObject( root.child( `displays/${displayId}/users/${userId}` ) )
+      const dUnderU = $firebaseObject( root.child( `users/${userId}/displays/${displayId}` ) ),
+        uUnderD = $firebaseObject( root.child( `displays/${displayId}/users/${userId}` ) )
 
       await ensureAdminRole( displayId );
 
@@ -159,9 +157,9 @@ class displayUsersService {
     async function updateInvite( userId, displayId, { role, name = "" } ) {
       await ensureAdminRole( displayId );
 
-      const userRec = $firebaseObject( root.child( `users/${userId}` ) );
-      // need this to trigger a firebase update
-      const uUnderD = $firebaseObject( root.child( `displays/${displayId}/users/${userId}` ) );
+      const userRec = $firebaseObject( root.child( `users/${userId}` ) ),
+        // need this to trigger a firebase update
+        uUnderD = $firebaseObject( root.child( `displays/${displayId}/users/${userId}` ) );
 
       await $q.all( [ userRec.$loaded(), uUnderD.$loaded() ] );
 
@@ -184,8 +182,8 @@ class displayUsersService {
 }
 
 function _extractProfileForDisplay( { name, displays, $id }, displayId ) {
-  const { role, accepted } = displays[ displayId ];
-  const email = pathToEmail( $id );
+  const { role, accepted } = displays[ displayId ],
+    email = pathToEmail( $id );
 
   return { email, name, $id, role, accepted };
 }

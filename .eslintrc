@@ -19,11 +19,10 @@
       "error",
       "always"
     ],
-    "func-names": [
+    "no-console": [
       "error",
-      "never"
-    ],
-    "one-var": 0,
+      { allow: [ "warn", "error" ] }
+    ]
   },
   "parserOptions": {
     "sourceType": "module",

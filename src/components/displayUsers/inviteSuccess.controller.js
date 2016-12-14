@@ -12,7 +12,7 @@ class inviteSuccessController {
       $state.go( "^" );
     }
 
-    const _populateInvite = $async( async () => {
+    let _populateInvite = $async( async () => {
       try {
         ctrl.invite = await displayUsersService.getUserForDisplay( ctrl.userId, ctrl.displayId );
       } catch ( e ) {
