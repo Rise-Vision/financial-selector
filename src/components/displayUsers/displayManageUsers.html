@@ -9,7 +9,7 @@
       </ol>
     </div><!--col-->
     <div class="col-sm-3 col-md-3 col-lg-2 hidden-xs " >
-      <a ng-if="['Administrator', 'RiseAdmin'].includes($ctrl.myRole)" ng-click="$ctrl.addUser('inviteUser.html')"
+      <a ng-if="['DisplayAdmin', 'RiseAdmin'].includes($ctrl.myRole)" ng-click="$ctrl.addUser('inviteUser.html')"
 				class="btn btn-primary btn-lg btn-block">
 				Add User <i class="fa fa-plus icon-right"></i>
 			</a>
@@ -36,7 +36,10 @@
       <button ng-click="$ctrl.open('inviteUser.html')" class="btn btn-primary btn-block"><span style="font-size: 13px; line-height: 20px">Add User</span></button>
     </div>
   </div><!--visible-xs-->
-
+UUU
+<ul>
+	<li ng-repeat="u in $ctrl.tmpUsers">{{u.name}}</li>
+</ul>
 
 
   <div class="panel panel-default">
@@ -65,7 +68,7 @@
           </td>
           <td class="table-body__cell">
 
-            <div ng-if="['Administrator', 'RiseAdmin'].includes($ctrl.myRole)" class="btn-group dropdown" uib-dropdown="" is-open="status.isopen">
+            <div ng-if="['DisplayAdmin', 'RiseAdmin'].includes($ctrl.myRole)" class="btn-group dropdown" uib-dropdown="" is-open="status.isopen">
               <button id="single-button" type="button" class="btn btn-xs btn-default dropdown-toggle" uib-dropdown-toggle="" ng-disabled="disabled" aria-haspopup="true" aria-expanded="false">
                 Actions <span class="caret"></span>
               </button>

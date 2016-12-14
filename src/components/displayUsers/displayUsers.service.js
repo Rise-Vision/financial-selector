@@ -105,7 +105,7 @@ class displayUsersService {
       // TODO
       const myRole = await myRoleFor( displayId );
 
-      if ( ![ "Administrator", "RiseAdmin" ].includes( myRole ) ) {
+      if ( ![ "DisplayAdmin", "RiseAdmin" ].includes( myRole ) ) {
         throw new Error( `You are not an admin for this display (${displayId}).` );
       }
     }
