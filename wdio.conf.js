@@ -109,6 +109,7 @@ exports.config = {
     staticServerFolders: [
       {mount: "/", path: "./dist"},
     ],
+    staticServer404: "./dist/index.html",
     staticServerPort: 8080,
     staticServerLog: true,
     // Framework you want to run your specs with.

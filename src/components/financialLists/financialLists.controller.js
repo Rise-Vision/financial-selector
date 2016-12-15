@@ -1,15 +1,32 @@
 class FinancialListsController {
-  constructor() {
-    this.name = "financialLists";
-  }
+  constructor( financialListAddService, $state, authService ) {
+    "ngInject";
 
-  addList() {
-    console.log("adding " + this.newListName);
-  }
+    authService.redirectIfNotLoggedIn();
 
-  cancel() {
-    this.showAddList = false;
-    this.newListName = "";
+    this.addList = () => {
+      if ( !this.newListName ) {
+        return;
+      }
+
+      this.submittingList = true;
+
+      financialListAddService.add( this.newListName, this.displayId )
+      .then( () => {
+        this.submittingList = false;
+        this.newListName = "";
+        this.showAddList = false;
+      } )
+      .catch( ( err ) => {
+        this.errorMessage = "Failed to add " + this.newListName;
+        console.error( err );
+      } );
+    }
+
+    this.cancel = () => {
+      this.showAddList = false;
+      this.newListName = "";
+    }
   }
 }
 

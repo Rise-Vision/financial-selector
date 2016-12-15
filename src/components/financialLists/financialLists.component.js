@@ -3,7 +3,7 @@ import controller from "./financialLists.controller";
 
 const financialListsComponent = {
   restrict: "E",
-  bindings: {},
+  bindings: { displayId: "@" },
   template,
   controller,
 };
