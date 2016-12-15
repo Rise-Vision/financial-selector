@@ -1,19 +1,22 @@
 <div class="container animated fadeIn">
 
   <div class="row">
-    <div class="col-sm-9 col-md-9 col-lg-10">
+    <div class="col-sm-6 col-md-6 col-lg-6">
       <ol class="breadcrumb">
         <li><a ui-sref="displays"><i class="ss-home icon-left"></i> Displays</a></li>
         <li class="active"><span>TODO: display name</span></li>
 
       </ol>
     </div><!--col-->
-    <div class="col-sm-3 col-md-3 col-lg-2 hidden-xs">
-      <a ui-sref="displayUsers" class="btn btn-primary btn-lg btn-block">Manage Users <i class="fa fa-users icon-right"></i></a>
+    <div class="col-sm-3 col-md-3 col-lg-3 hidden-xs">
+      <a ng-hide="$ctrl.showAddList" ui-sref="displayUsers" class="btn btn-primary btn-lg btn-block">Manage Users <i class="fa fa-users icon-right"></i></a>
+    </div>
+    <div class="col-sm-3 col-md-3 col-lg-3 hidden-xs">
+      <a ng-hide="$ctrl.showAddList" ng-click="$ctrl.showAddList = true;" ui-sref="displayLists" class="btn btn-primary btn-lg btn-block">Add List<i class="fa fa-users icon-right"></i></a>
     </div>
   </div><!--row-->
 
-  <form class="hidden-xs">
+  <form ng-hide="$ctrl.showAddList" class="hidden-xs">
     <div class="input-group half-top add-bottom">
       <span class="input-group-addon"><i class="fa fa-search"></i></span>
       <input class="form-control" type="text" placeholder="Search Financial Lists" name="">
@@ -21,7 +24,7 @@
   </form>
 
   <div class="row half-top visible-xs">
-    <div class="col-xs-7">
+    <div class="col-xs-8">
       <form>
         <div class="input-group add-bottom">
           <span class="input-group-addon"><i class="fa fa-search"></i></span>
@@ -29,14 +32,38 @@
         </div>
       </form>
     </div>
-    <div class="col-xs-5">
-      <button ui-sref="displayUsers" class="btn btn-primary btn-block"><span style="font-size: 13px; line-height: 20px">Manage Users</span></button>
+    <div class="col-xs-2">
+      <button ng-hide="$ctrl.showAddList" ui-sref="displayUsers" class="btn btn-primary btn-block"><span style="font-size: 13px; line-height: 20px">Users</span></button>
+    </div>
+    <div class="col-xs-2">
+      <button ng-hide="$ctrl.showAddList" ng-click="$ctrl.showAddList = true" ui-sref="displayLists" class="btn btn-primary btn-block"><span style="font-size: 13px; line-height: 20px">+List</span></button>
     </div>
   </div><!--visible-xs-->
 
+  <div class="animated fadeIn" ng-show="$ctrl.showAddList">
+    <h3 style="font-weight: 400">Add a Financial List</h3>
+
+    <form class="add-top">
+      <div class="form-group">
+        <label class="control-label">List Name</label>
+        <input id="display-id" class="form-control" type="text" placeholder="Enter Name" name="" ng-model="$ctrl.newListName">
+        <div id="error-message" class="animated fadeIn" ng-show="$ctrl.errorMessage">
+          <div style="padding: 2px 10px; margin-top: 4px" class="alert alert-danger" role="alert">
+            {{$ctrl.errorMessage}}
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <div class="text-right">
+      <button id="submit-add-list" class="btn btn-primary" type="button" ng-click="$ctrl.addList()">Add <i class="fa fa-check icon-right"></i></button>
+    <button class="btn btn-default" type="button" ng-click="$ctrl.cancel()">Cancel <i class="fa fa-times icon-right"></i></button>
+    </div>
 
 
-  <div class="panel panel-default">
+  </div><!--fadeIn-->
+
+  <div ng-hide="$ctrl.showAddList" class="panel panel-default">
     <table class="table">
       <thead class="table-header">
       <tr class="table-header__row">
