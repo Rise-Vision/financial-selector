@@ -12,7 +12,7 @@ const assert = require("assert"),
     databaseURL
   });
 
-describe("Add List", function() {
+xdescribe("Add List", function() {
   this.timeout(50000);
 
   it("should enable adding a list", ()=>{
