@@ -3,7 +3,11 @@
   <div class="row">
     <div class="col-sm-9">
       <ol class="breadcrumb">
-        <li class="active"><span><i class="ss-home icon-left"></i> Displays</span></li>
+        <li class="active">
+          <a ui-sref="displays">
+            <span><i class="ss-home icon-left"></i> Displays</span>
+          </a>
+        </li>
       </ol>
     </div><!--col-->
     <div class="col-sm-3 hidden-xs">
@@ -44,6 +48,8 @@
     </div>
   </form>
 
+  <error-message message="$ctrl.errorMessage"></error-message>
+
   <div class="panel panel-default" ng-hide="$ctrl.addDisplay">
     <table class="table">
 
@@ -60,7 +66,7 @@
 
         <tr class="table-body__row" ng-repeat="(key, value) in $ctrl.displayList">
           <td class="table-body__cell">
-            <a ui-sref="displayFinancialList">
+            <a ui-sref="financialLists({displayId: key})">
               <i class="ss-tv icon-left"></i><strong>{{value.displayName}}</strong>
             </a>
           </td>
@@ -73,7 +79,11 @@
               </button>
               <ul class="dropdown-menu">
 
-                <li role="menuitem"><a href="#"><span class="text-danger">Remove Display<span></a></li>
+                <li role="menuitem">
+                  <a ng-click="$ctrl.removeDisplay(key)">
+                    <span class="text-danger">Remove Display<span>
+                  </a>
+                </li>
 
               </ul>
             </div><!-- Single button -->
@@ -92,11 +102,7 @@
       <div class="form-group">
         <label class="control-label">Display ID</label>
         <input id="display-id" class="form-control" type="text" placeholder="Enter Display ID" name="" ng-model="$ctrl.displayId" ng-change="$ctrl.submitIdCheck()">
-        <div id="error-message" class="animated fadeIn" ng-show="$ctrl.errorMessage">
-          <div style="padding: 2px 10px; margin-top: 4px" class="alert alert-danger" role="alert">
-            {{$ctrl.errorMessage}}
-          </div>
-        </div>
+        <error-message message="$ctrl.errorMessage"></error-message>
       </div>
     </form>
 

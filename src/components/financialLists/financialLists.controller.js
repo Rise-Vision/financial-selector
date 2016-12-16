@@ -1,6 +1,14 @@
 class FinancialListsController {
-  constructor( financialListAddService, financialListRemoveService, $state, authService, displayUsersService, $async ) {
+  constructor( financialListAddService, $state,
+    authService, displayValidationService, $async,
+  financialListRemoveService, displayUsersService ) {
     "ngInject";
+
+    const ctrl = this;
+
+    ctrl.$onInit = () => {
+      _validateAndPopulateDisplayInfo();
+    };
 
     authService.redirectIfNotLoggedIn();
 
@@ -45,8 +53,24 @@ class FinancialListsController {
     };
 
     let loadMyRoleFor = $async( async( displayId, bindTo ) => {
-      bindTo.myRole = await displayUsersService.myRoleFor( displayId );
-    } );
+        bindTo.myRole = await displayUsersService.myRoleFor( displayId );
+      } ),
+
+      _validateAndPopulateDisplayInfo = $async( async() => {
+        const { displayId } = ctrl;
+
+        try {
+          ctrl.displayInfo = await displayValidationService.validateAndGet( displayId );
+          ctrl.displayId = displayId;
+        } catch ( e ) {
+          _outputErr( "Failed to validate display", e );
+        }
+      } );
+
+    function _outputErr( msg, e ) {
+      console.error( e );
+      alert( `${e.message}` );
+    }
   }
 }
 

@@ -11,7 +11,7 @@ const financialListsModule = angular.module( "financialLists", [
   .config( ( $stateProvider ) => {
     "ngInject";
     $stateProvider.state( "financialLists", {
-      url: "/displays/:displayId/financialLists",
+      url: "/displays/:displayId",
       component: "financialLists",
       resolve: {
         displayId: ( $stateParams ) => {

@@ -12,6 +12,9 @@ class displayAddUserController {
     ctrl.sendInvitation = async () => {
       const { displayId, email, role } = ctrl;
 
+      ctrl.sending = true;
+      ctrl.sendButtonMessage = "Sending...";
+
       try {
         const userId = await displayUsersService.inviteUserToDisplay( {
           displayId, role, email,
