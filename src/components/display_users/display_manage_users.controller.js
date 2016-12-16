@@ -4,8 +4,8 @@ class displayManageUsersController {
 
     const ctrl = this;
 
-    ctrl.$onInit = async () => {
-      await _validateAndPopulateDisplayInfo();
+    ctrl.$onInit = () => {
+      _validateAndPopulateDisplayInfo();
       _populateUsers();
       _loadMyRole();
     };
@@ -47,7 +47,7 @@ class displayManageUsersController {
         const { displayId } = ctrl;
 
         try {
-          ctrl.displayInfo = await displayValidationService.validate( displayId );
+          ctrl.displayInfo = await displayValidationService.validateAndGet( displayId );
           ctrl.displayId = displayId;
         } catch ( e ) {
           _outputErr( "Failed to validate display", e );

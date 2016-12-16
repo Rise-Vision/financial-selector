@@ -33,7 +33,7 @@ class displayEditUserController {
       try {
         ctrl.invite = await displayUsersService.getUserForDisplay( userId, displayId );
       } catch ( e ) {
-        alert( "failed to load user" );
+        ctrl.errorMessage = `Failed: ${e.message}`;
         console.error( e );
       }
     } );

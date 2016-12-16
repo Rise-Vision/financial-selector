@@ -5,8 +5,9 @@ import addUserComponent from "./add_user.component";
 import editUserComponent from "./edit_user.component";
 import inviteSuccess from "./invite_success.component";
 import displayUsersService from "./display_users.service";
+import commonUtils from "../common_utils";
 
-const displayUsersModule = angular.module( "display-users", [ uiRouter, ] )
+const displayUsersModule = angular.module( "display-users", [ uiRouter, commonUtils ] )
   .config( ( $stateProvider ) => {
     "ngInject";
 

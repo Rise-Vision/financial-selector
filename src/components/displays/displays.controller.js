@@ -1,5 +1,6 @@
 class DisplaysController {
-  constructor( displayUsersService, displayValidationService, displaySaveService, displayListService, $async ) {
+  constructor( displayUsersService, displayValidationService,
+     displaySaveService, displayListService, $async, $scope ) {
     "ngInject";
     const ctrl = this;
 
@@ -31,7 +32,8 @@ class DisplaysController {
       this.displayId = ""
       this.disableAddButon = false;
       this.addDisplay = false;
-      this.errorMessage = ""
+      this.errorMessage = "";
+      $scope.$apply();
     };
 
     this.saveError = ( err ) => {
@@ -46,11 +48,23 @@ class DisplaysController {
       this.errorMessage = "";
     }
 
+    this.removeDisplay = $async( async ( displayId ) => {
+      try {
+        displayListService.removeDisplay( displayId );
+      } catch ( e ) {
+        _outputErr( "Failed to remove display", e );
+      }
+    } );
+
     let _loadMyRole = $async( async() => {
       const { displayId } = ctrl;
 
       ctrl.myRole = await displayUsersService.myRoleFor( displayId );
     } );
+
+    function _outputErr( msg, e ) {
+      ctrl.errorMessage = `${msg}:${e.message}`;
+    }
   }
 }
 

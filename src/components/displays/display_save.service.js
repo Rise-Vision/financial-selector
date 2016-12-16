@@ -1,22 +1,25 @@
 class displaySaveService {
-  constructor( $window, $firebaseObject, displayValidationService, authService ) {
+  constructor( $window, $firebaseObject, displayValidationService ) {
     "ngInject";
 
     const root = $window.firebase.database().ref();
 
     return {
-      save( displayId ) {
-        let displays = $firebaseObject(
-          root.child( "users" )
-            .child( authService.getAuth().uid )
-            .child( "displays" )
+      async save( displayId ) {
+        let displayRec = $firebaseObject(
+          root.child( `displays/${displayId}` )
           );
 
-        displays[ displayId ] = displayValidationService.results()[ displayId ];
-        return displays.$save();
+        await displayRec.$loaded();
+        const displayInfo = await displayValidationService.validateAndGet( displayId ),
+          { companyId, displayName } = displayInfo;
+
+        Object.assign( displayRec, { companyId, displayName } );
+
+        return await displayRec.$save();
       }
     };
   }
 }
 
-export default displaySaveService
+export default displaySaveService;

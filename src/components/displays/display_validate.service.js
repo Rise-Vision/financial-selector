@@ -1,5 +1,5 @@
 class displayValidationService {
-  constructor( $http, displayValidationURL ) {
+  constructor( $http, displayValidationURL, $q ) {
     "ngInject";
 
     let cache = {};
@@ -9,9 +9,14 @@ class displayValidationService {
         return cache;
       },
 
+      async validateAndGet( displayId ) {
+        await this.validate( displayId );
+        return cache[ displayId ];
+      },
+
       validate( displayId ) {
         if ( Object.keys( cache ).includes( displayId ) ) {
-          return;
+          return $q.when( true );
         }
 
         return $http.get( displayValidationURL.replace( "DISPLAYID", displayId ) )
