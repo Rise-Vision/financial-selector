@@ -1,10 +1,11 @@
 class displayManageUsersController {
-  constructor( $state, displayUsersService, $scope, $async ) {
+  constructor( $state, displayUsersService, displayValidationService, $scope, $async ) {
     "ngInject";
 
     const ctrl = this;
 
     ctrl.$onInit = async () => {
+      await _validateAndPopulateDisplayInfo();
       _populateUsers();
       _loadMyRole();
     };
@@ -23,9 +24,7 @@ class displayManageUsersController {
       try {
         await displayUsersService.disinvite( user.$id, displayId );
       } catch ( e ) {
-        alert( "Failed to remove user: " + e.message );
-        console.error( e );
-        throw e;
+        _outputErr( "Failed to remove user", e );
       }
     } );
     let _loadMyRole = $async( async() => {
@@ -40,13 +39,29 @@ class displayManageUsersController {
         try {
           ctrl.users = await displayUsersService.getUsersForDisplay( displayId );
         } catch ( e ) {
-          alert( "Failed to load users: " + e.message );
-          console.error( e );
+          _outputErr( "Failed to load users", e );
+        }
+      } ),
+
+      _validateAndPopulateDisplayInfo = $async( async() => {
+        const { displayId } = ctrl;
+
+        try {
+          ctrl.displayInfo = await displayValidationService.validate( displayId );
+          ctrl.displayId = displayId;
+        } catch ( e ) {
+          _outputErr( "Failed to validate display", e );
         }
       } );
 
     ctrl.name = "displayManageUsers";
   }
+}
+
+function _outputErr( msg, e ) {
+  alert( `${msg}: ${e.message}` );
+  console.error( e );
+  // throw e;
 }
 
 export default displayManageUsersController;

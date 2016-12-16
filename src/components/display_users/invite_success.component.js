@@ -1,6 +1,6 @@
-import template from "./inviteSuccess.html";
+import template from "./invite_success.html";
 
-import controller from "./inviteSuccess.controller";
+import controller from "./invite_success.controller";
 
 const component = {
   restrict: "E",

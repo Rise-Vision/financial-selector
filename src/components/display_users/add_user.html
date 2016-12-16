@@ -1,0 +1,31 @@
+<div class="modal-header">
+  <h4 ng-hide="invitationSent" class="modal-title" id="modal-title">Add User to Display {{ $ctrl.displayId }}</h4>
+</div>
+<form name="inviteForm" class="form" ng-submit="$ctrl.sendInvitation()" >
+  <div class="modal-body" id="modal-body">
+      <div ng-class="{ 'has-error': inviteForm.email.$dirty && inviteForm.email.$invalid }" class="form-group">
+        <label class="control-label">Email</label>
+        <input ng-model="$ctrl.email"
+        required
+        ng-pattern="/^(([^<>()\[\]\.,;:\s@\x22]+(\.[^<>()\[\]\.,;:\s@\x22]+)*)|(\x22.+\x22))@(([^<>()[\]\.,;:\s@\x22]+\.)+[^<>()[\]\.,;:\s@\x22]{2,})$/i"
+        type="email" name="email" class="form-control" placeholder="Enter Email">
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6">
+          <div ng-class="{ 'has-error': inviteForm.role.$dirty && inviteForm.role.$invalid }" class="form-group">
+            <label class="control-label">Role</label>
+              <select ng-model="$ctrl.role" required name="role" class="form-control">
+                <option>DisplayAdmin</option>
+                <option>Editor</option>
+              </select>
+            </div>
+          </div>
+        </div>
+  </div>
+
+  <div class="modal-footer" ng-hide="invitationSent">
+    <button type="submit" ng-disabled="inviteForm.$invalid" class="btn btn-primary" type="button">Send Invitation <i class="fa fa-envelope icon-right"></i></button>
+    <button class="btn btn-default" type="button" ng-click="$ctrl.cancel()">Cancel <i class="fa fa-times icon-right"></i></button>
+  </div>
+</form>
