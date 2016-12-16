@@ -85,7 +85,7 @@
     "wdio-mocha-framework": "^0.5.4",
     "wdio-selenium-standalone-service": "0.0.7",
     "wdio-spec-reporter": "0.0.3",
-    "wdio-static-server-service": "^1.0.1",
+    "wdio-static-server-service": "git://github.com/Rise-Vision/wdio-static-server-service.git#v1.0.3",
     "webdriverio": "^4.4.0",
     "webpack": "^1.9.5",
     "webpack-dev-middleware": "^1.6.1",
