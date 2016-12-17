@@ -185,8 +185,9 @@ exports.config = {
     //
     // Gets executed after all tests are done. You still have access to all global variables from
     // the test.
-    // after: function (result, capabilities, specs) {
-    // },
+    after: function (result, capabilities, specs) {
+      require("fs").writeFileSync("./error-shots/source-dump-" + Math.random(), browser.getSource());
+    },
     //
     // Gets executed after all workers got shut down and the process is about to exit. It is not
     // possible to defer the end of the process using a promise.
