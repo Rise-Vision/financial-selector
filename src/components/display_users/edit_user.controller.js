@@ -16,7 +16,7 @@ class displayEditUserController {
       try {
         await displayUsersService.updateInvite( userId, displayId, invite );
       } catch ( e ) {
-        alert( "failed to save: " + e.message );
+        ctrl.errorMessage = "failed to save: " + e.message;
         console.error( e );
       }
 

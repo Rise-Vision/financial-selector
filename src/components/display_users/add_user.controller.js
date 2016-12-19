@@ -19,7 +19,7 @@ class displayAddUserController {
 
         $state.go( "^.inviteSuccess", { userId, displayId } );
       } catch ( e ) {
-        alert( "failed to invite user: " + e.message );
+        ctrl.errorMessage = "failed to invite user: " + e.message;
         console.error( e );
         $state.go( "^" );
       }

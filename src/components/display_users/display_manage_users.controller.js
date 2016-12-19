@@ -55,13 +55,13 @@ class displayManageUsersController {
       } );
 
     ctrl.name = "displayManageUsers";
-  }
-}
 
-function _outputErr( msg, e ) {
-  alert( `${msg}: ${e.message}` );
-  console.error( e );
-  // throw e;
+    function _outputErr( msg, e ) {
+      ctrl.errorMessage = `${msg}: ${e.message}`;
+      console.error( e );
+      // throw e;
+    }
+  }
 }
 
 export default displayManageUsersController;
