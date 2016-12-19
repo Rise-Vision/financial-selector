@@ -75,7 +75,7 @@
     "postcss-modules-local-by-default": "^1.1.1",
     "raw-loader": "^0.5.1",
     "resolve-url-loader": "^1.6.0",
-    "rv-common-e2e": "git://github.com/Rise-Vision/rv-common-e2e.git#0.0.15",
+    "rv-common-e2e": "git://github.com/Rise-Vision/rv-common-e2e.git#0.0.16",
     "sass-loader": "^4.0.0",
     "string-replace-webpack-plugin": "0.0.3",
     "style-loader": "^0.12.2",
