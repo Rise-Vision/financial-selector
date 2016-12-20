@@ -5,12 +5,12 @@ class FinancialListsController {
     authService.redirectIfNotLoggedIn();
 
     this.financialLists = [
-      //{id: "-KZSdjLT_gc-ezDbT1j2", name: "testname", lastModified: Date.now(), modifiedBy: "Someone"}
+      //{id: "-KZTGvwzvwI_CkTi2vil", name: "testname", lastModified: Date.now(), modifiedBy: "Someone"}
     ];
 
-    this.$onInit = $async( async() => {
-      await loadMyRoleFor( this.displayId, this );
-    } );
+    this.$onInit = () => {
+      loadMyRoleFor( this.displayId, this );
+    };
 
     this.addList = () => {
       if ( !this.newListName ) {
