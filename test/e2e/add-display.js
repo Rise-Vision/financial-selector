@@ -29,9 +29,9 @@ describe("Add Display", function() {
     browser.click("button=Add Display");
     browser.waitForVisible("#display-id") 
     browser.element("#display-id").setValue("1");
-    browser.waitForVisible("#error-message"); 
+    browser.waitForVisible("#error-message", 8000); 
     browser.element("#display-id").setValue("G6B7ET3EHGD4");
-    browser.waitForVisible("#error-message", 2000, "inverse")
+    browser.waitForVisible("#error-message", 9000, "inverse")
     browser.pause(500); 
     browser.click("#submit-display-id");
     browser.waitForVisible("button=Add Display", 5000);

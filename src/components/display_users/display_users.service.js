@@ -12,7 +12,6 @@ class displayUsersService {
     }
 
     async function myRoleFor( displayId ) {
-
       const myUid = await myUserId(),
         myProfile = await getProfileByDisplayIdAndUserId( displayId, myUid );
 
