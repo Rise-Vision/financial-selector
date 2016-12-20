@@ -1,9 +1,13 @@
 class DisplaysController {
-  constructor( displayValidationService, displaySaveService, displayListService ) {
+  constructor( displayUsersService, displayValidationService, displaySaveService, displayListService, $async ) {
     "ngInject";
+    const ctrl = this;
 
     this.displayValidations = displayValidationService.results;
     this.errorMessage = "";
+    this.$onInit = () => {
+      _loadMyRole();
+    };
 
     displayListService.attachListTo( this );
 
@@ -41,6 +45,12 @@ class DisplaysController {
     this.validationPassed = () => {
       this.errorMessage = "";
     }
+
+    let _loadMyRole = $async( async() => {
+      const { displayId } = ctrl;
+
+      ctrl.myRole = await displayUsersService.myRoleFor( displayId );
+    } );
   }
 }
 
