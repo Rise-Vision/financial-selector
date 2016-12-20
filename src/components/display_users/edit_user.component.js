@@ -1,6 +1,6 @@
-import template from "./editUser.html";
+import template from "./edit_user.html";
 
-import controller from "./editUser.controller";
+import controller from "./edit_user.controller";
 
 export default {
   restrict: "E",

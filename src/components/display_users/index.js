@@ -1,10 +1,10 @@
 import angular from "angular";
 import uiRouter from "angular-ui-router";
-import displayManageUsersComponent from "./displayManageUsers.component"
-import addUserComponent from "./addUser.component";
-import editUserComponent from "./editUser.component";
-import inviteSuccess from "./inviteSuccess.component";
-import displayUsersService from "./displayUsers.service";
+import displayManageUsersComponent from "./display_manage_users.component"
+import addUserComponent from "./add_user.component";
+import editUserComponent from "./edit_user.component";
+import inviteSuccess from "./invite_success.component";
+import displayUsersService from "./display_users.service";
 
 const displayUsersModule = angular.module( "display-users", [ uiRouter, ] )
   .config( ( $stateProvider ) => {

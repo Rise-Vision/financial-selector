@@ -1,6 +1,6 @@
-import template from "./addUser.html";
+import template from "./add_user.html";
 
-import controller from "./addUser.controller";
+import controller from "./add_user.controller";
 
 export default {
   restrict: "E",

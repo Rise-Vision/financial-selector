@@ -2,7 +2,7 @@ import angular from "angular";
 import Home from "./home/home";
 import About from "./about/about";
 import Displays from "./displays/displays";
-import DisplayUsers from "./displayUsers";
+import DisplayUsers from "./display_users";
 import Profile from "./profile/profile";
 import Search from "./search/search";
 import Auth from "./auth/auth";

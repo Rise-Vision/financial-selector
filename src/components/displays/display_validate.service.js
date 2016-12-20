@@ -17,6 +17,7 @@ class displayValidationService {
         return $http.get( displayValidationURL.replace( "DISPLAYID", displayId ) )
         .then( ( resp ) => {
           cache[ displayId ] = resp.data && resp.data.item;
+          return cache[ displayId ];
         } )
         .catch( () => {
           cache[ displayId ] = false;

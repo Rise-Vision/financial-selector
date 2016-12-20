@@ -1,5 +1,5 @@
-import template from "./displayManageUsers.html";
-import controller from "./displayManageUsers.controller"
+import template from "./display_manage_users.html";
+import controller from "./display_manage_users.controller"
 
 const displayManageUsersComponent = {
   restrict: "E",

@@ -1,11 +1,3 @@
-function emailToPath( email ) {
-  return encodeURIComponent( email ).replace( /\./g, "%2E" );
-}
-
-function pathToEmail( path ) {
-  return decodeURIComponent( path );
-}
-
 class displayUsersService {
   constructor( $firebaseArray, $firebaseObject, firebase, $firebaseAuth, $q ) {
     "ngInject";
@@ -16,7 +8,7 @@ class displayUsersService {
       await authMethods.$waitForSignIn();
       const { email } = authMethods.$getAuth();
 
-      return emailToPath( email );
+      return emailToUserKey( email );
     }
 
     async function myRoleFor( displayId ) {
@@ -34,7 +26,7 @@ class displayUsersService {
     async function inviteUserToDisplay( { displayId, email, role } ) {
 
       ensureAdminRole( displayId );
-      const userId = emailToPath( email ),
+      const userId = emailToUserKey( email ),
         //run in parallel
         [ userFBObj, displayFBObj ] = await $q.all( [ getUser( userId ), getDisplay( displayId ) ] );
 
@@ -95,9 +87,7 @@ class displayUsersService {
       return profile;
     }
 
-
     async function ensureAdminRole( displayId ) {
-      // TODO
       const myRole = await myRoleFor( displayId );
 
       if ( ![ "DisplayAdmin", "RiseAdmin" ].includes( myRole ) ) {
@@ -169,13 +159,6 @@ class displayUsersService {
       return await $q.all( [ userRec.$save(), uUnderD.$save() ] );
     }
 
-    async function getTmpUsers() {
-      const users = $firebaseArray( root.child( "users" ).orderByChild( "name" ).limitToLast( 3 ) );
-
-      await users.$loaded();
-      return users;
-    }
-
     return {
       inviteUserToDisplay,
       updateInvite,
@@ -183,14 +166,21 @@ class displayUsersService {
       getUsersForDisplay,
       disinvite,
       myRoleFor,
-      getTmpUsers,
     };
   }
 }
 
+function emailToUserKey( email ) {
+  return encodeURIComponent( email ).replace( /\./g, "%2E" );
+}
+
+function userKeyToEmail( path ) {
+  return decodeURIComponent( path );
+}
+
 function _extractProfileForDisplay( { name, displays, $id }, displayId ) {
   const { role, accepted } = displays[ displayId ],
-    email = pathToEmail( $id );
+    email = userKeyToEmail( $id );
 
   return { email, name, $id, role, accepted };
 }

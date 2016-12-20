@@ -16,7 +16,7 @@ class inviteSuccessController {
       try {
         ctrl.invite = await displayUsersService.getUserForDisplay( ctrl.userId, ctrl.displayId );
       } catch ( e ) {
-        alert( "failed to load invite: " + e.message );
+        ctrl.errorMessage = `failed to load invite: ${e.message}`;
         console.error( e );
       }
     } );

@@ -4,12 +4,16 @@
     <div class="col-sm-9 col-md-9 col-lg-10">
       <ol class="breadcrumb">
         <li><a ui-sref="displays"><i class="ss-home icon-left"></i> Displays</a></li>
-        <li><a ui-sref="displayFinancialList">Display "{{ $ctrl.displayId }}"</a></li>
+        <li><a ui-sref="displayFinancialList">
+					{{ $ctrl.displayInfo.displayName }}
+				</a></li>
         <li class="active"><span>Users</span></li>
       </ol>
     </div><!--col-->
     <div class="col-sm-3 col-md-3 col-lg-2 hidden-xs " >
-      <a ng-if="['DisplayAdmin', 'RiseAdmin'].includes($ctrl.myRole)" ng-click="$ctrl.addUser('inviteUser.html')"
+      <a
+				ng-if="['DisplayAdmin', 'RiseAdmin'].includes($ctrl.myRole)"
+				ng-click="$ctrl.addUser('inviteUser.html')"
 				class="btn btn-primary btn-lg btn-block">
 				Add User <i class="fa fa-plus icon-right"></i>
 			</a>
@@ -32,15 +36,24 @@
         </div>
       </form>
     </div>
-    <div class="col-xs-5 " >
-      <button ng-click="$ctrl.open('inviteUser.html')" class="btn btn-primary btn-block"><span style="font-size: 13px; line-height: 20px">Add User</span></button>
+    <div class="col-xs-5">
+			<a
+				ng-if="['DisplayAdmin', 'RiseAdmin'].includes($ctrl.myRole)"
+				ng-click="$ctrl.addUser('inviteUser.html')"
+				class="btn btn-primary btn-lg btn-block">
+				Add User <i class="fa fa-plus icon-right"></i>
+			</a>
     </div>
   </div><!--visible-xs-->
-UUU
 <ul>
 	<li ng-repeat="u in $ctrl.tmpUsers">{{u.name}}</li>
 </ul>
 
+<div id="error-message" class="animated fadeIn" ng-show="$ctrl.errorMessage">
+	<div style="padding: 2px 10px; margin-top: 4px" class="alert alert-danger" role="alert">
+		{{$ctrl.errorMessage}}
+	</div>
+</div>
 
   <div class="panel panel-default">
       <table class="table">
