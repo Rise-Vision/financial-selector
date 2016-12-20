@@ -7,7 +7,12 @@
       </ol>
     </div><!--col-->
     <div class="col-sm-3 hidden-xs">
-      <button ng-hide="$ctrl.addDisplay" ng-click="$ctrl.addDisplay = !$ctrl.addDisplay" class="btn btn-primary btn-lg btn-block">Add Display <i class="fa fa-plus icon-right"></i></button>
+      <button
+        ng-hide="$ctrl.myRole !== 'RiseAdmin'"
+        ng-click="$ctrl.addDisplay = !$ctrl.addDisplay"
+        class="btn btn-primary btn-lg btn-block">
+        Add Display <i class="fa fa-plus icon-right"></i>
+      </button>
     </div>
   </div><!--row-->
 
@@ -22,7 +27,7 @@
     </div>
     <div class="col-xs-5">
       <button id="add-display"
-        ng-hide="$ctrl.addDisplay"
+        ng-hide="$ctrl.myRole !== 'RiseAdmin'"
         ng-click="$ctrl.addDisplay = !$ctrl.addDisplay"
         class="btn btn-primary btn-block">
         <span style="font-size: 13px; line-height: 20px">
