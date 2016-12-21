@@ -4,7 +4,7 @@ const assert = require( "assert" ),
   databaseURL = "https://fir-stage.firebaseio.com",
   serviceAccount = require( path.join( __dirname, "private-keys", "financial-selector", "financial-selector-stage-ee22d821c41a-service-account-e2e-tests.json" ) ),
   jenkinsCreds = require( path.join( __dirname, "private-keys", "financial-selector", "jenkins-creds.json" ) ),
-  e2eDisplayPath = "/displays/e2e",
+  e2eDisplayPath = "/displays/G6B7ET3EHGD4",
   e2eHelper = require( "rv-common-e2e" ).helper;
 
 firebase.initializeApp( {
