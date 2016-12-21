@@ -1,5 +1,6 @@
 class displayUsersService {
-  constructor( $firebaseArray, $firebaseObject, firebase, $firebaseAuth, $q ) {
+  constructor( $firebaseArray, $firebaseObject, firebase,
+    $firebaseAuth, $q, emailToUserKey, userKeyToEmail ) {
     "ngInject";
     const root = firebase.database().ref(),
       authMethods = $firebaseAuth( );
@@ -166,22 +167,14 @@ class displayUsersService {
       disinvite,
       myRoleFor,
     };
+
+    function _extractProfileForDisplay( { name, displays, $id }, displayId ) {
+      const { role, accepted } = displays[ displayId ],
+        email = userKeyToEmail( $id );
+
+      return { email, name, $id, role, accepted };
+    }
   }
-}
-
-function emailToUserKey( email ) {
-  return encodeURIComponent( email ).replace( /\./g, "%2E" );
-}
-
-function userKeyToEmail( path ) {
-  return decodeURIComponent( path );
-}
-
-function _extractProfileForDisplay( { name, displays, $id }, displayId ) {
-  const { role, accepted } = displays[ displayId ],
-    email = userKeyToEmail( $id );
-
-  return { email, name, $id, role, accepted };
 }
 
 

@@ -8,9 +8,8 @@ class DisplaysController {
     this.errorMessage = "";
     this.$onInit = () => {
       _loadMyRole();
+      _populateDisplays();
     };
-
-    displayListService.attachListTo( this );
 
     this.submitIdCheck = () => {
       if ( ![ 12, 34, 36 ].includes( this.displayId.length ) ) {
@@ -57,10 +56,14 @@ class DisplaysController {
     } );
 
     let _loadMyRole = $async( async() => {
-      const { displayId } = ctrl;
+        const { displayId } = ctrl;
 
-      ctrl.myRole = await displayUsersService.myRoleFor( displayId );
-    } );
+        ctrl.myRole = await displayUsersService.myRoleFor( displayId );
+      } ),
+
+      _populateDisplays = $async( async() => {
+        this.displayList = await displayListService.getMyDisplays( );
+      } );
 
     function _outputErr( msg, e ) {
       ctrl.errorMessage = `${msg}:${e.message}`;
