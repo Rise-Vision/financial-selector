@@ -31,7 +31,7 @@ describe( "Add List", function() {
     browser.waitForVisible( "#add-list-input" )
     browser.element( "#add-list-input" ).setValue( "e2e-test-list" );
     browser.click( "#submit-add-list" );
-    browser.waitForVisible( "a=Add List", 5000 );
+    browser.waitForVisible( "#add-list-button", 5000 );
     browser.waitUntil( firebase.database().ref( e2eDisplayPath ).once( "value" ).then( ( snap ) => snap.hasChild( "lists" ) ) );
   } );
 } );
