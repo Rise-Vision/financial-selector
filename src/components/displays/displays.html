@@ -64,14 +64,14 @@
 
       <tbody class="table-body">
 
-        <tr class="table-body__row" ng-repeat="(key, value) in $ctrl.displayList">
+        <tr class="table-body__row" ng-repeat="display in $ctrl.displayList">
           <td class="table-body__cell">
-            <a ui-sref="financialLists({displayId: key})">
-              <i class="ss-tv icon-left"></i><strong>{{value.displayName}}</strong>
+            <a ui-sref="financialLists({displayId: display.$id})">
+              <i class="ss-tv icon-left"></i><strong>{{display.displayName}}</strong>
             </a>
           </td>
-          <td class="table-body__cell hidden-xs">{{key}}</td>
-          <td class="table-body__cell hidden-xs">{{value.companyId}}</td>
+          <td class="table-body__cell hidden-xs">{{display.$id}}</td>
+          <td class="table-body__cell hidden-xs">{{display.companyId}}</td>
           <td class="table-header__cell">
             <div class="btn-group" uib-dropdown is-open="status.isopen">
               <button id="single-button" type="button" class="btn btn-xs btn-default" uib-dropdown-toggle ng-disabled="disabled">
@@ -80,7 +80,7 @@
               <ul class="dropdown-menu">
 
                 <li role="menuitem">
-                  <a ng-click="$ctrl.removeDisplay(key)">
+                  <a ng-click="$ctrl.removeDisplay(display.$id)">
                     <span class="text-danger">Remove Display<span>
                   </a>
                 </li>

@@ -3,9 +3,12 @@
 import Firebase from "firebase";
 
 class AuthService {
-  constructor( $firebaseAuth, $state ) {
+  constructor( $firebaseAuth, firebase,
+    $firebaseObject, $state, emailToUserKey ) {
     "ngInject";
-    const firebaseAuthObject = $firebaseAuth();
+    const root = firebase.database().ref(),
+      firebaseAuthObject = $firebaseAuth();
+
     let _loginRedirectTransitioning = false;
 
     return {
@@ -17,6 +20,8 @@ class AuthService {
       firebaseAuthObject,
       redirectIfNotLoggedIn,
       waitForAuthThen,
+      getMyUserId,
+      amIRiseAdmin,
     };
 
     function register( user ) {
@@ -45,6 +50,35 @@ class AuthService {
 
     function waitForAuthThen( doSomething ) {
       return firebaseAuthObject.$waitForSignIn().then( doSomething );
+    }
+
+    async function getMyEmail() {
+      await firebaseAuthObject.$waitForSignIn();
+      const { email } = getAuth();
+
+      return email;
+    }
+
+    async function getMyUserId() {
+
+      return emailToUserKey( await getMyEmail() );
+    }
+
+    async function getMyUserProfile() {
+      const
+        myUserId = await getMyUserId(),
+        myRec = new $firebaseObject( root.child( `users/${myUserId}` ) );
+
+      await myRec.$loaded();
+
+      return myRec;
+    }
+
+    async function amIRiseAdmin() {
+      const { riseAdmin } = await getMyUserProfile();
+
+      //coerce into boolean
+      return !!riseAdmin;
     }
 
     function redirectIfNotLoggedIn() {
