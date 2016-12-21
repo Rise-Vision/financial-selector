@@ -24,7 +24,7 @@ xdescribe( "Remove List is disabled until the show list functionality is working
 
     e2eHelper.googleSignIn( jenkinsCreds.email, jenkinsCreds.pass, "toronto" );
 
-    browser.url( e2eDisplayPath + "/" );
+    browser.url( e2eDisplayPath + "/financial-lists" );
 
     browser.waitForVisible( "a=Add List" )
     browser.click( "a=Add List" );

@@ -24,7 +24,7 @@ describe( "Add List", function() {
 
     e2eHelper.googleSignIn( jenkinsCreds.email, jenkinsCreds.pass, "toronto" );
 
-    browser.url( e2eDisplayPath + "/" );
+    browser.url( e2eDisplayPath + "/financial-lists" );
 
     browser.waitForVisible( "#add-list-button" )
     browser.click( "#add-list-button" );
