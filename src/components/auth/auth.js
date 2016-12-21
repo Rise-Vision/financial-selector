@@ -9,9 +9,20 @@ const PROTECTED_PATHS = [ "profile", "lists" ],
   ] )
 .component( "authFormGoogle", authFormGoogleComponent )
 .service( "authService", AuthService )
+.constant( "emailToUserKey", emailToUserKey )
+.constant( "userKeyToEmail", userKeyToEmail )
 .run( injectFirebaseAuthRedirect )
 .run( setupRouteTransitions )
 .name;
+
+
+function emailToUserKey( email ) {
+  return encodeURIComponent( email ).replace( /\./g, "%2E" );
+}
+
+function userKeyToEmail( path ) {
+  return decodeURIComponent( path );
+}
 
 function injectFirebaseAuthRedirect( $state, authService ) {
   "ngInject";
