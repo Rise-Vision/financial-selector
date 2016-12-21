@@ -1,0 +1,148 @@
+<div ng-show="$ctrl.showAddInstrument" class="bottom-save-block animated fadeInUp">
+  <div class="container text-right">
+    <button class="btn btn-primary" ng-disable="$ctrl.addingInstrument" type="button" ng-click="$ctrl.addInstrument()">Add <i class="fa fa-check icon-right"></i></button>
+    <button class="btn btn-default" type="button" ng-disable="$ctrl.addingInstrument" ng-click="$ctrl.cancel()">Cancel <i class="fa fa-times icon-right"></i></button>
+  </div>
+</div>
+
+<div class="container animated fadeIn">
+
+  <div class="row">
+    <div class="col-sm-9 col-md-9 col-lg-10">
+      <ol class="breadcrumb">
+        <li><a ui-sref="displays"><i class="ss-home icon-left"></i> Displays</a></li>
+        <li><a ui-sref="displayFinancialList">{{$ctrl.displayId}}</a></li>
+        <li class="active"><span>{{$ctrl.instrumentList.listName}}</span></li>
+      </ol>
+    </div><!--col-->
+    <div class="col-sm-3 col-md-3 col-lg-2 hidden-xs">
+      <button ng-hide="$ctrl.showAddInstrument" ng-click="$ctrl.showAddInstrument = true" class="btn btn-primary btn-lg btn-block">Add Instrument <i class="fa fa-plus icon-right"></i></button>
+    </div>
+  </div><!--row--> 
+
+  <div class="row half-top visible-xs">
+    <div class="col-xs-7">
+      <form ng-hide="addDisplay">
+        <div class="input-group add-bottom">
+          <span class="input-group-addon"><i class="fa fa-search"></i></span>
+          <input class="form-control" ng-change="$ctrl.searchInstruments()" ng-model="$ctrl.searchKeyword" ng-model-options="{debounce: 600}" type="text" placeholder="Search Instruments" name="">
+        </div>
+      </form>
+    </div>
+    <div class="col-xs-5">
+      <button ng-hide="$ctrl.showAddInstrument" ng-click="$ctrl.showAddInstrument = true" class="btn btn-primary btn-block"><span style="font-size: 13px; line-height: 20px">Add Instrument</span></button>
+    </div>
+  </div><!--visible-xs-->
+
+  <div class="animated fadeIn" ng-show="$ctrl.showAddInstrument">
+    <div class="">
+      <div class="row">
+        <div class="col-sm-8 hidden-xs">
+          <form>
+            <div class="input-group add-bottom">
+              <span class="input-group-addon"><i class="fa fa-search"></i></span>
+              <input ng-disabled="$ctrl.searching" class="form-control" ng-change="$ctrl.searchInstruments()" ng-model="$ctrl.searchKeyword" ng-model-options="{debounce: 600}" type="text" placeholder="Search Instruments" name="">
+            </div>
+          </form>
+        </div><!--col-->
+
+        <div class="col-sm-4">
+          <div class="form-group">
+            <select ng-disabled="$ctrl.searching" ng-class="{'animated shake' : selectedUser==8}" class="form-control"  ng-options="category for category in $ctrl.categories" ng-model="$ctrl.selectedCategory" ng-change="$ctrl.searchInstruments()"></select> 
+          </div>
+        </div><!--col-->
+      </div><!--row-->
+
+      <div class="animated fadeIn" ng-show="selectedUser==8">
+        <div style="padding: 2px 10px" class="alert alert-danger" role="alert">
+          You are not subscribed to Currencies. <a style="font-weight: 500" href="#">Subscribe here. </a>
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <table class="table table--selector" ng-class="$ctrl.searching ? 'light-table' : ''">
+
+          <thead class="table-header">
+            <tr class="table-header__row">
+              <th class="table-header__cell"><a href="#">Instrument</a></th>
+            </tr>
+          </thead>
+
+          <tbody class="table-body">
+            <tr ng-repeat="(key, value) in $ctrl.instrumentSearch"
+            ng-click="$ctrl.selectInstrument(key)"
+            class="table-body__row"
+            ng-class="{'table-body__row--is-selected' : value.isSelected}">
+              <td class="table-body__cell">
+                <span>
+                  <strong style="margin-right: 4px">{{value.name}}</strong>
+                  <p class="text-muted remove-bottom">{{value.symbol}}</p>
+                </span>
+              </td>
+            </tr>  
+          </tbody>
+        </table>
+      </div><!--panel-->
+    </div>
+  </div> <!--addInstruments-->
+
+
+
+
+  <form ng-hide="$ctrl.showAddInstrument" class="hidden-xs">
+    <div class="input-group half-top add-bottom">
+      <span class="input-group-addon"><i class="fa fa-search"></i></span>
+      <input class="form-control" ng-change="$ctrl.searchInstruments()" ng-model="$ctrl.searchKeyword" ng-model-options="{debounce: 600}" type="text" placeholder="Search Instruments" name="">
+    </div>
+  </form>
+
+  <div ng-hide="$ctrl.showAddInstrument" style="padding: 2px 10px" class="alert alert-danger" role="alert">
+    You are not subscribed to Currencies. <a style="font-weight: 500" href="#">Subscribe here. </a>
+
+  </div>
+
+  <div ng-hide="$ctrl.showAddInstrument" class="panel panel-default">
+    <table class="table table--sortable">
+      <thead class="table-header">
+        <tr class="table-header__row">
+          <th class="table-header__cell"><a href="#">Instrument</a></th>
+          <th class="table-header__cell hidden-xs"><a href="#">Category</a></th>
+          <th class="table-header__cell col-xs-1"></th>
+        </tr>
+      </thead>
+
+      <tbody class="table-body">
+        <tr class="table-body__row {{instruments.category}}" ng-repeat="(key, value) in $ctrl.instrumentList.instruments">
+          <td class="table-body__cell" >
+            <div class="drag-handle"></div>
+
+            <span><strong style="margin-right: 4px">{{value.name}}</strong></span>
+            <p class="text-muted remove-bottom hidden-xs">{{value.symbol}}</p>
+            <p class="text-muted remove-bottom visible-xs">{{value.symbol}}<span style="margin-left: 4px">&middot; {{instruments.category}}</span></p>
+          </td>
+
+          <td class="table-body__cell hidden-xs">
+            <span>{{value.category}}</span>
+
+          </td>
+        </tr>  
+      </tbody>
+    </table>
+  </div><!--panel-->
+</div>
+
+
+<style type="text/css">
+.Currencies td, .Currencies td .text-muted {
+  color: #c7254e;
+}
+  .Currencies .label {
+    color: #c7254e;
+  } 
+  .light-table {
+    opacity: 0.5;
+    cursor: default;
+  }
+  .red-border {
+  }
+</style>
