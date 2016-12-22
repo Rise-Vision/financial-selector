@@ -8,6 +8,7 @@ import Search from "./search/search";
 import Auth from "./auth/auth";
 import Layout from "./layout/layout";
 import FinancialLists from "./financialLists/financialLists";
+import Instruments from "./instruments/instruments";
 
 const componentModule = angular.module( "app.components", [
   //one per line, for easier merge conflict resolution
@@ -20,6 +21,7 @@ const componentModule = angular.module( "app.components", [
   Search,
   Auth,
   FinancialLists,
+  Instruments,
 ] ).name;
 
 export default
