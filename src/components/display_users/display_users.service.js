@@ -1,6 +1,6 @@
 class displayUsersService {
   constructor( $firebaseArray, $firebaseObject, firebase,
-    $firebaseAuth, $q, emailToUserKey, userKeyToEmail ) {
+    $firebaseAuth, $q, encodeForFirebaseProp, decodeForFirebaseProp ) {
     "ngInject";
     const root = firebase.database().ref(),
       authMethods = $firebaseAuth( );
@@ -9,7 +9,7 @@ class displayUsersService {
       await authMethods.$waitForSignIn();
       const { email } = authMethods.$getAuth();
 
-      return emailToUserKey( email );
+      return encodeForFirebaseProp( email );
     }
 
     async function myRoleFor( displayId ) {
@@ -26,7 +26,7 @@ class displayUsersService {
     async function inviteUserToDisplay( { displayId, email, role } ) {
 
       ensureAdminRole( displayId );
-      const userId = emailToUserKey( email ),
+      const userId = encodeForFirebaseProp( email ),
         //run in parallel
         [ userFBObj, displayFBObj ] = await $q.all( [ getUser( userId ), getDisplay( displayId ) ] );
 
@@ -170,7 +170,7 @@ class displayUsersService {
 
     function _extractProfileForDisplay( { name, displays, $id }, displayId ) {
       const { role, accepted } = displays[ displayId ],
-        email = userKeyToEmail( $id );
+        email = decodeForFirebaseProp( $id );
 
       return { email, name, $id, role, accepted };
     }

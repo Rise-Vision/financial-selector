@@ -4,7 +4,7 @@ import Firebase from "firebase";
 
 class AuthService {
   constructor( $firebaseAuth, firebase,
-    $firebaseObject, $state, emailToUserKey ) {
+    $firebaseObject, $state, encodeForFirebaseProp ) {
     "ngInject";
     const root = firebase.database().ref(),
       firebaseAuthObject = $firebaseAuth();
@@ -61,7 +61,7 @@ class AuthService {
 
     async function getMyUserId() {
 
-      return emailToUserKey( await getMyEmail() );
+      return encodeForFirebaseProp( await getMyEmail() );
     }
 
     async function getMyUserProfile() {
