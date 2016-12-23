@@ -54,10 +54,7 @@ class InstrumentsController {
       instrumentAddService.add( instrumentsToAdd, this.listId )
       .then( () => {
         this.addingInstrument = false;
-        this.showAddInstrument = false;
-        this.instrumentSearch.forEach( ( el ) => {
-          el.isSelected = false;
-        } );
+        this.cancel();
       } )
       .catch( ( err ) => {
         this.errorMessage = "Failed to add " + this.newInstrumentName;
