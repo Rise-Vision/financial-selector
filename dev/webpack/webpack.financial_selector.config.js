@@ -50,4 +50,9 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
   },
+  resolve: {
+    alias: {
+      "spin": "spin.js"
+    }
+  },
 };
