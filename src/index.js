@@ -4,12 +4,14 @@ import Components from "./components/components";
 import Firebase from "./firebase";
 import AppComponent from "./app.component";
 import UIBootstrap from "angular-ui-bootstrap";
+import "angular-spinner";
 import "angular-async-await";
 import "rv-common-style/dist/css/rise.css";
 import "normalize.css";
 
 angular.module( "app", [
   "angular-async-await",
+  "angularSpinner",
   uiRouter,
   Components,
   Firebase,

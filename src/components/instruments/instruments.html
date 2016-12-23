@@ -67,7 +67,7 @@
               <th class="table-header__cell"><a href="#">Instrument</a></th>
             </tr>
           </thead>
-
+          <div ng-if="$ctrl.searching" us-spinner></div>
           <tbody class="table-body">
             <tr ng-repeat="(key, value) in $ctrl.instrumentSearch"
             ng-click="$ctrl.selectInstrument(key)"
