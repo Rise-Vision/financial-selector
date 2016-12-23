@@ -12,6 +12,7 @@
       <ol class="breadcrumb">
         <li><a ui-sref="displays"><i class="ss-home icon-left"></i> Displays</a></li>
         <li><a ui-sref="displayFinancialList">{{$ctrl.displayId}}</a></li>
+        <li><a ui-sref="displayFinancialList">financial lists</a></li>
         <li class="active"><span>{{$ctrl.instrumentList.listName}}</span></li>
       </ol>
     </div><!--col-->
@@ -59,6 +60,8 @@
         </div>
       </div>
 
+      <error-message message="$ctrl.errorMessage"></error-message>
+
       <div class="panel panel-default">
         <table class="table table--selector" ng-class="$ctrl.searching ? 'light-table' : ''">
 
@@ -98,8 +101,9 @@
 
   <div ng-hide="$ctrl.showAddInstrument" style="padding: 2px 10px" class="alert alert-danger" role="alert">
     You are not subscribed to Currencies. <a style="font-weight: 500" href="#">Subscribe here. </a>
-
   </div>
+
+  <error-message message="$ctrl.errorMessage"></error-message>
 
   <div ng-hide="$ctrl.showAddInstrument" class="panel panel-default">
     <table class="table table--sortable">
@@ -115,15 +119,26 @@
         <tr class="table-body__row {{instruments.category}}" ng-repeat="(key, value) in $ctrl.instrumentList.instruments">
           <td class="table-body__cell" >
             <div class="drag-handle"></div>
-
             <span><strong style="margin-right: 4px">{{value.name}}</strong></span>
             <p class="text-muted remove-bottom hidden-xs">{{value.symbol}}</p>
             <p class="text-muted remove-bottom visible-xs">{{value.symbol}}<span style="margin-left: 4px">&middot; {{instruments.category}}</span></p>
           </td>
-
           <td class="table-body__cell hidden-xs">
             <span>{{value.category}}</span>
-
+          </td>
+          <td class="table-body__cell">
+            <div class="btn-group" uib-dropdown is-open="status.isopen">
+              <button id="single-button" type="button" class="btn btn-xs btn-default" uib-dropdown-toggle>
+                Actions <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu">
+                <li role="menuitem">
+                  <a ng-click="$ctrl.removeInstrument(key)">
+                    <span class="text-danger">Remove Instrument<span>
+                  </a>
+                </li>
+              </ul>
+            </div>
           </td>
         </tr>  
       </tbody>

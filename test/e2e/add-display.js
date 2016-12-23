@@ -17,7 +17,7 @@ describe( "Add Display", function() {
   this.timeout( 50000 );
 
   it( "should enable adding a display", () => {
-    let expectedAddedDisplayName = "Test_E2E_Financial_Selector"
+    let expectedAddedDisplayName = "Xiyang Test Display 0001"
 
     browser.url( "/" );
 
