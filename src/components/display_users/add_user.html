@@ -10,6 +10,7 @@
 -         ng-pattern="/^(([^<>()\[\]\.,;:\s@\x22]+(\.[^<>()\[\]\.,;:\s@\x22]+)*)|(\x22.+\x22))@(([^<>()[\]\.,;:\s@\x22]+\.)+[^<>()[\]\.,;:\s@\x22]{2,})$/i"
           type="email"
           name="email"
+          id="user-email"
           class="form-control"
           placeholder="Enter Email">
       </div>
@@ -18,7 +19,12 @@
         <div class="col-sm-6">
           <div ng-class="{ 'has-error': inviteForm.role.$dirty && inviteForm.role.$invalid }" class="form-group">
             <label class="control-label">Role</label>
-            <select ng-model="$ctrl.role" required name="role" class="form-control">
+            <select
+              ng-model="$ctrl.role"
+              id="user-role"
+              required
+              name="role"
+              class="form-control">
               <option>DisplayAdmin</option>
               <option>Editor</option>
             </select>
@@ -34,6 +40,7 @@
       type="submit"
       ng-disabled="inviteForm.$invalid || $ctrl.sending"
       class="btn btn-primary"
+      id="submit-add-user"
       type="button">
       {{ $ctrl.sendButtonMessage || "Send Invitation" }}<i class="fa fa-envelope icon-right"></i>
     </button>
