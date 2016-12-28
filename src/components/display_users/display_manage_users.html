@@ -14,6 +14,7 @@
       <a
 				ng-if="['DisplayAdmin', 'RiseAdmin'].includes($ctrl.myRole)"
 				ng-click="$ctrl.addUser('inviteUser.html')"
+				id="add-user-button"
 				class="btn btn-primary btn-lg btn-block">
 				Add User <i class="fa fa-plus icon-right"></i>
 			</a>
@@ -66,8 +67,8 @@
 				<tr class="table-body__row" ng-repeat="user in $ctrl.users">
           <td class="table-body__cell">
             <span>
-							<strong> {{ user.name }} </strong>
-							<span class="text-muted ng-binding">{{ user.email }}</span>
+							<strong>{{ user.name }}</strong>
+							<span class="text-muted ng-binding e2e-user-email">{{ user.email }}</span>
 						</span>
           </td>
           <td class="table-body__cell hidden-xs ng-binding">{{ user.role }}</td>
