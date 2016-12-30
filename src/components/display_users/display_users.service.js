@@ -166,6 +166,7 @@ class displayUsersService {
       getUsersForDisplay,
       disinvite,
       myRoleFor,
+      getUser,
     };
 
     function _extractProfileForDisplay( { name, displays, $id }, displayId ) {
