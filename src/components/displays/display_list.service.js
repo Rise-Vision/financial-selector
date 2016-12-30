@@ -67,7 +67,7 @@ class displayListService {
 
     return {
       getMyDisplays,
-
+      getDisplay,
       async removeDisplay( displayId ) {
         assert( displayId );
         alert( "TODO: remove is not yet fully implemented." );

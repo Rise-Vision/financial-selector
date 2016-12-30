@@ -1,14 +1,12 @@
 class FinancialListsController {
   constructor( financialListAddService, $state,
     authService, displayValidationService, $async,
-  financialListRemoveService, displayUsersService ) {
+  financialListRemoveService, displayUsersService, financialListListService ) {
     "ngInject";
 
     authService.redirectIfNotLoggedIn();
 
-    this.financialLists = [
-      //{id: "-KZTGvwzvwI_CkTi2vil", name: "testname", lastModified: Date.now(), modifiedBy: "Someone"}
-    ];
+    this.financialLists = [];
 
     this.$onInit = () => {
       _validateAndPopulateDisplayInfo();
@@ -57,6 +55,8 @@ class FinancialListsController {
         try {
           this.displayInfo = await displayValidationService.validateAndGet( displayId );
           this.displayId = displayId;
+          this.financialLists = await financialListListService.list(this.displayId);
+          console.log(this.financialLists);
         } catch ( e ) {
           _outputErr( "Failed to validate display", e );
         }

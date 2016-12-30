@@ -3,6 +3,7 @@ import uiRouter from "angular-ui-router";
 import financialListsComponent from "./financialLists.component";
 import financialListAddService from "./financial_list_add.service";
 import financialListRemoveService from "./financial_list_remove.service";
+import financialListListService from "./financial_list_list.service.js";
 import displayUsersService from "../display_users/display_users.service";
 
 const financialListsModule = angular.module( "financialLists", [
@@ -24,6 +25,7 @@ const financialListsModule = angular.module( "financialLists", [
   .component( "financialLists", financialListsComponent )
   .service( "financialListAddService", financialListAddService )
   .service( "financialListRemoveService", financialListRemoveService )
+  .service( "financialListListService", financialListListService )
   .service( "displayUsersService ", displayUsersService )
 
   .name;
