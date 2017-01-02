@@ -12,6 +12,7 @@
     </div><!--col-->
     <div class="col-sm-3 hidden-xs">
       <button
+        id="add-display-button"
         ng-hide="$ctrl.myRole !== 'RiseAdmin'"
         ng-click="$ctrl.addDisplay = !$ctrl.addDisplay"
         class="btn btn-primary btn-lg btn-block">
@@ -30,7 +31,7 @@
       </form>
     </div>
     <div class="col-xs-5">
-      <button id="add-display"
+      <button id="add-display-button"
         ng-hide="$ctrl.myRole !== 'RiseAdmin'"
         ng-click="$ctrl.addDisplay = !$ctrl.addDisplay"
         class="btn btn-primary btn-block">
@@ -78,7 +79,7 @@
               <ul class="dropdown-menu">
 
                 <li role="menuitem">
-                  <a ng-click="$ctrl.removeDisplay(display.$id)">
+                  <a ng-click="$ctrl.removeDisplay(display.$id)" class="btn" >
                     <span class="text-danger">Remove Display<span>
                   </a>
                 </li>
@@ -99,7 +100,9 @@
     <form class="add-top">
       <div class="form-group">
         <label class="control-label">Display ID</label>
-        <input id="display-id" class="form-control" type="text" placeholder="Enter Display ID" name="" ng-model="$ctrl.displayId" ng-change="$ctrl.submitIdCheck()">
+        <input
+          ng-model="$ctrl.displayId" ng-change="$ctrl.submitIdCheck()"
+          id="display-id" class="form-control" type="text" placeholder="Enter Display ID" name="displayId" >
         <error-message message="$ctrl.errorMessage"></error-message>
       </div>
     </form>
