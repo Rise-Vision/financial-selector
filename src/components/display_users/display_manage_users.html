@@ -84,10 +84,10 @@
               </button>
               <ul class="dropdown-menu">
                 <li role="menuitem">
-									<a ng-click="$ctrl.editUser(user)">Edit User</a>
+									<a ng-click="$ctrl.editUser(user)" class="btn">Edit User</a>
 								</li>
                 <li ng-if="!user.status" role="menuitem">
-									<a ng-click="$ctrl.removeUser(user)"><span class="text-danger">Remove User<span></span></span></a>
+									<a ng-click="$ctrl.removeUser(user)" class="btn"><span class="text-danger">Remove User<span></span></span></a>
 								</li>
               </ul>
             </div><!-- Single button -->

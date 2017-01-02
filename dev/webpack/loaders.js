@@ -40,7 +40,6 @@ exports.ngAnnotate = {
 exports.html = {
   test: /\.html$/,
   loader: "raw",
-  exclude: /node_modules/,
 };
 
 exports.css = {

@@ -17,7 +17,8 @@
     "deploy": "node_modules/.bin/firebase deploy",
     "dev": "node_modules/.bin/cross-env node_modules/.bin/webpack-dev-server --inline",
     "test:e2e": "node_modules/.bin/wdio wdio.conf.js",
-    "test": "karma start ./karma.config.js",
+    "test": "npm run test:unit",
+    "test:unit": "karma start ./karma.config.js",
     "test:unit:ci": "karma start ./karma.config.js --single-run true",
     "test:ci": "npm run lint && npm run test:unit:ci && npm run test:e2e",
     "lint": "node_modules/.bin/eslint ./src"
