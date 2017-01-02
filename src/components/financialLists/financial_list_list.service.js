@@ -15,21 +15,22 @@ class financialListListService {
     }
 
     return {
-      async list(displayId ) {
-      let lists = new Array();
-      let display = await displayListService.getDisplay( displayId );
+      async list( displayId ) {
+        let lists = new Array(),
+          display = await displayListService.getDisplay( displayId );
 
-      for (let key in display.lists) {
-        let listObject = await getList(key);
-        let user = await displayUsersService.getUser(encodeForFirebaseProp(listObject.modifiedBy));
-        listObject.modifiedByName = user.name;
-        lists.push(listObject);
+        for ( let key in display.lists ) {
+          let listObject = await getList( key ),
+            user = await displayUsersService.getUser( encodeForFirebaseProp( listObject.modifiedBy ) );
+
+          listObject.modifiedByName = user.name;
+          lists.push( listObject );
+        }
+
+        return lists
       }
-
-      return lists
-    }
-  };
-}
+    };
+  }
 }
 
 export default financialListListService
