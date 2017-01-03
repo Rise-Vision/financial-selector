@@ -1,8 +1,10 @@
 class DisplaysController {
   constructor( displayUsersService, displayValidationService,
-     displaySaveService, displayListService, $async, $scope ) {
+     displaySaveService, displayListService, $async, $scope, $window, confirmDialog ) {
     "ngInject";
     const ctrl = this;
+
+    this.name = "displays";
 
     this.displayValidations = displayValidationService.results;
     this.errorMessage = "";
@@ -48,8 +50,18 @@ class DisplaysController {
     }
 
     this.removeDisplay = $async( async ( displayId ) => {
+
       try {
-        displayListService.removeDisplay( displayId );
+        // will return false if the user cancels the dialog
+        let result = await confirmDialog( {
+          title: "Delete Display",
+          content: `"Are you sure you want to remove display ${displayId}?"`,
+        } );
+
+        if ( result ) {
+          displayListService.removeDisplay( displayId );
+        }
+
       } catch ( e ) {
         _outputErr( "Failed to remove display", e );
       }

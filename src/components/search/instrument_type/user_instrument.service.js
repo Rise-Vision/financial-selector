@@ -1,4 +1,4 @@
-import assert from "assert";
+// import assert from "assert";
 import Firebase from "firebase";
 
 class UserInstrumentService {
@@ -14,9 +14,9 @@ class UserInstrumentService {
     };
 
     function addToList( userId, listId, item ) {
-      assert( userId );
-      assert( listId );
-      assert( item );
+      // assert( userId );
+      // assert( listId );
+      // assert( item );
       const userList = root.child( "userLists/" + userId + "/" + listId ),
         arr = $firebaseArray( userList );
 
@@ -24,8 +24,8 @@ class UserInstrumentService {
     }
 
     function removeFromList( arr, item ) {
-      assert( arr );
-      assert( item );
+      // assert( arr );
+      // assert( item );
       return arr.$remove( item );
     }
 

@@ -5,11 +5,12 @@ import displayValidationService from "./display_validate.service";
 import displaySaveService from "./display_save.service";
 import displayListService from "./display_list.service";
 import commonUtils from "../common_utils";
+import confirmDialog from "../confirm_dialog";
 
 const displayValidationURL = "https://rvaserver2.appspot.com/_ah/api" +
 "/content/v0/display?fields=item(displayName,companyId)&id=DISPLAYID",
 
-  displaysModule = angular.module( "displays", [ commonUtils, uiRouter ] )
+  displaysModule = angular.module( "displays", [ commonUtils, uiRouter, confirmDialog ] )
   .config( ( $stateProvider ) => {
     "ngInject";
     $stateProvider.state( "displays", {

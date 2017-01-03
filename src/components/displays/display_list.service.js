@@ -1,7 +1,8 @@
-import assert from "assert";
+// import assert from "assert";
+import _ from "lodash";
 
 class displayListService {
-  constructor( $window, $firebaseObject, $firebaseArray,
+  constructor( $window, $firebaseObject, $firebaseArray, $q,
     $firebaseAuth, authService ) {
     "ngInject";
 
@@ -26,6 +27,8 @@ class displayListService {
       return true;
     }
 
+    let DisplaysForUser = $firebaseArray.$extend( _DisplaysForUser );
+
     async function getDisplay( displayId ) {
       const display = new $firebaseObject(
         root.child( `displays/${displayId}` )
@@ -35,8 +38,6 @@ class displayListService {
 
       return display;
     }
-
-    let DisplaysForUser = $firebaseArray.$extend( _DisplaysForUser );
 
     async function getMyDisplays() {
 
@@ -65,18 +66,35 @@ class displayListService {
       return displayRecs;
     }
 
+    async function removeDisplay( displayId ) {
+      // assert( displayId );
+      const displayRec = new $firebaseObject(
+        root.child( `displays/${displayId}` )
+      );
+
+      await displayRec.$loaded();
+
+      let displayUsers = displayRec.users || {},
+        displayUserIds = _.keys( displayUsers ),
+        removeDPromises = displayUserIds.map( ( uid ) => _removeDisplayUnderUser( displayId, uid ) );
+
+      return await $q.all( [
+        displayRec.$remove()
+      ].concat( removeDPromises ) );
+    }
+
+    async function _removeDisplayUnderUser( displayId, userId ) {
+      // assert( displayId );
+      // assert( userId );
+      const dUnderU = $firebaseObject( root.child( `users/${userId}/displays/${displayId}` ) );
+
+      return await dUnderU.$remove();
+    }
+
     return {
       getMyDisplays,
       getDisplay,
-      async removeDisplay( displayId ) {
-        assert( displayId );
-        alert( "TODO: remove is not yet fully implemented." );
-        const displayRec = new $firebaseObject(
-          root.child( `displays/${displayId}` )
-        );
-
-        return await displayRec.$remove();
-      }
+      removeDisplay,
     };
   }
 }
