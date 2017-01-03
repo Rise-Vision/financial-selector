@@ -1,5 +1,5 @@
 class InstrumentsController {
-  constructor( displayUsersService, instrumentListService, instrumentAddService, instrumentSearchService, $state, authService, $async ) {
+  constructor( displayUsersService, instrumentListService, instrumentAddService, instrumentRemoveService, instrumentSearchService, $state, authService, $async ) {
     "ngInject";
 
     authService.redirectIfNotLoggedIn();
@@ -33,10 +33,15 @@ class InstrumentsController {
       instrumentSearchService.keywordSearch( this.selectedCategory, this.searchKeyword ) :
       instrumentSearchService.popularSearch( this.selectedCategory );
 
+      this.errorMessage = "";
       this.searching = true;
       promise.then( ( res ) => {
         this.instrumentSearch = res;
         this.searching = false;
+      } )
+      .catch( ( err ) => {
+        this.errorMessage = "Failed search";
+        console.error( err );
       } );
     };
 
@@ -44,6 +49,8 @@ class InstrumentsController {
 
     this.addInstrument = () => {
       let instrumentsToAdd = this.instrumentSearch.filter( el => el.isSelected );
+
+      this.errorMessage = "";
 
       if ( !instrumentsToAdd.length ) {
         return;
@@ -66,6 +73,16 @@ class InstrumentsController {
       this.showAddInstrument = false;
       this.searchKeyword = "";
       this.searchInstruments();
+    };
+
+    this.removeInstrument = ( key ) => {
+      this.errorMessage = "";
+
+      instrumentRemoveService.remove( key, this.listId )
+      .catch( ( err ) => {
+        this.errorMessage = "Failed to remove " + key;
+        console.error( err );
+      } );
     };
 
     let loadMyRoleFor = $async( async( displayId, bindTo ) => {

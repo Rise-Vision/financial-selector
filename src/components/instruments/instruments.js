@@ -2,6 +2,7 @@ import angular from "angular";
 import uiRouter from "angular-ui-router";
 import instrumentsComponent from "./instruments.component";
 import instrumentAddService from "./instrument_add.service";
+import instrumentRemoveService from "./instrument_remove.service";
 import instrumentListService from "./instrument_list.service";
 import instrumentSearchService from "./instrument_search.service";
 
@@ -27,6 +28,7 @@ const instrumentsModule = angular.module( "instruments", [
   } )
   .component( "instruments", instrumentsComponent )
   .service( "instrumentAddService", instrumentAddService )
+  .service( "instrumentRemoveService", instrumentRemoveService )
   .service( "instrumentListService", instrumentListService )
   .service( "instrumentSearchService", instrumentSearchService )
 
