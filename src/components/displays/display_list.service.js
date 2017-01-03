@@ -1,4 +1,4 @@
-import assert from "assert";
+// import assert from "assert";
 import _ from "lodash";
 
 class displayListService {
@@ -67,7 +67,7 @@ class displayListService {
     }
 
     async function removeDisplay( displayId ) {
-      assert( displayId );
+      // assert( displayId );
       const displayRec = new $firebaseObject(
         root.child( `displays/${displayId}` )
       );
@@ -84,8 +84,8 @@ class displayListService {
     }
 
     async function _removeDisplayUnderUser( displayId, userId ) {
-      assert( displayId );
-      assert( userId );
+      // assert( displayId );
+      // assert( userId );
       const dUnderU = $firebaseObject( root.child( `users/${userId}/displays/${displayId}` ) );
 
       return await dUnderU.$remove();
