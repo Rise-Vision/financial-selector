@@ -17,18 +17,24 @@ firebase.initializeApp( {
 
 describe( "Add User For Display", function() {
   this.timeout( 50000 );
-
-  it( "should add user to display", () => {
-    let expectedAddedUserEmail = "e2e-editor-user@example.org";
-
-    browser.url( "/" );
-
+  beforeEach( () => {
     browser.waitUntil( firebase.database().ref( exampleUserPath ).remove().then( () => true ) );
     browser.waitUntil( firebase.database().ref( exampleDisplayUserPath ).remove().then( () => true ) );
+    browser.waitUntil( firebase.database().ref( e2eDisplayPath ).set( {
+      displayName: "E2E_Test_Display"
+    } ).then( () => true ) );
+
+    browser.url( "/" );
 
     browser.element( "#google-signin" ).click();
 
     e2eHelper.googleSignIn( jenkinsCreds.email, jenkinsCreds.pass, "toronto" );
+  } );
+
+  it( "should add user to display", () => {
+    let expectedAddedUserEmail = "e2e-editor-user@example.org";
+
+
     browser.url( e2eDisplayPath + "/users" );
 
     browser.waitForVisible( "#add-user-button" )
