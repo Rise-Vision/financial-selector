@@ -54,7 +54,6 @@ class FinancialListsController {
 
         try {
           this.displayInfo = await displayValidationService.validateAndGet( displayId );
-          this.displayId = displayId;
           this.financialLists = await financialListListService.list( this.displayId );
         } catch ( e ) {
           _outputErr( "Failed to validate display", e );
