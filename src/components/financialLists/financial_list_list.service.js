@@ -1,33 +1,36 @@
 class financialListListService {
-  constructor( $window, displayListService, $firebaseObject, displayUsersService, encodeForFirebaseProp ) {
+  constructor( $window, $firebaseArray ) {
     "ngInject";
 
-    const root = $window.firebase.database().ref();
+    const root = $window.firebase.database().ref(),
+      listData = $firebaseArray.$extend( {
+        $$added( snap ) {
+          return createEntryForKey( snap.getKey() );
+        }
+      } );
 
-    async function getList( listId ) {
-      const list = new $firebaseObject(
-        root.child( `lists/${listId}` )
-    );
+    function createEntryForKey( key ) {
+      return getListDetails()
+      .then( ( details ) => {
+        return getUserName( details );
+      } );
 
-      await list.$loaded();
+      function getListDetails() {
+        return root.child( `lists/${key}` ).once( "value" ).then( ( snap ) => {
+          return Object.assign( {}, { $id: key }, snap.val() );
+        } );
+      }
 
-      return list;
+      function getUserName( details ) {
+        return root.child( `users/${details.modifiedBy}` ).once( "value" ).then( ( snap ) => {
+          return Object.assign( details, { modifiedByName: snap.val().name } );
+        } );
+      }
     }
 
     return {
-      async list( displayId ) {
-        let lists = new Array(),
-          display = await displayListService.getDisplay( displayId );
-
-        for ( let key in display.lists ) {
-          let listObject = await getList( key ),
-            user = await displayUsersService.getUser( encodeForFirebaseProp( listObject.modifiedBy ) );
-
-          listObject.modifiedByName = user.name;
-          lists.push( listObject );
-        }
-
-        return lists
+      list( displayId ) {
+        return new listData( root.child( `displays/${displayId}/lists` ) );
       }
     };
   }
