@@ -15,8 +15,7 @@ module.exports = () => {
     browser.element( "#display-id" ).setValue( "1" );
     browser.waitForVisible( "#error-message", 8000 );
     browser.element( "#display-id" ).setValue( testDisplayId );
-    browser.waitForVisible( "#error-message", 9000, "inverse" )
-    browser.pause( 500 );
+    browser.waitForVisible( "#error-message", 9000, true )
     browser.click( "#submit-display-id" );
     browser.waitForVisible( "button=Add Display", 5000 );
     browser.waitForText( "tbody td", 10000 );
