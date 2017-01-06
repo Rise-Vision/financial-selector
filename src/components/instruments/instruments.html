@@ -11,7 +11,7 @@
     <div class="col-sm-9 col-md-9 col-lg-10">
       <ol class="breadcrumb">
         <li><a ui-sref="displays"><i class="ss-home icon-left"></i> Displays</a></li>
-        <li>{{$ctrl.displayId}}</li>
+        <li>{{$ctrl.displayInfo.displayName}}</li>
         <li><a ui-sref="financialLists({displayId:$ctrl.displayId})">Financial List</a></li>
         <li class="active"><span>{{$ctrl.instrumentList.listName}}</span></li>
       </ol>
