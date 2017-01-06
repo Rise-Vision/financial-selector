@@ -1,0 +1,33 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-title">Edit Financial List</h4>
+</div>
+<form ng-submit="$ctrl.ok()" name="listForm" class="form">
+  <div class="modal-body" id="modal-body">
+
+    <div class="form-group">
+      <label class="control-label">Name</label>
+      <input 
+        ng-model="$ctrl.theList.listName" 
+        type="text"
+        name="name" 
+        class="form-control">
+    </div>
+
+    <error-message message="$ctrl.errorMessage"></error-message>
+  </div>
+
+  <div class="modal-footer">
+    <button 
+      type="submit" 
+      ng-disabled="listForm.$invalid" 
+      class="btn btn-primary" type="button">
+        Save <i class="fa fa-check icon-right"></i>
+      </button>
+    <button 
+      type="button" 
+      ng-click="$ctrl.cancel()"
+      class="btn btn-default" >
+      Cancel <i class="fa fa-times icon-right"></i>
+    </button>
+  </div>
+</form>

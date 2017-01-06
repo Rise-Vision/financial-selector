@@ -45,7 +45,12 @@ const displayUsersModule = angular.module( "display-users", [ uiRouter, commonUt
         const { userId, displayId } = $stateParams;
 
         $controller.modalInstance = $uibModal.open( {
-          template: `<edit-user user-id="${userId}" display-id="${displayId}"></edit-user>`,
+          template: `
+            <edit-user 
+              user-id="${userId}" 
+              display-id="${displayId}">
+            </edit-user>
+          `,
           backdrop: "static",
         } )
       },

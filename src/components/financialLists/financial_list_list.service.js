@@ -1,5 +1,7 @@
 class financialListListService {
-  constructor( $window, $firebaseArray, $firebaseObject ) {
+
+  constructor( $window, displayListService, displayUsersService,
+    $firebaseArray, $firebaseObject ) {
     "ngInject";
 
     const root = $window.firebase.database().ref(),
@@ -27,7 +29,43 @@ class financialListListService {
       } );
     }
 
+    async function getList( listId ) {
+      const list = new $firebaseObject(
+        root.child( `lists/${listId}` )
+    )
+
+      await list.$loaded();
+
+      return list;
+    }
+
+    async function ensureListUnderDisiplay( displayId, listId ) {
+      const lUnderD = $firebaseObject( root.child( `displays/${displayId}/lists/${listId}` ) );
+
+      await lUnderD.$loaded();
+
+      if ( !lUnderD.$value ) {
+        throw new Error( `The ${listId} list does not belong to display ${displayId}` );
+      }
+    }
+
+    async function updateList( displayId, listId, { listName } ) {
+      await Promise.all( [
+        displayUsersService.ensureEditorRole( displayId ),
+        ensureListUnderDisiplay( displayId, listId )
+      ] );
+      const listRec = $firebaseObject( root.child( `lists/${listId}` ) );
+
+      await listRec.$loaded();
+
+      Object.assign( listRec, { listName } );
+
+      return await listRec.$save();
+    }
+
     return {
+      getList,
+      updateList,
       list( displayId ) {
         return new listData( root.child( `displays/${displayId}/lists` ) );
       }
@@ -35,4 +73,4 @@ class financialListListService {
   }
 }
 
-export default financialListListService
+export default financialListListService;
