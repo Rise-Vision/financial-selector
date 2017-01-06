@@ -1,31 +1,30 @@
 class financialListListService {
-  constructor( $window, $firebaseArray ) {
+  constructor( $window, $firebaseArray, $firebaseObject ) {
     "ngInject";
 
     const root = $window.firebase.database().ref(),
       listData = $firebaseArray.$extend( {
         $$added( snap ) {
-          return createEntryForKey( snap.getKey() );
+          return createListObject( snap.getKey() );
         }
       } );
 
-    function createEntryForKey( key ) {
-      return getListDetails()
-      .then( ( details ) => {
-        return getUserName( details );
+    function createListObject( key ) {
+      return root.child( `lists/${key}` ).once( "value" ).then( ( snap ) => {
+        return snap.val().modifiedBy;
+      } )
+      .then( ( modBy ) => {
+        return $firebaseObject( root.child( `users/${modBy}/name` ) ).$loaded();
+      } )
+      .then( ( userNameObject ) => {
+        let listObject = $firebaseObject.$extend( {
+          $$defaults: {
+            modifiedByName: userNameObject.$value
+          }
+        } );
+
+        return new listObject( root.child( `lists/${key}` ) );
       } );
-
-      function getListDetails() {
-        return root.child( `lists/${key}` ).once( "value" ).then( ( snap ) => {
-          return Object.assign( {}, { $id: key }, snap.val() );
-        } );
-      }
-
-      function getUserName( details ) {
-        return root.child( `users/${details.modifiedBy}` ).once( "value" ).then( ( snap ) => {
-          return Object.assign( details, { modifiedByName: snap.val().name } );
-        } );
-      }
     }
 
     return {
