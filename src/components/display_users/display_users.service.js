@@ -1,19 +1,11 @@
 class displayUsersService {
   constructor( $firebaseArray, $firebaseObject, firebase,
-    $firebaseAuth, $q, encodeForFirebaseProp, decodeForFirebaseProp ) {
+    $firebaseAuth, $q, encodeForFirebaseProp, decodeForFirebaseProp, authService ) {
     "ngInject";
-    const root = firebase.database().ref(),
-      authMethods = $firebaseAuth( );
-
-    async function myUserId() {
-      await authMethods.$waitForSignIn();
-      const { email } = authMethods.$getAuth();
-
-      return encodeForFirebaseProp( email );
-    }
+    const root = firebase.database().ref();
 
     async function myRoleFor( displayId ) {
-      const myUid = await myUserId(),
+      const myUid = await authService.getMyUserId(),
         myProfile = await getProfileByDisplayIdAndUserId( displayId, myUid );
 
       if ( myProfile ) {
@@ -95,6 +87,14 @@ class displayUsersService {
       }
     }
 
+    async function ensureEditorRole( displayId ) {
+      const myRole = await myRoleFor( displayId );
+
+      if ( ![ "DisplayAdmin", "RiseAdmin", "Editor" ].includes( myRole ) ) {
+        throw new Error( `You are not an editor for this display (${displayId}).` );
+      }
+    }
+
     function _UsersWithDisplay( ref, displayId ) {
       this.displayId = displayId;
       return $firebaseArray.call( this, ref );
@@ -167,6 +167,8 @@ class displayUsersService {
       disinvite,
       myRoleFor,
       getUser,
+      ensureEditorRole,
+      ensureAdminRole,
     };
 
     function _extractProfileForDisplay( { name, displays, $id }, displayId ) {
