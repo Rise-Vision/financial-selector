@@ -1,5 +1,7 @@
 class InstrumentsController {
-  constructor( displayUsersService, instrumentListService, instrumentAddService, instrumentRemoveService, instrumentSearchService, $state, authService, $async ) {
+  constructor( displayUsersService, instrumentListService, instrumentAddService,
+    instrumentRemoveService, instrumentSearchService, $state, authService, displayValidationService,
+    $async ) {
     "ngInject";
 
     authService.redirectIfNotLoggedIn();
@@ -17,6 +19,7 @@ class InstrumentsController {
 
     this.$onInit = () => {
       loadMyRoleFor( this.displayId, this );
+      _validateAndPopulateDisplayInfo();
     };
 
     instrumentListService.attachListTo( this );
@@ -80,17 +83,30 @@ class InstrumentsController {
 
       instrumentRemoveService.remove( key, this.listId )
       .catch( ( err ) => {
-        this.errorMessage = "Failed to remove " + key;
-        console.error( err );
+        _outputErr( "Failed to remove instrument", err );
       } );
     };
 
     let loadMyRoleFor = $async( async( displayId, bindTo ) => {
-      bindTo.myRole = await displayUsersService.myRoleFor( displayId );
-      if ( ![ "DisplayAdmin", "RiseAdmin" ].includes( this.myRole ) ) {
-        $state.go( "home" );
+        bindTo.myRole = await displayUsersService.myRoleFor( displayId );
+        if ( ![ "DisplayAdmin", "RiseAdmin" ].includes( this.myRole ) ) {
+          $state.go( "home" );
+        }
+      } ),
+
+      _validateAndPopulateDisplayInfo = $async( async() => {
+        const { displayId } = this;
+
+        try {
+          this.displayInfo = await displayValidationService.validateAndGet( displayId );
+        } catch ( e ) {
+          _outputErr( "Failed to validate display", e );
+        }
+      } ),
+      _outputErr = ( msg, e ) => {
+        console.error( e );
+        this.errorMessage = `${msg}: ${e.message}`;
       }
-    } );
   }
 }
 
