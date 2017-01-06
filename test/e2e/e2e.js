@@ -20,5 +20,5 @@ before("log in before all other tests", function() {
 describe( "E2E Tests", function() {
   this.timeout( 90000 );
 
-  tests.forEach((test)=>require(path.join(__dirname, testsPath, test))());
+  tests.filter((el)=>!el.includes(".swp")).forEach((test)=>require(path.join(__dirname, testsPath, test))());
 } );
