@@ -8,7 +8,7 @@ module.exports = function() {
     this.timeout( 50000 );
 
     it( "should enable adding a list", () => {
-      browser.waitUntil( firebase.database().ref( e2eDisplayPath ).remove().then( () => true ) );
+      browser.waitUntil( firebase.database().ref( e2eDisplayPath + "/lists" ).remove().then( () => true ) );
       browser.url( e2eDisplayPath + "/financial-lists" );
 
       browser.waitForVisible( "#add-list-button" )
@@ -18,6 +18,7 @@ module.exports = function() {
       browser.click( "#submit-add-list" );
       browser.waitForVisible( "#add-list-button", 5000 );
       browser.waitUntil( firebase.database().ref( e2eDisplayPath ).once( "value" ).then( ( snap ) => snap.hasChild( "lists" ) ) );
+      browser.waitForVisible( "td=e2e-test-list" );
     } );
   } );
 };
