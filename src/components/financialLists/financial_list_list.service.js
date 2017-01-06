@@ -14,16 +14,16 @@ class financialListListService {
         return snap.val().modifiedBy;
       } )
       .then( ( modBy ) => {
-        return $firebaseObject( root.child( `users/${modBy}/name` ) ).$loaded();
-      } )
-      .then( ( userNameObject ) => {
         let listObject = $firebaseObject.$extend( {
           $$defaults: {
-            modifiedByName: userNameObject.$value
+            modifiedByName: $firebaseObject( root.child( `users/${modBy}/name` ) )
           }
         } );
 
         return new listObject( root.child( `lists/${key}` ) );
+      } )
+      .catch( ( err ) => {
+        console.error( err );
       } );
     }
 
