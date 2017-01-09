@@ -1,6 +1,6 @@
 class instrumentListService {
   constructor( $window, $firebaseObject, authService,
-    financialListListService, $q ) {
+    financialListListService, $q, touch ) {
     "ngInject";
 
     const root = $window.firebase.database().ref();
@@ -23,7 +23,7 @@ class instrumentListService {
 
       return await $q.all( [
         instrumentRec.$save(),
-        financialListListService.touchList( displayId, listId )
+        touch( `lists/${listId}` )
       ] );
     }
 
