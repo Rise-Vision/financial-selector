@@ -12,13 +12,14 @@ class editListController {
       const { listId, displayId } = this;
 
       try {
+        this.submitting = true;
         await financialListListService.updateList( displayId, listId, this.theList );
+        this.submitting = false;
+        $state.go( "^" );
       } catch ( e ) {
         console.error( e );
         this.errorMessage = `Failed to update list: ${e.message}`;
       }
-
-      $state.go( "^" );
     };
 
     this.cancel = async () => {

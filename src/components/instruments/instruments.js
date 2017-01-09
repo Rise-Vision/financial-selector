@@ -5,6 +5,7 @@ import instrumentAddService from "./instrument_add.service";
 import instrumentRemoveService from "./instrument_remove.service";
 import instrumentListService from "./instrument_list.service";
 import instrumentSearchService from "./instrument_search.service";
+import editInstrumentComponent from "./edit_instrument.component";
 
 const instrumentsModule = angular.module( "instruments", [
   uiRouter, ] )
@@ -24,9 +25,34 @@ const instrumentsModule = angular.module( "instruments", [
           return $stateParams.listId
         }
       }
+    } ).state( "instruments.edit", {
+      url: "/instruments/:instrumentId/edit",
+      component: "editInstrument",
+      onEnter: ( $stateParams, $state, $uibModal, $controller ) => {
+        "ngInject";
+
+        const { listId, displayId, instrumentId } = $stateParams;
+
+        $controller.modalInstance = $uibModal.open( {
+          template: `
+            <edit-instrument 
+              list-id="${listId}"
+              display-id="${displayId}"
+              instrument-id="${instrumentId}"
+              >
+            </edit-instrument>`,
+          // cannot dismiss dialog without clicking "cancel"
+          backdrop: "static",
+        } );
+      },
+      onExit: ( $controller ) => {
+        "ngInject";
+        $controller.modalInstance.close();
+      }
     } );
   } )
   .component( "instruments", instrumentsComponent )
+  .component( "editInstrument", editInstrumentComponent )
   .service( "instrumentAddService", instrumentAddService )
   .service( "instrumentRemoveService", instrumentRemoveService )
   .service( "instrumentListService", instrumentListService )
