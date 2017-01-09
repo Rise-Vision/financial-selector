@@ -136,6 +136,9 @@
               </button>
               <ul class="dropdown-menu">
                 <li role="menuitem">
+                  <a ui-sref="instruments.edit({ displayId: $ctrl.displayId, listId: $ctrl.listId, instrumentId: key })">
+                    <span>Edit Name<span>
+                  </a>
                   <a ng-click="$ctrl.removeInstrument(key)">
                     <span class="text-danger">Remove Instrument<span>
                   </a>

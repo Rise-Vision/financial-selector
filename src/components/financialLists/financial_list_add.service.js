@@ -1,5 +1,5 @@
 class financialListAddService {
-  constructor( $window, authService, $q, encodeForFirebaseProp ) {
+  constructor( $window, authService, $q ) {
     "ngInject";
 
     const root = $window.firebase.database().ref();
@@ -15,7 +15,7 @@ class financialListAddService {
           instruments: {},
           creationDate: $window.firebase.database.ServerValue.TIMESTAMP,
           changeDate: $window.firebase.database.ServerValue.TIMESTAMP,
-          modifiedBy: encodeForFirebaseProp( $window.firebase.auth().currentUser.email )
+          modifiedBy: authService.getMyUserId(),
         };
 
         addData[ "/displays/" + displayId + "/lists/" + key ] = true;

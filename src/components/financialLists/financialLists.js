@@ -7,8 +7,10 @@ import financialListListService from "./financial_list_list.service.js";
 import displayUsersService from "../display_users/display_users.service";
 import editListComponent from "./edit_list.component";
 
+import displaysModule from "../displays/displays";
+
 const financialListsModule = angular.module( "financialLists", [
-  uiRouter, ] )
+  uiRouter, displaysModule ] )
 
   .config( ( $stateProvider ) => {
     "ngInject";
