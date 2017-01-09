@@ -6,9 +6,10 @@ import instrumentRemoveService from "./instrument_remove.service";
 import instrumentListService from "./instrument_list.service";
 import instrumentSearchService from "./instrument_search.service";
 import editInstrumentComponent from "./edit_instrument.component";
+import authModule from "../auth/auth";
 
 const instrumentsModule = angular.module( "instruments", [
-  uiRouter, ] )
+  uiRouter, authModule ] )
 
   .config( ( $stateProvider ) => {
     "ngInject";
@@ -35,7 +36,7 @@ const instrumentsModule = angular.module( "instruments", [
 
         $controller.modalInstance = $uibModal.open( {
           template: `
-            <edit-instrument 
+            <edit-instrument
               list-id="${listId}"
               display-id="${displayId}"
               instrument-id="${instrumentId}"

@@ -3,6 +3,7 @@ import uiRouter from "angular-ui-router";
 import authFormGoogleComponent from "./auth-form-google/component";
 import AuthService from "./auth.service";
 import commonUtils from "../common_utils";
+import touchFactory from "./touch.service";
 
 const PROTECTED_PATHS = [ "profile", "lists" ],
   authModule = angular.module( "app.auth", [
@@ -11,6 +12,7 @@ const PROTECTED_PATHS = [ "profile", "lists" ],
   ] )
 .component( "authFormGoogle", authFormGoogleComponent )
 .service( "authService", AuthService )
+.factory( "touch", touchFactory )
 .run( injectFirebaseAuthRedirect )
 .run( setupRouteTransitions )
 .name;

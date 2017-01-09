@@ -8,9 +8,10 @@ import displayUsersService from "../display_users/display_users.service";
 import editListComponent from "./edit_list.component";
 
 import displaysModule from "../displays/displays";
+import authModule from "../auth/auth";
 
 const financialListsModule = angular.module( "financialLists", [
-  uiRouter, displaysModule ] )
+  uiRouter, displaysModule, authModule ] )
 
   .config( ( $stateProvider ) => {
     "ngInject";
@@ -34,7 +35,7 @@ const financialListsModule = angular.module( "financialLists", [
 
         $controller.modalInstance = $uibModal.open( {
           template: `
-            <edit-financial-list 
+            <edit-financial-list
               list-id="${listId}"
               display-id="${displayId}"
               >

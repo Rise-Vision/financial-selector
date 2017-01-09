@@ -4,6 +4,7 @@
     "es6": true,
     "mocha": true,
     "jasmine": true,
+    "commonjs": true,
   },
   "extends": "idiomatic",
   "globals": {
