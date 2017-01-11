@@ -7,9 +7,10 @@ import instrumentListService from "./instrument_list.service";
 import instrumentSearchService from "./instrument_search.service";
 import editInstrumentComponent from "./edit_instrument.component";
 import authModule from "../auth/auth";
+import commonModule from "../common_utils";
 
 const instrumentsModule = angular.module( "instruments", [
-  uiRouter, authModule ] )
+  uiRouter, authModule, commonModule ] )
 
   .config( ( $stateProvider ) => {
     "ngInject";
