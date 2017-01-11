@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 class InstrumentsController {
   constructor( displayUsersService, instrumentListService, instrumentAddService,
     instrumentRemoveService, instrumentSearchService, $state, authService, displayValidationService,
@@ -87,6 +89,25 @@ class InstrumentsController {
       } );
     };
 
+    this.sortItem = $async( async( evt ) => {
+      const { oldIndex, newIndex } = evt,
+        { displayId, listId } = this,
+
+        oldSeq = this.instrumentList.map( ( inst ) => inst.$id ),
+        newSeq = _move( oldSeq, oldIndex, newIndex ),
+
+        oldOrderMap = _orderMap( oldSeq ),
+        newOrderMap = _orderMap( newSeq ),
+
+        diffMap = _diffMap( oldOrderMap, newOrderMap );
+
+      try {
+        await instrumentListService.reorder( displayId, listId, diffMap );
+      } catch ( err ) {
+        _outputErr( "Failed to reorder instrument", err );
+      }
+    } )
+
     let loadMyRoleFor = $async( async( displayId, bindTo ) => {
         bindTo.myRole = await displayUsersService.myRoleFor( displayId );
         if ( ![ "DisplayAdmin", "RiseAdmin", "Editor" ].includes( this.myRole ) ) {
@@ -108,6 +129,40 @@ class InstrumentsController {
         this.errorMessage = `${msg}: ${e.message}`;
       }
   }
+}
+
+function _move( arr, oldIndex, newIndex ) {
+  // immutable
+  let r = arr.concat( [] );
+
+  if ( newIndex >= r.length ) {
+    let k = newIndex - r.length;
+
+    while ( ( k-- ) + 1 ) {
+      r.push( undefined );
+    }
+  }
+  r.splice( newIndex, 0, r.splice( oldIndex, 1 )[ 0 ] );
+  return r;
+}
+
+function _orderMap( arrOfStrings ) {
+  const indices = _.range( arrOfStrings.length );
+
+  return _.zipObject( arrOfStrings, indices );
+}
+
+function _diffMap( fromMap, toMap ) {
+  const diff = {};
+
+  _.forIn( fromMap, ( order, id ) => {
+    if ( toMap[ id ] !== order ) {
+      //register new order
+      diff[ id ] = toMap[ id ];
+    }
+  } );
+
+  return diff;
 }
 
 export default InstrumentsController;

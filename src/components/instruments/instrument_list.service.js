@@ -1,6 +1,8 @@
+import _ from "lodash";
+
 class instrumentListService {
   constructor( $window, $firebaseObject, authService,
-    financialListListService, $q, touch ) {
+    financialListListService, $q, touch, $firebaseArray ) {
     "ngInject";
 
     const root = $window.firebase.database().ref();
@@ -27,13 +29,30 @@ class instrumentListService {
       ] );
     }
 
+    async function reorder( displayId, listId, diffMap ) {
+      await financialListListService.ensureICanEditList( displayId, listId );
+      const orderPromises = _.map( diffMap, ( order, key ) =>
+        root
+          .child( `lists/${listId}/instruments/${key}` )
+          .update( { "order": order } ) );
+
+      await $q.all( orderPromises );
+    }
+
     return {
       getInstrument,
       updateInstrument,
+      reorder,
       attachListTo( target ) {
         authService.waitForAuthThen( () => {
-          target.instrumentList = $firebaseObject(
+          const list = $firebaseArray(
+            root.child( `lists/${target.listId}/instruments` )
+            .orderByChild( "order" ) ),
+            listObj = $firebaseObject(
             root.child( `lists/${target.listId}` ) );
+
+          target.instrumentList = list;
+          target.instrumentListObj = listObj;
         } );
       }
     };

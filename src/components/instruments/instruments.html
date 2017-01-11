@@ -16,7 +16,7 @@
             {{$ctrl.displayInfo.displayName}}
           </a>
         </li>
-        <li class="active"><span>{{$ctrl.instrumentList.listName}}</span></li>
+        <li class="active"><span>{{$ctrl.instrumentListObj.listName}}</span></li>
       </ol>
     </div><!--col-->
     <div class="col-sm-3 col-md-3 col-lg-2 hidden-xs">
@@ -92,9 +92,6 @@
     </div>
   </div> <!--addInstruments-->
 
-
-
-
   <form ng-hide="$ctrl.showAddInstrument" class="hidden-xs">
     <div class="input-group half-top add-bottom">
       <span class="input-group-addon"><i class="fa fa-search"></i></span>
@@ -118,28 +115,41 @@
         </tr>
       </thead>
 
-      <tbody class="table-body">
-        <tr class="table-body__row {{instruments.category}}" ng-repeat="(key, value) in $ctrl.instrumentList.instruments">
+      <tbody class="table-body  sortable-list" rv-sortable on-sort="$ctrl.sortItem(evt)" >
+        <tr
+          ng-repeat="instrument in $ctrl.instrumentList" 
+          class="rv-sortable-item rv-sortable-handle table-body__row {{instruments.category}}">
           <td class="table-body__cell" >
-            <div class="drag-handle"></div>
-            <span><strong style="margin-right: 4px">{{value.name}}</strong></span>
-            <p class="text-muted remove-bottom hidden-xs">{{value.symbol}}</p>
-            <p class="text-muted remove-bottom visible-xs">{{value.symbol}}<span style="margin-left: 4px">&middot; {{instruments.category}}</span></p>
+            <div class="drag-handle "></div>
+            <span>
+              <strong style="margin-right: 4px">
+                {{instrument.name}}
+              </strong>
+            </span>
+            <p class="text-muted remove-bottom hidden-xs">
+              {{instrument.symbol}}
+            </p>
+            <p class="text-muted remove-bottom visible-xs">
+              {{instrument.symbol}}
+              <span style="margin-left: 4px">
+                &middot; {{instruments.category}}
+              </span>
+            </p>
           </td>
           <td class="table-body__cell hidden-xs">
-            <span>{{value.category}}</span>
+            <span>{{instrument.category}}</span>
           </td>
           <td class="table-body__cell">
             <div class="btn-group" uib-dropdown is-open="status.isopen">
-              <button id="single-button" type="button" class="btn btn-xs btn-default" uib-dropdown-toggle>
+              <button uib-dropdown-toggle id="single-button" type="button" class="btn btn-xs btn-default">
                 Actions <span class="caret"></span>
               </button>
               <ul class="dropdown-menu">
                 <li role="menuitem">
-                  <a ui-sref="instruments.edit({ displayId: $ctrl.displayId, listId: $ctrl.listId, instrumentId: key })">
+                  <a ui-sref="instruments.edit({ displayId: $ctrl.displayId, listId: $ctrl.listId, instrumentId: instrument.$id })">
                     <span>Edit Name<span>
                   </a>
-                  <a ng-click="$ctrl.removeInstrument(key)">
+                  <a ng-click="$ctrl.removeInstrument(instrument.$id)">
                     <span class="text-danger">Remove Instrument<span>
                   </a>
                 </li>
