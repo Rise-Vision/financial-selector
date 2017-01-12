@@ -1,14 +1,13 @@
-import sinon from "sinon";
+import sinon, { spy } from "sinon";
 
-describe( "auth", () => {
+describe( "instruments", () => {
   let
     mockFb,
-    touch,
 
     fbUpdateObjSpy;
 
   beforeEach( () => {
-    fbUpdateObjSpy = sinon.spy( async () => {} );
+    fbUpdateObjSpy = spy( async () => {} );
     mockFb = {
       database: () => ( { ref: () => ( {
         child: () => ( {
@@ -26,11 +25,12 @@ describe( "auth", () => {
         },
         getMyUserId: () => "exampleUser"
       } );
+      $provide.service( "financialListListService", () => ( {
+        ensureICanEditList: async () => true,
+      } ) );
       $provide.constant( "firebase", mockFb );
       $provide.constant( "$firebaseAuth", () => {} );
-      $provide.service( "displayUsersService", () => (
-          { ensureEditorRole: async () => {} }
-      ) );
+
       $provide.service( "$firebaseObject", () => ( {
         $loaded: () => {},
       } ) );
@@ -50,21 +50,25 @@ describe( "auth", () => {
     } );
   } );
 
-  beforeEach( window.module( require( "./auth" ).default ) );
+  beforeEach( window.module( require( "./instruments" ).default ) );
 
-  beforeEach( inject( ( $injector ) => {
-    touch = $injector.get( "touch" );
-  } ) );
+  describe( "instrumentListService", () => {
+    let instrumentListService;
 
-  describe( "touch", () => {
-    it( "should modify object attributes", ( done ) => {
-      const lId = "aaaaa";
+    beforeEach( inject( ( $injector ) => {
+      instrumentListService = $injector.get( "instrumentListService" );
+    } ) );
+    describe( "reorder", () => {
+      it( "should call proper firebase functions", async ( ) => {
 
-      touch( `lists/${lId}` ).then( () => {
-        sinon.assert.calledOnce( fbUpdateObjSpy );
-        done();
-      } ).catch( done );
+        await instrumentListService.reorder( "displayA", "listB", {
+          "item1": 2,
+          "item3": 5
+        } );
 
+        sinon.assert.calledWith( fbUpdateObjSpy, { order: 2 } );
+        sinon.assert.calledWith( fbUpdateObjSpy, { order: 5 } );
+      } );
     } );
   } );
 } );
