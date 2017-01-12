@@ -2,7 +2,7 @@ import _ from "lodash";
 
 class instrumentListService {
   constructor( $window, $firebaseObject, authService,
-    financialListListService, $q, touch, $firebaseArray ) {
+    financialListListService, touch, $firebaseArray ) {
     "ngInject";
 
     const root = $window.firebase.database().ref();
@@ -23,7 +23,7 @@ class instrumentListService {
 
       Object.assign( instrumentRec, { name } );
 
-      return await $q.all( [
+      return await Promise.all( [
         instrumentRec.$save(),
         touch( `lists/${listId}` )
       ] );
@@ -31,12 +31,13 @@ class instrumentListService {
 
     async function reorder( displayId, listId, diffMap ) {
       await financialListListService.ensureICanEditList( displayId, listId );
+
       const orderPromises = _.map( diffMap, ( order, key ) =>
         root
           .child( `lists/${listId}/instruments/${key}` )
           .update( { "order": order } ) );
 
-      await $q.all( orderPromises );
+      await Promise.all( orderPromises );
     }
 
     return {
