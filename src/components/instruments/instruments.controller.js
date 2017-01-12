@@ -1,4 +1,6 @@
-import _ from "lodash";
+const zipObject = require( "lodash/zipObject" ),
+  forIn = require( "lodash/forIn" ),
+  range = require( "lodash/range" );
 
 class InstrumentsController {
   constructor( displayUsersService, instrumentListService, instrumentAddService,
@@ -25,12 +27,14 @@ class InstrumentsController {
     };
 
     $scope.$watch( "$ctrl.instrumentListObj.instruments", ( newL ) => {
-      this.instrumentList = _
-        .chain( newL )
-        .keys()
+
+      if ( newL ) {
+        const list = Object.keys( newL )
         .map( ( $id ) => Object.assign( { $id }, newL[ $id ] ) )
-        .orderBy( "order" )
-        .value();
+        .sort( ( i1, i2 ) => ( i1.order || 0 ) - ( i2.order || 0 ) );
+
+        this.instrumentList = list;
+      }
 
     }, true );
 
@@ -157,15 +161,15 @@ function _move( arr, oldIndex, newIndex ) {
 }
 
 function _orderMap( arrOfStrings ) {
-  const indices = _.range( arrOfStrings.length );
+  const indices = range( arrOfStrings.length );
 
-  return _.zipObject( arrOfStrings, indices );
+  return zipObject( arrOfStrings, indices );
 }
 
 function _diffMap( fromMap, toMap ) {
   const diff = {};
 
-  _.forIn( fromMap, ( order, id ) => {
+  forIn( fromMap, ( order, id ) => {
     if ( toMap[ id ] !== order ) {
       //register new order
       diff[ id ] = toMap[ id ];
