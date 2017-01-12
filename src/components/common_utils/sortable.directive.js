@@ -7,7 +7,7 @@ function sortableDirective() {
     scope: {
       onSort: "&"
     },
-    link: function( $scope, $element ) {
+    link: function link( $scope, $element ) {
 
       var sortable;
 

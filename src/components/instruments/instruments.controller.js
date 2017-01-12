@@ -3,7 +3,7 @@ import _ from "lodash";
 class InstrumentsController {
   constructor( displayUsersService, instrumentListService, instrumentAddService,
     instrumentRemoveService, instrumentSearchService, $state, authService, displayValidationService,
-    $async ) {
+    $async, $scope ) {
     "ngInject";
 
     authService.redirectIfNotLoggedIn();
@@ -23,6 +23,16 @@ class InstrumentsController {
       loadMyRoleFor( this.displayId, this );
       _validateAndPopulateDisplayInfo();
     };
+
+    $scope.$watch( "$ctrl.instrumentListObj.instruments", ( newL ) => {
+      this.instrumentList = _
+        .chain( newL )
+        .keys()
+        .map( ( $id ) => Object.assign( { $id }, newL[ $id ] ) )
+        .orderBy( "order" )
+        .value();
+
+    }, true );
 
     instrumentListService.attachListTo( this );
 
