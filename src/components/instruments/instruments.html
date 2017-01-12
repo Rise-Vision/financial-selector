@@ -118,9 +118,9 @@
       <tbody class="table-body  sortable-list" rv-sortable on-sort="$ctrl.sortItem(evt)" >
         <tr
           ng-repeat="instrument in $ctrl.instrumentList" 
-          class="rv-sortable-item rv-sortable-handle table-body__row {{instruments.category}}">
+          class="rv-sortable-item table-body__row {{instruments.category}}">
           <td class="table-body__cell" >
-            <div class="drag-handle "></div>
+            <div class="drag-handle rv-sortable-handle"></div>
             <span>
               <strong style="margin-right: 4px">
                 {{instrument.name}}
