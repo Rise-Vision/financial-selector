@@ -2,7 +2,7 @@ import _ from "lodash";
 
 class instrumentListService {
   constructor( $window, $firebaseObject, authService,
-    financialListListService, touch, $firebaseArray ) {
+    financialListListService, touch ) {
     "ngInject";
 
     const root = $window.firebase.database().ref();
@@ -46,13 +46,9 @@ class instrumentListService {
       reorder,
       attachListTo( target ) {
         authService.waitForAuthThen( () => {
-          const list = $firebaseArray(
-            root.child( `lists/${target.listId}/instruments` )
-            .orderByChild( "order" ) ),
-            listObj = $firebaseObject(
+          const listObj = $firebaseObject(
             root.child( `lists/${target.listId}` ) );
 
-          target.instrumentList = list;
           target.instrumentListObj = listObj;
         } );
       }
