@@ -124,7 +124,7 @@ class InstrumentsController {
 
     let loadMyRoleFor = $async( async( displayId, bindTo ) => {
         bindTo.myRole = await displayUsersService.myRoleFor( displayId );
-        if ( ![ "Administrator", "RiseAdmin", "Editor" ].includes( this.myRole ) ) {
+        if ( ![ "DisplayAdmin", "RiseAdmin", "Editor" ].includes( this.myRole ) ) {
           $state.go( "home" );
         }
       } ),

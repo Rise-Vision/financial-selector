@@ -82,7 +82,7 @@ class displayUsersService {
     async function ensureAdminRole( displayId ) {
       const myRole = await myRoleFor( displayId );
 
-      if ( ![ "Administrator", "RiseAdmin" ].includes( myRole ) ) {
+      if ( ![ "DisplayAdmin", "RiseAdmin" ].includes( myRole ) ) {
         throw new Error( `You are not an admin for this display (${displayId}).` );
       }
     }
@@ -90,7 +90,7 @@ class displayUsersService {
     async function ensureEditorRole( displayId ) {
       const myRole = await myRoleFor( displayId );
 
-      if ( ![ "Administrator", "RiseAdmin", "Editor" ].includes( myRole ) ) {
+      if ( ![ "DisplayAdmin", "RiseAdmin", "Editor" ].includes( myRole ) ) {
         throw new Error( `You are not an editor for this display (${displayId}).` );
       }
     }
