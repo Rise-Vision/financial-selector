@@ -1,13 +1,18 @@
 import angular from "angular";
 import uiRouter from "angular-ui-router";
+
+// Note: order here is important: Rise CSS must be loaded first for some
+// of the CSS override below to work.
+import "rv-common-style/dist/css/rise.css";
+import "normalize.css";
+
 import Components from "./components/components";
 import Firebase from "./firebase";
 import AppComponent from "./app.component";
 import UIBootstrap from "angular-ui-bootstrap";
 import "angular-spinner";
 import "angular-async-await";
-import "rv-common-style/dist/css/rise.css";
-import "normalize.css";
+
 
 angular.module( "app", [
   "angular-async-await",
