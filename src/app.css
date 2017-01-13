@@ -1,0 +1,7 @@
+.table.table--sortable .table-body .table-body__row > .table-body__cell {
+  cursor: default;
+}
+
+.drag-handle {
+  cursor: move;
+}
