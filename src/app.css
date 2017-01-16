@@ -5,3 +5,7 @@
 .drag-handle {
   cursor: move;
 }
+
+.drag-handle.thick {
+  width: 20px;
+}
