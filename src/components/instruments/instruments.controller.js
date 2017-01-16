@@ -31,7 +31,7 @@ class InstrumentsController {
       if ( newL ) {
         const list = Object.keys( newL )
         .map( ( $id ) => Object.assign( { $id }, newL[ $id ] ) )
-        .sort( ( i1, i2 ) => ( i1.order || 0 ) - ( i2.order || 0 ) );
+        .sort( ( i1, i2 ) => _numberify( i1.order ) - _numberify( i2.order ) );
 
         this.instrumentList = list;
       }
@@ -143,6 +143,12 @@ class InstrumentsController {
         this.errorMessage = `${msg}: ${e.message}`;
       }
   }
+}
+
+function _numberify( x ) {
+  // if number is not defined or is invalid, assign the infinity
+  // value to make sure the item stay at the bottom
+  return Number.isInteger( x ) ? x : Number.POSITIVE_INFINITY;
 }
 
 function _move( arr, oldIndex, newIndex ) {
