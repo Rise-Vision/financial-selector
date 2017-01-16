@@ -13,7 +13,6 @@ class financialListAddService {
                 category: el.category,
                 name: el.name,
                 symbol: el.symbol,
-                order: 0
               }
             } );
           }, {} );
