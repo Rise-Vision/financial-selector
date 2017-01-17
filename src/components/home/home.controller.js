@@ -1,5 +1,5 @@
 class HomeController {
-  constructor( $rootScope, authService, $scope, $state ) {
+  constructor( authService, $scope, $state ) {
     "ngInject";
 
     const ctrl = $scope.$ctrl = this;
@@ -16,7 +16,6 @@ class HomeController {
 
     function switchToDisplays() {
       $state.go( "displays" );
-      $rootScope.$broadcast( "userLoggedIn" );
     }
 
     function showError( error ) {

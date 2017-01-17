@@ -1,5 +1,5 @@
 class NavbarController {
-  constructor( $rootScope, $scope, $state, authService ) {
+  constructor( $scope, $state, authService ) {
     "ngInject";
 
     const ctrl = $scope.$ctrl = this;
@@ -17,8 +17,10 @@ class NavbarController {
       } );
     };
 
-    $rootScope.$on( "userLoggedIn", () => {
-      _populateUser();
+    authService.firebaseAuthObject.$onAuthStateChanged( ( user ) => {
+      if ( user ) {
+        _populateUser();
+      }
     } );
 
     function logout() {
