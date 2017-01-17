@@ -26,7 +26,7 @@
       <form ng-hide="$ctrl.addDisplay">
         <div class="input-group add-bottom">
           <span class="input-group-addon"><i class="fa fa-search"></i></span>
-          <input class="form-control" type="text" placeholder="Search Displays" name="">
+          <input class="form-control" type="text" ng-model="$ctrl.displaySearchText" ng-change="$ctrl.searchDisplays()" placeholder="Search Displays" name="">
         </div>
       </form>
     </div>
@@ -45,7 +45,7 @@
   <form class="hidden-xs" ng-hide="$ctrl.addDisplay">
      <div class="input-group half-top add-bottom">
       <span class="input-group-addon"><i class="fa fa-search"></i></span>
-      <input class="form-control" type="text" placeholder="Search Displays" name="">
+      <input class="form-control" type="text" ng-model="$ctrl.displaySearchText" ng-change="$ctrl.searchDisplays()" placeholder="Search Displays" name="">
     </div>
   </form>
 

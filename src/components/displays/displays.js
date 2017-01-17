@@ -10,6 +10,8 @@ import confirmDialog from "../confirm_dialog";
 const displayValidationURL = "https://rvaserver2.appspot.com/_ah/api" +
 "/content/v0/display?fields=item(displayName,companyId)&id=DISPLAYID",
 
+  companyIdLength = 36,
+
   displaysModule = angular.module( "displays", [ commonUtils, uiRouter, confirmDialog ] )
   .config( ( $stateProvider ) => {
     "ngInject";
@@ -20,6 +22,7 @@ const displayValidationURL = "https://rvaserver2.appspot.com/_ah/api" +
 
   } )
   .constant( "displayValidationURL", displayValidationURL )
+  .constant( "companyIdLength", companyIdLength )
   .component( "displays", displaysComponent )
   .service( "displayValidationService", displayValidationService )
   .service( "displaySaveService", displaySaveService )
