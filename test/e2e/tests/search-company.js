@@ -8,6 +8,7 @@ module.exports = () => {
     browser.waitForVisible( "button=Add Display" )
     browser.waitForText( "tbody td strong", 10000 );
     browser.setValue("form.hidden-xs input[ng-model='$ctrl.displaySearchText']", testCompanyId);
+    browser.waitForText( "tbody td strong", 10000 );
     assert.equal( browser.getText( `td strong` ), testDisplayName );
   } );
 };
