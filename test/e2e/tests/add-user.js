@@ -13,7 +13,8 @@ module.exports = function() {
       browser.waitUntil( firebase.database().ref( exampleUserPath ).remove().then( () => true ) );
       browser.waitUntil( firebase.database().ref( exampleDisplayUserPath ).remove().then( () => true ) );
       browser.waitUntil( firebase.database().ref( e2eDisplayPath ).set( {
-        displayName: "E2E_Test_Display"
+        displayName: "E2E_Test_Display",
+        companyId: "a6397169-ad53-4163-9e08-da3e53f3a413"
       } ).then( () => true ) );
     } );
 

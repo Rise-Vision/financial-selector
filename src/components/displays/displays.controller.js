@@ -1,6 +1,6 @@
 class DisplaysController {
   constructor( displayUsersService, displayValidationService,
-     displaySaveService, displayListService, $async, $scope, $window, confirmDialog ) {
+     companyIdLength, displaySaveService, displayListService, $async, $scope, $window, confirmDialog ) {
     "ngInject";
     const ctrl = this;
 
@@ -48,6 +48,17 @@ class DisplaysController {
     this.validationPassed = () => {
       this.errorMessage = "";
     }
+
+    this.searchDisplays = $async( async ( ) => {
+      switch ( this.displaySearchText.length ) {
+      case 0:
+        _populateDisplays();
+        break;
+      case companyIdLength:
+        this.displayList = await displayListService.getDisplaysForCompany( this.displaySearchText );
+        break;
+      }
+    } );
 
     this.removeDisplay = $async( async ( displayId ) => {
 

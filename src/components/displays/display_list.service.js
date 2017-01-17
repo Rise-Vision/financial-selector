@@ -66,6 +66,14 @@ class displayListService {
       return displayRecs;
     }
 
+    async function getDisplaysForCompany( id ) {
+      let query = root.child( "displays" ).orderByChild( "companyId" ).equalTo( id ),
+        displayRecs = new $firebaseArray( query );
+
+      await displayRecs.$loaded();
+      return displayRecs;
+    }
+
     async function removeDisplay( displayId ) {
       // assert( displayId );
       const displayRec = new $firebaseObject(
@@ -95,6 +103,7 @@ class displayListService {
       getMyDisplays,
       getDisplay,
       removeDisplay,
+      getDisplaysForCompany,
     };
   }
 }

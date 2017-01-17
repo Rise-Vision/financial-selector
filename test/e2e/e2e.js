@@ -3,8 +3,7 @@ const assert = require( "assert" ),
   testsPath = "tests",
   firebase = require( "firebase-admin" ),
   databaseURL = "https://fir-stage.firebaseio.com",
-  serviceAccount = require( path.join( __dirname, "private-keys", "financial-selector", "financial-selector-stage-ee22d821c41a-service-account-e2e-tests.json" ) ),
-  e2eDisplayPath = "/displays/G6B7ET3EHGD4";
+  serviceAccount = require( path.join( __dirname, "private-keys", "financial-selector", "financial-selector-stage-ee22d821c41a-service-account-e2e-tests.json" ) );
 
 firebase.initializeApp( {
   credential: firebase.credential.cert( serviceAccount ),
