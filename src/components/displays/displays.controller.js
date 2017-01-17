@@ -1,6 +1,6 @@
 class DisplaysController {
   constructor( displayUsersService, displayValidationService,
-     companyIdLength, displaySaveService, displayListService, $async, $scope, $window, confirmDialog ) {
+     companyIdOrOldDisplayIdLength, recentDisplayIdLength, displaySaveService, displayListService, $async, $scope, $window, confirmDialog ) {
     "ngInject";
     const ctrl = this;
 
@@ -54,8 +54,16 @@ class DisplaysController {
       case 0:
         _populateDisplays();
         break;
-      case companyIdLength:
-        this.displayList = await displayListService.getDisplaysForCompany( this.displaySearchText );
+      case companyIdOrOldDisplayIdLength:
+        this.displayList = [].concat( await displayListService.getDisplayById( this.displaySearchText ) ||
+                            await displayListService.getDisplaysForCompany( this.displaySearchText ) );
+        break;
+      case recentDisplayIdLength:
+        this.displayList = [].concat( await displayListService.getDisplayById( this.displaySearchText ) ||
+                           await displayListService.getDisplayByName( this.displaySearchText ) );
+        break;
+      default:
+        this.displayList = await displayListService.getDisplayByName( this.displaySearchText );
         break;
       }
     } );

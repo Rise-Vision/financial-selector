@@ -16,26 +16,28 @@ class displayListService {
     _DisplaysForUser.prototype.$$added = async function $$added( snap ) {
       const displayId = snap.getKey();
 
-      return await getDisplay( displayId );
+      return await getDisplayById( displayId );
     }
 
     _DisplaysForUser.prototype.$$updated = async function $$updated( snap ) {
       const displayId = snap.getKey(),
         rec = this.$getRecord( displayId );
 
-      Object.assign( rec, await getDisplay( displayId ) );
+      Object.assign( rec, await getDisplayById( displayId ) );
       return true;
     }
 
     let DisplaysForUser = $firebaseArray.$extend( _DisplaysForUser );
 
-    async function getDisplay( displayId ) {
+    async function getDisplayById( displayId ) {
       const display = new $firebaseObject(
         root.child( `displays/${displayId}` )
       );
 
       await display.$loaded();
-
+      if ( !display.displayName ) {
+        return null;
+      }
       return display;
     }
 
@@ -55,6 +57,12 @@ class displayListService {
         return displayArr;
       }
 
+    }
+
+    async function getDisplayByName( name ) {
+      let displays = await getMyDisplays();
+
+      return displays.filter( e => e.displayName.toUpperCase().includes( name.toUpperCase() ) );
     }
 
     async function getAllDisplays() {
@@ -101,8 +109,9 @@ class displayListService {
 
     return {
       getMyDisplays,
-      getDisplay,
+      getDisplayById,
       removeDisplay,
+      getDisplayByName,
       getDisplaysForCompany,
     };
   }
