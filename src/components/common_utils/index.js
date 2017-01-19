@@ -1,5 +1,6 @@
 import errorMessageComponent from "./error_message.component";
 import sortableDirective from "./sortable.directive";
+import { decodeForFirebaseProp, encodeForFirebaseProp } from "../../utils";
 
 const commonUtils = angular.module( "common-utils", [] )
   .component( "errorMessage", errorMessageComponent )
@@ -7,13 +8,5 @@ const commonUtils = angular.module( "common-utils", [] )
   .constant( "decodeForFirebaseProp", decodeForFirebaseProp )
   .directive( "rvSortable", sortableDirective )
   .name;
-
-function encodeForFirebaseProp( email ) {
-  return encodeURIComponent( email ).replace( /\./g, "%2E" );
-}
-
-function decodeForFirebaseProp( path ) {
-  return decodeURIComponent( path );
-}
 
 export default commonUtils;
