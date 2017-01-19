@@ -71,7 +71,7 @@
 							<span class="text-muted ng-binding e2e-user-email">{{ user.email }}</span>
 						</span>
           </td>
-          <td class="table-body__cell hidden-xs ng-binding">{{ user.role }}</td>
+          <td class="table-body__cell hidden-xs ng-binding e2e-user-role">{{ user.role }}</td>
           <td  class="table-body__cell hidden-xs ">
 					<span ng-if="user.status == 'Accepted'" >Accepted</span>
 					<span ng-if="!user.status">Re-Invite</span>
@@ -79,12 +79,12 @@
           <td class="table-body__cell">
 
             <div ng-if="['DisplayAdmin', 'RiseAdmin'].includes($ctrl.myRole)" class="btn-group dropdown" uib-dropdown="" is-open="status.isopen">
-              <button id="single-button" type="button" class="btn btn-xs btn-default dropdown-toggle" uib-dropdown-toggle="" ng-disabled="disabled" aria-haspopup="true" aria-expanded="false">
+              <button id="single-button" type="button" class="btn btn-xs btn-default dropdown-toggle user-actions-dropdown" uib-dropdown-toggle="" ng-disabled="disabled" aria-haspopup="true" aria-expanded="false">
                 Actions <span class="caret"></span>
               </button>
               <ul class="dropdown-menu">
                 <li role="menuitem">
-									<a ng-click="$ctrl.editUser(user)" class="btn">Edit User</a>
+									<a ng-click="$ctrl.editUser(user)" class="btn action-edit-user">Edit User</a>
 								</li>
                 <li ng-if="!user.status" role="menuitem">
 									<a ng-click="$ctrl.removeUser(user)" class="btn"><span class="text-danger">Remove User<span></span></span></a>

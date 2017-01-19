@@ -17,7 +17,7 @@
       <div class="col-sm-6">
         <div ng-class="{ 'has-error': inviteForm.role.$dirty && inviteForm.role.$invalid }" class="form-group">
           <label class="control-label">Role</label>
-          <select ng-model="$ctrl.invite.role" required name="role" class="form-control">
+          <select id="user-role" ng-model="$ctrl.invite.role" required name="role" class="form-control">
             <option value="Editor">Editor</option>
             <option value="DisplayAdmin">Administrator</option>
           </select>
@@ -29,7 +29,7 @@
   </div>
 
   <div class="modal-footer">
-    <button type="submit" ng-disabled="inviteForm.$invalid" class="btn btn-primary" type="button">Save <i class="fa fa-check icon-right"></i></button>
+    <button id="edit-user-save-button" type="submit" ng-disabled="inviteForm.$invalid" class="btn btn-primary" type="button">Save <i class="fa fa-check icon-right"></i></button>
     <button class="btn btn-default" type="button" ng-click="$ctrl.cancel()">Cancel <i class="fa fa-times icon-right"></i></button>
   </div>
 </form>
