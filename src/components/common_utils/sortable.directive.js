@@ -1,5 +1,5 @@
 import Sortable from "sortablejs";
-function sortableDirective() {
+function sortableDirective( $window ) {
   "ngInject";
 
   return {
@@ -14,9 +14,19 @@ function sortableDirective() {
       _applySortable();
 
       function _applySortable() {
+
+        const noop = () => {};
+
+        // needed for solving an iOS 10 scroll bug
+        // see https://github.com/metafizzy/flickity/issues/457#issuecomment-254501356
+        $window.addEventListener( "touchmove", noop );
+        $scope.$on( "$destroy", () => {
+          $window.removeEventListener( "touchmove", noop );
+        } )
+
         sortable = Sortable.create( $element[ 0 ], {
           sort: true,
-          scroll: false,
+          scroll: true,
           animation: 150,
           handle: ".rv-sortable-handle",
           draggable: ".rv-sortable-item",
@@ -26,7 +36,7 @@ function sortableDirective() {
                 evt: evt
               } );
             }
-          }
+          },
         } );
 
         $scope.$on( "$destroy", () => {
