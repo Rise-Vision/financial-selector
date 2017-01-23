@@ -4,10 +4,6 @@
 <form name="inviteForm" class="form" ng-submit="$ctrl.ok()">
   <div class="modal-body" id="modal-body">
 
-    <div class="form-group">
-      <label class="control-label">Name</label>
-      <input ng-model="$ctrl.invite.name" name="name" type="text" class="form-control">
-    </div>
     <div ng-class="{ 'has-error': inviteForm.email.$dirty && inviteForm.email.$invalid }" class="form-group">
       <label class="control-label">Email</label>
       <input disabled="true" ng-model="$ctrl.invite.email" name="email" type="email" class="form-control" value="john@globex.com">

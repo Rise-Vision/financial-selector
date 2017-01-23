@@ -20,6 +20,7 @@ class AuthService {
       firebaseAuthObject,
       redirectIfNotLoggedIn,
       waitForAuthThen,
+      getMyEmail,
       getMyUserId,
       amIRiseAdmin,
     };

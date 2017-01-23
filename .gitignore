@@ -39,3 +39,4 @@ jspm_packages
 /dist
 /error-shots
 /test/e2e/private-keys
+private-keys

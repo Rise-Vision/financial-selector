@@ -7,7 +7,7 @@ function touchFactory( $firebaseObject, authService, $window ) {
 
     await root.child( path ).update( {
       changeDate: $window.firebase.database.ServerValue.TIMESTAMP,
-      modifiedBy: await authService.getMyUserId()
+      modifiedBy: await authService.getMyEmail()
     } );
 
     return true;

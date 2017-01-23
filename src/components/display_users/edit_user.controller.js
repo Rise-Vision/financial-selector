@@ -31,7 +31,7 @@ class displayEditUserController {
       const { userId, displayId } = ctrl;
 
       try {
-        ctrl.invite = await displayUsersService.getUserForDisplay( userId, displayId );
+        ctrl.invite = await displayUsersService.getUserDisplayRoleStatus( userId, displayId );
       } catch ( e ) {
         ctrl.errorMessage = `Failed: ${e.message}`;
         console.error( e );

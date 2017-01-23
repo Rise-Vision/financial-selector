@@ -1,5 +1,5 @@
 class inviteSuccessController {
-  constructor( $state, displayUsersService, $scope, $async ) {
+  constructor( $state, decodeForFirebaseProp, displayUsersService, $scope, $async ) {
     "ngInject";
 
     const ctrl = this;
@@ -14,7 +14,7 @@ class inviteSuccessController {
 
     let _populateInvite = $async( async () => {
       try {
-        ctrl.invite = await displayUsersService.getUserForDisplay( ctrl.userId, ctrl.displayId );
+        ctrl.email = decodeForFirebaseProp( ctrl.userId );
       } catch ( e ) {
         ctrl.errorMessage = `failed to load invite: ${e.message}`;
         console.error( e );

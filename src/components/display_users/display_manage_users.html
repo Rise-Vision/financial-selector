@@ -56,7 +56,7 @@
       <table class="table">
         <thead class="table-header">
           <tr class="table-header__row">
-            <th class="table-header__cell"><a href="#">Name <i class="fa fa-long-arrow-up icon-right"></i></a></th>
+            <th class="table-header__cell"><a href="#">Email <i class="fa fa-long-arrow-up icon-right"></i></a></th>
             <th class="table-header__cell hidden-xs"><a href="#">Role</a></th>
             <th class="table-header__cell hidden-xs"><a href="#">Status</a></th>
             <th class="table-header__cell col-xs-1"></th>
@@ -67,7 +67,6 @@
 				<tr class="table-body__row" ng-repeat="user in $ctrl.users">
           <td class="table-body__cell">
             <span>
-							<strong>{{ user.name }}</strong>
 							<span class="text-muted ng-binding e2e-user-email">{{ user.email }}</span>
 						</span>
           </td>

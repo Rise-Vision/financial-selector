@@ -1,0 +1,5 @@
+{
+  "database": {
+    "rules": "private-keys/financial-selector/db-rules.json"
+  }
+}

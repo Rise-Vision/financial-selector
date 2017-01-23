@@ -8,14 +8,16 @@ class financialListAddService {
       add( name, displayId = "tempDisplayId" ) {
         let deferred = $q.defer(),
           key = root.child( "lists" ).push().key,
+          email = authService.getMyEmail(),
           addData = {};
 
         addData[ "/lists/" + key ] = {
           listName: name,
+          displayId: displayId,
           instruments: {},
           creationDate: $window.firebase.database.ServerValue.TIMESTAMP,
           changeDate: $window.firebase.database.ServerValue.TIMESTAMP,
-          modifiedBy: authService.getMyUserId(),
+          modifiedBy: email,
         };
 
         addData[ "/displays/" + displayId + "/lists/" + key ] = true;
