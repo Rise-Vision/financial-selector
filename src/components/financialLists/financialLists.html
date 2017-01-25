@@ -98,7 +98,7 @@
               <li role="menuitem">
                 <a ui-sref=".edit({ displayId: $ctrl.displayId, listId: value.$id })">Edit Name</a>
               </li>
-              <li role="menuitem" ng-click="$ctrl.removeList(value.$id)"><a href="#"><span class="text-danger">Remove List<span></a></li>
+              <li role="menuitem" ng-click="$ctrl.removeList(value.$id, value.listName)"><a href="#"><span class="text-danger">Remove List<span></a></li>
             </ul>
           </div>
         </td>

@@ -19,6 +19,11 @@ module.exports = function() {
       browser.click( "td div button" );
       browser.click( "span=Remove List" );
 
+      browser.waitForVisible( "button=OK" );
+      browser.waitForVisible( "button=Cancel" );
+
+      browser.click( "button=OK" );
+
       browser.waitForExist( "td=e2e-test-list", 3000, true )
       browser.waitUntil( firebase.database().ref( e2eDisplayPath + "/lists" ).once( "value" ).then( ( snap ) => !snap.hasChild( listRef.key ) ) );
     } );
