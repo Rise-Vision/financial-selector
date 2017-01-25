@@ -4,18 +4,12 @@ class NavbarController {
 
     const ctrl = $scope.$ctrl = this;
 
+    var cancelWatch;
+
     ctrl.name = "navbar";
 
     ctrl.logout = logout;
     ctrl.user = null;
-
-    ctrl.$onInit = () => {
-      authService.waitForAuthThen( () => {
-        if ( authService.getAuth() ) {
-          _populateUser();
-        }
-      } );
-    };
 
     authService.firebaseAuthObject.$onAuthStateChanged( ( user ) => {
       if ( user ) {
@@ -26,16 +20,23 @@ class NavbarController {
     function logout() {
       authService.logout();
       ctrl.user = null;
-      $state.go( "home" );
     }
 
-    function _populateUser() {
-      let { displayName, email } = authService.getAuth();
+    async function _populateUser() {
+      let { displayName, email } = await authService.getAuth();
 
       ctrl.user = {
         name: displayName,
         email: email
       };
+
+      if ( cancelWatch ) {
+        // cancel previous watch
+        cancelWatch;
+      }
+      cancelWatch = $scope.$watch( "$ctrl.user", ( ) => {
+        $state.go( $state.$current, null, { reload: true } );
+      }, true );
     }
   }
 }

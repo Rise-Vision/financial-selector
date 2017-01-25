@@ -99,6 +99,7 @@ class DisplaysController {
         const { displayId } = ctrl;
 
         ctrl.myRole = await displayUsersService.myRoleFor( displayId );
+
       } ),
 
       _populateDisplays = $async( async() => {

@@ -6,6 +6,14 @@ function decodeForFirebaseProp( path ) {
   return decodeURIComponent( path );
 }
 
+function assert( val ) {
+  if ( val === null || val === undefined ) {
+    throw new Error( "Value is required." );
+  }
+}
+
 module.exports = {
-  decodeForFirebaseProp, encodeForFirebaseProp
+  assert,
+  encodeForFirebaseProp,
+  decodeForFirebaseProp
 };

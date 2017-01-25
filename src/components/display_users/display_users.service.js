@@ -1,6 +1,6 @@
 class displayUsersService {
   constructor( $firebaseArray, $firebaseObject, firebase,
-    $firebaseAuth, $q, encodeForFirebaseProp, decodeForFirebaseProp, authService ) {
+    $firebaseAuth, $q, encodeForFirebaseProp, decodeForFirebaseProp, authService, assert ) {
     "ngInject";
     const root = firebase.database().ref();
 
@@ -46,6 +46,8 @@ class displayUsersService {
     }
 
     async function getDisplay( displayId ) {
+      assert( displayId );
+
       const dObj = $firebaseObject( root.child( `displays/${displayId}` ) );
 
       await dObj.$loaded();
@@ -53,6 +55,7 @@ class displayUsersService {
     }
 
     async function getProfileByDisplayIdAndUserId( displayId, userId ) {
+
       const profileRec = $firebaseObject( root.child( `users/${userId}/displays/${displayId}` ) ),
         userRec = $firebaseObject( root.child( `users/${userId}` ) );
 
@@ -65,6 +68,7 @@ class displayUsersService {
     }
 
     async function ensureAdminRole( displayId ) {
+      assert( displayId );
       const myRole = await myRoleFor( displayId );
 
       if ( ![ "DisplayAdmin", "RiseAdmin" ].includes( myRole ) ) {
@@ -73,6 +77,7 @@ class displayUsersService {
     }
 
     async function ensureEditorRole( displayId ) {
+      assert( displayId );
       const myRole = await myRoleFor( displayId );
 
       if ( ![ "DisplayAdmin", "RiseAdmin", "Editor" ].includes( myRole ) ) {
@@ -81,6 +86,7 @@ class displayUsersService {
     }
 
     function _UsersWithDisplay( displayId ) {
+      assert( displayId );
       this.displayId = displayId;
       return $firebaseArray.call( this, root.child( `displays/${displayId}/users` ) );
     }
@@ -102,6 +108,7 @@ class displayUsersService {
     let UsersWithDisplay = $firebaseArray.$extend( _UsersWithDisplay );
 
     async function getUserDisplayRoleStatus( userId, displayId ) {
+      assert( userId && displayId );
       const userDisplayObj = $firebaseObject( root.child( `users/${userId}/displays/${displayId}` ) );
 
       await userDisplayObj.$loaded();

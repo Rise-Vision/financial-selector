@@ -9,3 +9,36 @@
 .drag-handle.thick {
   width: 20px;
 }
+
+.panel-email-login.visible {
+  height: 430px;
+  opacity: 1;
+  transition: all 0.8s;
+}
+
+.auth-form .form-group {
+  text-align: left;
+}
+
+fieldset,
+legend {
+  border: 0;
+  padding: 0;
+}
+
+legend {
+  border-bottom: 1px solid #e5e5e5;
+  display: block;
+  font-size: 21px;
+  line-height: inherit;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.financial-selector.financial-selector--login.is-email-login {
+  background-color: #bcbcbc;
+}
+
+.menu-link {
+  cursor: pointer;
+}

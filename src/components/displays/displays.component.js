@@ -3,7 +3,9 @@ import controller from "./displays.controller";
 
 const displaysComponent = {
   restrict: "E",
-  bindings: {},
+  bindings: {
+    displayId: "@"
+  },
   template,
   controller,
 };
