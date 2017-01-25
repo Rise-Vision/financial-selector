@@ -55,11 +55,11 @@ class DisplaysController {
         _populateDisplays();
         break;
       case companyIdOrOldDisplayIdLength:
-        this.displayList = [].concat( await displayListService.getDisplayById( this.displaySearchText ) ||
+        this.displayList = [].concat( await displayListService.getDisplayNameObjById( this.displaySearchText ) ||
                             await displayListService.getDisplaysForCompany( this.displaySearchText ) );
         break;
       case recentDisplayIdLength:
-        this.displayList = [].concat( await displayListService.getDisplayById( this.displaySearchText ) ||
+        this.displayList = [].concat( await displayListService.getDisplayNameObjById( this.displaySearchText ) ||
                            await displayListService.getDisplayByName( this.displaySearchText ) );
         break;
       default:

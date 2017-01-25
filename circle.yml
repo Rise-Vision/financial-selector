@@ -13,6 +13,7 @@ test:
     - git clone git@github.com:Rise-Vision/private-keys.git
     - cp -r private-keys/financial-selector test/e2e/private-keys
     - ln -s $CIRCLE_ARTIFACTS error-shots
+    - firebase -P fir-stage --token $(cat private-keys/financial-selector/cli-token) deploy --only database
   override:
     - npm run test:ci
 
@@ -39,6 +40,7 @@ deployment:
   production:
     branch: master
     commands:
+      - firebase -P fir-b3915 --token $(cat private-keys/financial-selector/cli-token) deploy --only database
       - NODE_ENV=production npm run build
       # It deploys to production server 2.
       - echo "deploying to production webserver1.risevision.com";

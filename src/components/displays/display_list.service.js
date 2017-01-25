@@ -16,29 +16,29 @@ class displayListService {
     _DisplaysForUser.prototype.$$added = async function $$added( snap ) {
       const displayId = snap.getKey();
 
-      return await getDisplayById( displayId );
+      return { $id: displayId, nameObject: await getDisplayNameObjById( displayId ) };
     }
 
     _DisplaysForUser.prototype.$$updated = async function $$updated( snap ) {
       const displayId = snap.getKey(),
         rec = this.$getRecord( displayId );
 
-      Object.assign( rec, await getDisplayById( displayId ) );
+      Object.assign( rec, { nameObject: await getDisplayNameObjById( displayId ) } );
       return true;
     }
 
     let DisplaysForUser = $firebaseArray.$extend( _DisplaysForUser );
 
-    async function getDisplayById( displayId ) {
-      const display = new $firebaseObject(
-        root.child( `displays/${displayId}` )
+    async function getDisplayNameObjById( displayId ) {
+      const displayName = new $firebaseObject(
+        root.child( `displays/${displayId}/displayName` )
       );
 
-      await display.$loaded();
-      if ( !display.displayName ) {
+      await displayName.$loaded();
+      if ( !displayName.$value ) {
         return null;
       }
-      return display;
+      return displayName;
     }
 
     async function getMyDisplays() {
@@ -109,7 +109,7 @@ class displayListService {
 
     return {
       getMyDisplays,
-      getDisplayById,
+      getDisplayNameObjById,
       removeDisplay,
       getDisplayByName,
       getDisplaysForCompany,

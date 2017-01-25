@@ -24,7 +24,7 @@ describe( "auth", () => {
         firebaseAuthObject: {
           $onAuthStateChanged: () => {}
         },
-        getMyUserId: () => "exampleUser"
+        getMyEmail: () => "exampleEmail"
       } );
       $provide.constant( "firebase", mockFb );
       $provide.constant( "$firebaseAuth", () => {} );

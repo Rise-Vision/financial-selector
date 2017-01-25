@@ -39,7 +39,7 @@ class displayManageUsersController {
         try {
           ctrl.users = await displayUsersService.getUsersForDisplay( displayId );
         } catch ( e ) {
-          _outputErr( "Failed to load users", e );
+          _outputErr( `Failed to load users for ${displayId}`, e );
         }
       } ),
 
