@@ -3,7 +3,7 @@ import _ from "lodash";
 
 class displayListService {
   constructor( $window, $firebaseObject, $firebaseArray, $q,
-    $firebaseAuth, authService ) {
+    $firebaseAuth, authService, assert ) {
     "ngInject";
 
     const root = $window.firebase.database().ref();
@@ -79,6 +79,8 @@ class displayListService {
     }
 
     async function getDisplaysForCompany( id ) {
+      assert( id );
+
       let query = root.child( "displays" ).orderByChild( "companyId" ).equalTo( id ),
         displayRecs = new $firebaseArray( query );
 
@@ -87,6 +89,8 @@ class displayListService {
     }
 
     async function removeDisplay( displayId ) {
+      assert( displayId );
+
       // assert( displayId );
       const displayRec = new $firebaseObject(
         root.child( `displays/${displayId}` )
@@ -104,6 +108,8 @@ class displayListService {
     }
 
     async function _removeDisplayUnderUser( displayId, userId ) {
+      assert( displayId && userId );
+
       // assert( displayId );
       // assert( userId );
       const dUnderU = $firebaseObject( root.child( `users/${userId}/displays/${displayId}` ) );

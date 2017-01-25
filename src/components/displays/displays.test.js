@@ -41,7 +41,7 @@ describe( "Displays", () => {
 
   describe( "Module", () => {
     // top-level specs: i.e., routes, injection, naming
-    it( "default component should be home", () => {
+    it( "default component should be displays", () => {
       $location.url( "/displays" );
       $rootScope.$digest();
       expect( $state.current.component ).to.eq( "displays" );

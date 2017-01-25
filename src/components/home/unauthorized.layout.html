@@ -1,0 +1,16 @@
+<div class="financial-selector financial-selector--login" ng-class="{ 
+    'financial-selector financial-selector--login': !emailLogin,
+    'financial-selector financial-selector--login is-email-login': emailLogin
+  }">
+ <div class="container">
+
+    <div class="financial-selector__container" ng-class="{'email-login-animation' : emailLogin}">
+      <div class="hero" ng-class="{'leave' : emailLogin}">
+        <div ui-view></div>
+      </div>
+      <!--hero-->
+
+    </div>
+    <!--financial-selector__container-->
+    </div>
+</div>

@@ -2,7 +2,7 @@
   <div class="container">
 
     <div class="navbar-header">
-      <a class="navbar-brand" href="index.html">
+      <a class="navbar-brand" ui-sref="unauthorized.home">
         <img alt="Rise Vision Logo"
              src="https://s3.amazonaws.com/Rise-Images/Website/rise-logo.svg">
       </a>
@@ -47,7 +47,7 @@
         <ul class="dropdown-menu">
           <!--li ><a href="#" ng-click="$ctrl.open("template/editUser.html")">User Settings</a></li-->
           <li class="divider"></li>
-          <li><a ng-click="$ctrl.logout()">Log Out</a></li>
+          <li><a class="menu-link" ng-click="$ctrl.logout()">Log Out</a></li>
         </ul>
 
       </li>

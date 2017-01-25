@@ -23,7 +23,7 @@ describe( "Home", () => {
     $compile = $injector.get( "$compile" );
   } ) );
 
-  describe( "Module", () => {
+  xdescribe( "Module", () => {
     // top-level specs: i.e., routes, injection, naming
     it( "default component should be home", () => {
       $location.url( "/" );

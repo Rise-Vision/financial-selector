@@ -1,33 +1,24 @@
-<div class="financial-selector financial-selector--login" ng-class="{ 
-    'financial-selector financial-selector--login': !emailLogin,
-    'financial-selector financial-selector--login is-email-login': emailLogin
-  }">
+<h1>Financial Selector</h1>
 
-  <div class="container">
+<h3 class="add-left add-right">Use Financial Selector to manage the financial instruments in
+  your digital signage.</h3>
+<br>
 
-    <div class="financial-selector__container" ng-class="{'email-login-animation' : emailLogin}">
-      <div class="hero" ng-class="{'leave' : emailLogin}">
-        <h1>Financial Selector</h1>
+<div class="row add-top add-bottom">
+  <div class="col-sm-4 col-sm-offset-4">
+    <div class="login-options">
+      <a ui-sref="unauthorized.passwordLogin" 
+        class="btn btn-google-auth btn-lg btn-block add-bottom">
 
-        <h3 class="add-left add-right">Use Financial Selector to manage the financial instruments in
-          your digital signage.</h3>
-        <br>
-
-        <div class="row add-top add-bottom">
-          <div class="col-sm-4 col-sm-offset-4">
-            <div class="login-options">
-              <auth-form-google
-                submit-action="$ctrl.loginWithGoogle()">
-              </auth-form-google>
-            </div>
-          </div>
-          <!--col-->
-        </div>
-        <!--row-->
-      </div>
-      <!--hero-->
-
+        <span style="margin-left: -20px; ">
+          Log in with Email
+        </span>
+      </a>
+      <auth-form-google
+        submit-action="$ctrl.loginWithGoogle()">
+      </auth-form-google>
     </div>
-    <!--financial-selector__container-->
   </div>
+  <!--col-->
 </div>
+<!--row-->

@@ -25,8 +25,8 @@ class AuthService {
       amIRiseAdmin,
     };
 
-    function register( user ) {
-      return firebaseAuthObject.$createUserWithEmailAndPassword( user.email, user.password );
+    function register( { email, password } ) {
+      return firebaseAuthObject.$createUserWithEmailAndPassword( email, password );
     }
 
     function login( user ) {
@@ -45,7 +45,8 @@ class AuthService {
       firebaseAuthObject.$signOut();
     }
 
-    function getAuth() {
+    async function getAuth() {
+      await firebaseAuthObject.$waitForSignIn();
       return firebaseAuthObject.$getAuth();
     }
 
@@ -54,8 +55,7 @@ class AuthService {
     }
 
     async function getMyEmail() {
-      await firebaseAuthObject.$waitForSignIn();
-      const { email } = getAuth();
+      const { email } = await getAuth() || {};
 
       return email;
     }
@@ -68,9 +68,9 @@ class AuthService {
     async function getMyUserProfile() {
       const
         myUserId = await getMyUserId(),
-        myRec = new $firebaseObject( root.child( `users/${myUserId}` ) );
+        myRec = myUserId && new $firebaseObject( root.child( `users/${myUserId}` ) );
 
-      await myRec.$loaded();
+      myRec && await myRec.$loaded();
 
       return myRec;
     }
@@ -85,11 +85,13 @@ class AuthService {
     function redirectIfNotLoggedIn() {
       if ( !_loginRedirectTransitioning ) {
         _loginRedirectTransitioning = true;
-        firebaseAuthObject.$waitForSignIn().then( function markAndGoToLogin() {
-          if ( !getAuth() ) {
-            $state.go( "home" ).then( function markOffTransition() {
+        getAuth().then( ( auth ) => {
+          if ( !auth ) {
+            $state.go( "unauthorized.home" ).then( () => {
               _loginRedirectTransitioning = false;
             } );
+          } else {
+            _loginRedirectTransitioning = false;
           }
         } );
       }
