@@ -1,14 +1,13 @@
 class financialListAddService {
-  constructor( $window, authService, $q ) {
+  constructor( $window, authService ) {
     "ngInject";
 
     const root = $window.firebase.database().ref();
 
     return {
-      add( name, displayId = "tempDisplayId" ) {
-        let deferred = $q.defer(),
-          key = root.child( "lists" ).push().key,
-          email = authService.getMyEmail(),
+      async add( name, displayId = "tempDisplayId" ) {
+        let key = root.child( "lists" ).push().key,
+          email = await authService.getMyEmail(),
           addData = {};
 
         addData[ "/lists/" + key ] = {
@@ -22,11 +21,8 @@ class financialListAddService {
 
         addData[ "/displays/" + displayId + "/lists/" + key ] = true;
 
-        root.update( addData )
-        .then( () => deferred.resolve() )
-        .catch( ( err ) => deferred.reject( err ) );
+        await root.update( addData )
 
-        return deferred.promise;
       }
     };
   }
