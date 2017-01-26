@@ -6,6 +6,7 @@ const e2eUserPath = "users/kO4s1ZzjRIP7JVhBSjQ3Etgszpm2",
 module.exports = () => {
   it( "should enable searching for a company", () => {
     browser.waitForVisible( "button=Add Display" )
+    browser.waitForExist( "tbody td strong", 10000 );
     browser.waitForText( "tbody td strong", 10000 );
     browser.setValue("form.hidden-xs input[ng-model='$ctrl.displaySearchText']", testCompanyId);
     browser.waitForText( "tbody td strong", 10000 );
