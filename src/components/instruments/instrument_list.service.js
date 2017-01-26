@@ -37,7 +37,7 @@ class instrumentListService {
           .child( `lists/${listId}/instruments/${key}` )
           .update( { "order": order } ) );
 
-      await Promise.all( orderPromises );
+      await Promise.all( orderPromises, Promise.resolve( touch( `lists/${listId}` ) ) );
     }
 
     return {
