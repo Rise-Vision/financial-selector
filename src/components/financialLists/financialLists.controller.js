@@ -1,7 +1,7 @@
 class FinancialListsController {
   constructor( financialListAddService, $state,
     authService, displayValidationService, $async,
-  financialListRemoveService, displayUsersService, financialListListService ) {
+  financialListRemoveService, displayUsersService, financialListListService, confirmDialog ) {
     "ngInject";
 
     authService.redirectIfNotLoggedIn();
@@ -30,15 +30,24 @@ class FinancialListsController {
         this.errorMessage = "Failed to add " + this.newListName;
         console.error( err );
       } );
-    }
+    };
 
-    this.removeList = ( listId ) => {
-      financialListRemoveService.remove( listId, this.displayId )
-      .catch( ( err ) => {
-        this.errorMessage = "Failed to remove " + this.financialLists.find( ( el ) => el.id === listId ).id;
-        console.error( err );
-      } );
-    }
+    this.removeList = $async( async ( listId, listName ) => {
+      try {
+        // will return false if the user cancels the dialog
+        let result = await confirmDialog( {
+          title: "Delete Financial List",
+          content: `Are you sure you want to remove financial list "${listName}" ?`,
+        } );
+
+        if ( result ) {
+          financialListRemoveService.remove( listId, this.displayId );
+        }
+
+      } catch ( e ) {
+        _outputErr( "Failed to remove " + this.financialLists.find( ( el ) => el.id === listId ).id, e );
+      }
+    } );
 
     this.cancel = () => {
       this.showAddList = false;

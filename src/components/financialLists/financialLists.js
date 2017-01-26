@@ -9,9 +9,10 @@ import editListComponent from "./edit_list.component";
 
 import displaysModule from "../displays/displays";
 import authModule from "../auth/auth";
+import confirmDialog from "../confirm_dialog";
 
 const financialListsModule = angular.module( "financialLists", [
-  uiRouter, displaysModule, authModule ] )
+  uiRouter, displaysModule, authModule, confirmDialog ] )
 
   .config( ( $stateProvider ) => {
     "ngInject";
