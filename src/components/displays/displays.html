@@ -62,7 +62,8 @@
         </tr>
       </thead>
 
-      <tbody class="table-body">
+      <div ng-if="!$ctrl.displayList.length" us-spinner></div>
+      <tbody ng-if="$ctrl.displayList.length" class="table-body">
 
         <tr class="table-body__row" ng-repeat="display in $ctrl.displayList">
           <td class="table-body__cell">
