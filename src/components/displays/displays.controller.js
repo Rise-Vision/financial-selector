@@ -9,6 +9,7 @@ class DisplaysController {
     this.displayValidations = displayValidationService.results;
     this.errorMessage = "";
     this.$onInit = () => {
+      this.loading = true;
       _loadMyRole();
       _populateDisplays();
     };
@@ -102,6 +103,7 @@ class DisplaysController {
 
       _populateDisplays = $async( async() => {
         this.displayList = await displayListService.getMyDisplays( );
+        this.loading = false;
       } );
 
     function _outputErr( msg, e ) {
