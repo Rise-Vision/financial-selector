@@ -59,10 +59,14 @@ class displayListService {
 
     }
 
-    async function getDisplayByName( name ) {
+    async function getDisplayByName( searchName ) {
       let displays = await getMyDisplays();
 
-      return displays.filter( e => e.displayName.toUpperCase().includes( name.toUpperCase() ) );
+      return displays.filter( e => e.displayName ? displayNameMatchesSearch( e.displayName ) : displayNameMatchesSearch( e.nameObject.$value ) );
+
+      function displayNameMatchesSearch( displayName ) {
+        return displayName.toUpperCase().includes( searchName.toUpperCase() );
+      }
     }
 
     async function getAllDisplays() {

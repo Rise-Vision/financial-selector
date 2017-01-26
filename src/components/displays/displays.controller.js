@@ -50,17 +50,25 @@ class DisplaysController {
     }
 
     this.searchDisplays = $async( async ( ) => {
+      let displayIdResult,
+        companyResult,
+        nameResult;
+
       switch ( this.displaySearchText.length ) {
       case 0:
         _populateDisplays();
         break;
       case companyIdOrOldDisplayIdLength:
-        this.displayList = [].concat( await displayListService.getDisplayNameObjById( this.displaySearchText ) ||
-                            await displayListService.getDisplaysForCompany( this.displaySearchText ) );
+        displayIdResult = await displayListService.getDisplayNameObjById( this.displaySearchText );
+        companyResult = await displayListService.getDisplaysForCompany( this.displaySearchText );
+
+        this.displayList = [].concat( displayIdResult || companyResult );
         break;
       case recentDisplayIdLength:
-        this.displayList = [].concat( await displayListService.getDisplayNameObjById( this.displaySearchText ) ||
-                           await displayListService.getDisplayByName( this.displaySearchText ) );
+        displayIdResult = await displayListService.getDisplayNameObjById( this.displaySearchText );
+        nameResult = await displayListService.getDisplayByName( this.displaySearchText );
+
+        this.displayList = [].concat( displayIdResult || nameResult )
         break;
       default:
         this.displayList = await displayListService.getDisplayByName( this.displaySearchText );

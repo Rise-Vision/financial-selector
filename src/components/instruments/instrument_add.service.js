@@ -1,5 +1,5 @@
 class financialListAddService {
-  constructor( $window, authService, $q ) {
+  constructor( $window, authService, $q, touch ) {
     "ngInject";
 
     const root = $window.firebase.database().ref();
@@ -18,6 +18,9 @@ class financialListAddService {
           }, {} );
 
         root.child( `lists/${listId}/instruments` ).update( addData )
+        .then( () => {
+          touch( `lists/${listId}` );
+        } )
         .then( () => deferred.resolve() )
         .catch( ( err ) => deferred.reject( err ) );
 
@@ -27,4 +30,4 @@ class financialListAddService {
   }
 }
 
-export default financialListAddService
+export default financialListAddService;

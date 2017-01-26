@@ -13,6 +13,7 @@ firebase.initializeApp( {
 let tests = require("fs").readdirSync(path.join(__dirname, testsPath));
 
 before("log in before all other tests", function() {
+  this.timeout( 50000 );
   require("./login")();
 });
 
