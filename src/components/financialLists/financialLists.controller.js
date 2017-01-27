@@ -1,10 +1,11 @@
 class FinancialListsController {
   constructor( financialListAddService, $state,
     authService, displayValidationService, $async,
-  financialListRemoveService, displayUsersService, financialListListService, confirmDialog ) {
+  financialListRemoveService, displayUsersService, financialListListService, confirmDialog, timeZone ) {
     "ngInject";
 
     this.financialLists = [];
+    this.timeZone = timeZone;
 
     this.$onInit = () => {
       _validateAndPopulateDisplayInfo();

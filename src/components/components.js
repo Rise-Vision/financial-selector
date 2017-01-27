@@ -22,7 +22,12 @@ const componentModule = angular.module( "app.components", [
   Auth,
   FinancialLists,
   Instruments,
-] ).name;
+] )
+.constant( "timeZone", Date().toString()
+  .split( " " )
+  .filter( e => e.includes( "(" ) )
+  .map( e => e.replace( "(", " " ).replace( ")", "" ) )[ 0 ] || "" )
+.name;
 
 export default
 componentModule;
