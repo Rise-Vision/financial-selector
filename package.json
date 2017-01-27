@@ -88,7 +88,6 @@
     "url-loader": "^0.5.7",
     "wdio-mocha-framework": "^0.5.8",
     "wdio-selenium-standalone-service": "0.0.7",
-    "wdio-spec-reporter": "0.0.5",
     "wdio-static-server-service": "git://github.com/Rise-Vision/wdio-static-server-service.git#v1.0.3",
     "webdriverio": "^4.6.2",
     "webpack": "^1.9.5",
