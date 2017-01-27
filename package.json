@@ -37,7 +37,7 @@
     "normalize.css": "^4.2.0",
     "q": "^1.4.1",
     "rv-common-i18n": "https://github.com/Rise-Vision/common-i18n.git#1.4.0",
-    "rv-common-style": "https://github.com/Rise-Vision/common-style.git#v1.3.88",
+    "rv-common-style": "https://github.com/Rise-Vision/common-style.git#v1.3.99",
     "sortablejs": "^1.5.0-rc1"
   },
   "devDependencies": {
