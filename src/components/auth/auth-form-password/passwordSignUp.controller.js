@@ -8,11 +8,12 @@ class PasswordSignUpController {
       try {
         await authService.register( user );
         await authService.login( user );
+        await authService.sendEmailVerification();
+        await authService.redirectIfNotLoggedIn();
         $state.go( "displays" );
       } catch ( e ) {
         console.error( e );
         _outputError( e );
-
       }
     } );
 
