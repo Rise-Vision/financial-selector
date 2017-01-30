@@ -83,7 +83,7 @@ class DisplaysController {
         // will return false if the user cancels the dialog
         let result = await confirmDialog( {
           title: "Delete Display",
-          content: `"Are you sure you want to remove display ${displayId}?"`,
+          content: `Are you sure you want to remove display ${displayId}?`,
         } );
 
         if ( result ) {
