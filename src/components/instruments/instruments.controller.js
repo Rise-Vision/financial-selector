@@ -8,8 +8,6 @@ class InstrumentsController {
     $async, $scope ) {
     "ngInject";
 
-    authService.redirectIfNotLoggedIn();
-
     this.categories = [
       "Stocks",
       "Market Statistics",

@@ -4,8 +4,6 @@ class NavbarController {
 
     const ctrl = $scope.$ctrl = this;
 
-    var cancelWatch;
-
     ctrl.name = "navbar";
 
     ctrl.logout = logout;
@@ -19,7 +17,7 @@ class NavbarController {
 
     function logout() {
       authService.logout();
-      ctrl.user = null;
+      $state.go( $state.$current, null, { reload: true } );
     }
 
     async function _populateUser() {
@@ -29,14 +27,6 @@ class NavbarController {
         name: displayName,
         email: email
       };
-
-      if ( cancelWatch ) {
-        // cancel previous watch
-        cancelWatch;
-      }
-      cancelWatch = $scope.$watch( "$ctrl.user", ( ) => {
-        $state.go( $state.$current, null, { reload: true } );
-      }, true );
     }
   }
 }
