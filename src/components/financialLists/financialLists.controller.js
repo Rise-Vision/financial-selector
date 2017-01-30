@@ -4,8 +4,6 @@ class FinancialListsController {
   financialListRemoveService, displayUsersService, financialListListService, confirmDialog ) {
     "ngInject";
 
-    authService.redirectIfNotLoggedIn();
-
     this.financialLists = [];
 
     this.$onInit = () => {

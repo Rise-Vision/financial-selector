@@ -9,8 +9,6 @@ class AuthService {
     const root = firebase.database().ref(),
       firebaseAuthObject = $firebaseAuth();
 
-    let _loginRedirectTransitioning = false;
-
     return {
       register,
       login,
@@ -19,7 +17,7 @@ class AuthService {
       getAuth,
       sendEmailVerification,
       firebaseAuthObject,
-      redirectIfNotLoggedIn,
+      needRedirect,
       waitForAuthThen,
       getMyEmail,
       getMyUserId,
@@ -27,7 +25,7 @@ class AuthService {
     };
 
     async function register( { email, password } ) {
-      await firebaseAuthObject.$createUserWithEmailAndPassword( email, password );
+      return await firebaseAuthObject.$createUserWithEmailAndPassword( email, password );
     }
 
     async function sendEmailVerification() {
@@ -89,18 +87,15 @@ class AuthService {
       return !!riseAdmin;
     }
 
-    async function redirectIfNotLoggedIn() {
-      if ( !_loginRedirectTransitioning ) {
-        _loginRedirectTransitioning = true;
-        const auth = await getAuth();
+    async function needRedirect() {
+      const auth = await getAuth();
 
-        if ( !auth ) {
-          await $state.go( "unauthorized.home" );
-        } else if ( !auth.emailVerified ) {
-          await $state.go( "unauthorized.needVerification" );
-        }
-
-        _loginRedirectTransitioning = false;
+      if ( !auth ) {
+        return "unauthorized.home";
+      } else if ( !auth.emailVerified ) {
+        return "unauthorized.needVerification";
+      } else {
+        return null;
       }
     }
   }

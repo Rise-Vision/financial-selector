@@ -9,8 +9,7 @@ class PasswordSignUpController {
         await authService.register( user );
         await authService.login( user );
         await authService.sendEmailVerification();
-        await authService.redirectIfNotLoggedIn();
-        $state.go( "displays" );
+        $state.go( "unauthorized.needVerification" );
       } catch ( e ) {
         console.error( e );
         _outputError( e );

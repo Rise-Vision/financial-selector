@@ -53,7 +53,6 @@ class displayListService {
         )
 
         await displayArr.$loaded();
-
         return displayArr;
       }
 

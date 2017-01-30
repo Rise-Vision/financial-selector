@@ -57,20 +57,9 @@ const UNPROTECTED_PATHS = [ "unauthorized.home",
 .component( "authFormGoogle", authFormGoogleComponent )
 .service( "authService", AuthService )
 .factory( "touch", touchFactory )
-.run( injectFirebaseAuthRedirect )
 .run( setupRouteTransitions )
 .name;
 
-function injectFirebaseAuthRedirect( $state, authService ) {
-  "ngInject";
-
-  authService.firebaseAuthObject.$onAuthStateChanged( function redirectIfNoAccessRights( authData ) {
-    if ( !authData && pathIsProtected( $state.current.name ) ) {
-      authService.logout();
-      authService.redirectIfNotLoggedIn();
-    }
-  } );
-}
 
 function setupRouteTransitions( $state, $transitions, authService ) {
   "ngInject";
@@ -78,10 +67,16 @@ function setupRouteTransitions( $state, $transitions, authService ) {
   $transitions.onBefore( {
     from: "*",
     to: function to( state ) {
-      return pathIsProtected( state.name );
+      return pathIsProtected( state.name ) && state.name !== "unauthorized.needVerification";
     }
-  }, () => {
-    authService.redirectIfNotLoggedIn();
+  }, async () => {
+    const newState = await authService.needRedirect();
+
+    if ( newState ) {
+      return $state.target( newState );
+    } else {
+      return true;
+    }
   } );
 }
 
