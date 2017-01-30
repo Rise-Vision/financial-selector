@@ -17,6 +17,7 @@ class AuthService {
       loginWithGoogle,
       logout,
       getAuth,
+      sendEmailVerification,
       firebaseAuthObject,
       redirectIfNotLoggedIn,
       waitForAuthThen,
@@ -25,8 +26,14 @@ class AuthService {
       amIRiseAdmin,
     };
 
-    function register( { email, password } ) {
-      return firebaseAuthObject.$createUserWithEmailAndPassword( email, password );
+    async function register( { email, password } ) {
+      await firebaseAuthObject.$createUserWithEmailAndPassword( email, password );
+    }
+
+    async function sendEmailVerification() {
+      const auth = await getAuth();
+
+      return await auth.sendEmailVerification();
     }
 
     function login( user ) {
@@ -82,18 +89,18 @@ class AuthService {
       return !!riseAdmin;
     }
 
-    function redirectIfNotLoggedIn() {
+    async function redirectIfNotLoggedIn() {
       if ( !_loginRedirectTransitioning ) {
         _loginRedirectTransitioning = true;
-        getAuth().then( ( auth ) => {
-          if ( !auth ) {
-            $state.go( "unauthorized.home" ).then( () => {
-              _loginRedirectTransitioning = false;
-            } );
-          } else {
-            _loginRedirectTransitioning = false;
-          }
-        } );
+        const auth = await getAuth();
+
+        if ( !auth ) {
+          await $state.go( "unauthorized.home" );
+        } else if ( !auth.emailVerified ) {
+          await $state.go( "unauthorized.needVerification" );
+        }
+
+        _loginRedirectTransitioning = false;
       }
     }
   }

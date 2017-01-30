@@ -8,8 +8,13 @@ import passwordFormComponent from "./auth-form-password/passwordForm.component";
 import passwordLoginComponent from "./auth-form-password/passwordLogin.component";
 import passwordSignUpComponent from "./auth-form-password/passwordSignUp.component";
 import forgetPasswordComponent from "./auth-form-password/forgetPassword.component";
+import needVerificationComponent from "./auth-form-password/needVerification.component";
 
-const UNPROTECTED_PATHS = [ "unauthorized.home" ],
+const UNPROTECTED_PATHS = [ "unauthorized.home",
+    "unauthorized.passwordLogin",
+    "unauthorized.passwordSignUp",
+    "unauthorized.forgetPassword",
+    "unauthorized.emailSent" ],
   authModule = angular.module( "app.auth", [
     uiRouter,
     commonUtils,
@@ -39,11 +44,15 @@ const UNPROTECTED_PATHS = [ "unauthorized.home" ],
     resolve: {
       sent: () => true,
     }
+  } ).state( "unauthorized.needVerification", {
+    url: "/need-verification",
+    component: "needVerification",
   } );
 } )
 .component( "passwordForm", passwordFormComponent )
 .component( "passwordSignUp", passwordSignUpComponent )
 .component( "forgetPassword", forgetPasswordComponent )
+.component( "needVerification", needVerificationComponent )
 .component( "passwordLogin", passwordLoginComponent )
 .component( "authFormGoogle", authFormGoogleComponent )
 .service( "authService", AuthService )
@@ -71,10 +80,13 @@ function setupRouteTransitions( $state, $transitions, authService ) {
     to: function to( state ) {
       return pathIsProtected( state.name );
     }
-  }, authService.redirectIfNotLoggedIn );
+  }, () => {
+    authService.redirectIfNotLoggedIn();
+  } );
 }
 
 function pathIsProtected( stateName ) {
+  // assumes protection by default
   return UNPROTECTED_PATHS.indexOf( stateName ) < 0;
 }
 
