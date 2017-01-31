@@ -70,7 +70,7 @@
 							<span class="text-muted ng-binding e2e-user-email">{{ user.email }}</span>
 						</span>
           </td>
-          <td class="table-body__cell hidden-xs ng-binding e2e-user-role">{{ user.role }}</td>
+          <td class="table-body__cell hidden-xs ng-binding e2e-user-role">{{ ( user.role === "DisplayAdmin" ) ? "Administrator" : user.role }}</td>
           <td  class="table-body__cell hidden-xs ">
 					<span ng-if="user.status == 'Accepted'" >Accepted</span>
 					<span ng-if="!user.status">Re-Invite</span>
