@@ -4,7 +4,7 @@ const e2eUserPath = "users/kO4s1ZzjRIP7JVhBSjQ3Etgszpm2",
   testDisplayName = "Test_E2E_Financial_Selector";
 
 module.exports = () => {
-  it( "should enable searching for a company", () => {
+  xit( "should enable searching for a company", () => {
     browser.waitForVisible( "button=Add Display" )
     browser.waitForExist( "tbody td strong", 10000 );
     browser.waitForText( "tbody td strong", 10000 );

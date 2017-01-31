@@ -87,7 +87,7 @@
             <i class="ss-list icon-left"></i><strong>{{value.listName}}</strong>
           </a>
         </td>
-        <td class="table-body__cell hidden-xs">{{value.changeDate | date:'d-MMM-yyyy h:mm a'}}</td>
+        <td class="table-body__cell hidden-xs">{{value.changeDate | date:'d-MMM-yyyy h:mm a'}}{{$ctrl.timeZone}}</td>
         <td class="table-body__cell hidden-xs">{{value.modifiedBy}}</td>
         <td class="table-header__cell">
           <div ng-hide="$ctrl.myRole !== 'RiseAdmin'" class="btn-group" uib-dropdown is-open="status.isopen">
