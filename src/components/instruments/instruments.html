@@ -58,7 +58,7 @@
       </div><!--row-->
 
       <div class="animated fadeIn" ng-show="selectedUser==8">
-        <div style="padding: 2px 10px" class="alert alert-danger" role="alert">
+        <div ng-if="false" style="padding: 2px 10px" class="alert alert-danger" role="alert">
           You are not subscribed to Currencies. <a style="font-weight: 500" href="#">Subscribe here. </a>
         </div>
       </div>
@@ -100,7 +100,7 @@
     </div>
   </form>
 
-  <div ng-hide="$ctrl.showAddInstrument" style="padding: 2px 10px" class="alert alert-danger" role="alert">
+  <div ng-if="false" style="padding: 2px 10px" class="alert alert-danger" role="alert">
     You are not subscribed to Currencies. <a style="font-weight: 500" href="#">Subscribe here. </a>
   </div>
 
