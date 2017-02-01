@@ -1,5 +1,5 @@
 class DisplaysController {
-  constructor( displayUsersService, displayValidationService,
+  constructor( displayUsersService, displayValidationService, authService,
      companyIdOrOldDisplayIdLength, recentDisplayIdLength, displaySaveService, displayListService, $async, $scope, $window, confirmDialog ) {
     "ngInject";
     const ctrl = this;
@@ -11,6 +11,7 @@ class DisplaysController {
     this.$onInit = () => {
       this.loading = true;
       _loadMyRole();
+      _loadMyEmail();
       _populateDisplays();
     };
 
@@ -95,7 +96,11 @@ class DisplaysController {
       }
     } );
 
-    let _loadMyRole = $async( async() => {
+    let _loadMyEmail = $async( async() => {
+        this.myEmail = await authService.getMyEmail();
+      } ),
+
+      _loadMyRole = $async( async() => {
         const { displayId } = ctrl;
 
         ctrl.myRole = await displayUsersService.myRoleFor( displayId );

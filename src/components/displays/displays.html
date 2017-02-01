@@ -56,7 +56,7 @@
       <h2 class="panel-title">No Displays</h2>
     </div>
     <div class="panel-body">
-      No displays have been shared with you. Please contact a display administrator and ask them for an invite.
+      No displays have been shared with <em>{{$ctrl.myEmail}}</em>.
     </div>
   </div>
   <div class="panel panel-default" ng-if="!$ctrl.loading && $ctrl.displayList.length" ng-hide="$ctrl.addDisplay">
