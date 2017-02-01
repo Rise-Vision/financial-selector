@@ -51,7 +51,15 @@
 
   <error-message message="$ctrl.errorMessage"></error-message>
 
-  <div class="panel panel-default" ng-hide="$ctrl.addDisplay">
+  <div ng-if="!$ctrl.loading && !$ctrl.displayList.length" class="panel panel-warning">
+    <div class="panel-heading">
+      <h2 class="panel-title">No Displays</h2>
+    </div>
+    <div class="panel-body">
+      No displays have been shared with you. Please contact a display administrator and ask them for an invite.
+    </div>
+  </div>
+  <div class="panel panel-default" ng-if="!$ctrl.loading && $ctrl.displayList.length" ng-hide="$ctrl.addDisplay">
     <table class="table">
 
       <thead class="table-header">
@@ -63,7 +71,7 @@
       </thead>
 
       <div ng-if="$ctrl.loading" us-spinner></div>
-      <tbody ng-if="!$ctrl.loading" class="table-body">
+      <tbody class="table-body">
 
         <tr class="table-body__row" ng-repeat="display in $ctrl.displayList">
           <td class="table-body__cell">
