@@ -5,7 +5,7 @@ const e2eUserPath = "users/kO4s1ZzjRIP7JVhBSjQ3Etgszpm2",
 
 module.exports = () => {
   it( "should enable adding a display", () => {
-    let expectedAddedDisplayName = "Xiyang Test Display 0001"
+    let expectedAddedDisplayName = "Test_E2E_Financial_Selector"
 
     browser.waitUntil( firebase.database().ref( e2eUserPath ).remove().then( () => true ) );
 
