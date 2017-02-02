@@ -20,7 +20,6 @@ const displayValidationURL = "https://rvaserver2.appspot.com/_ah/api" +
       url: "/displays",
       component: "displays",
     } );
-
   } )
   .constant( "displayValidationURL", displayValidationURL )
   .constant( "companyIdOrOldDisplayIdLength", companyIdOrOldDisplayIdLength )
@@ -29,6 +28,24 @@ const displayValidationURL = "https://rvaserver2.appspot.com/_ah/api" +
   .service( "displayValidationService", displayValidationService )
   .service( "displaySaveService", displaySaveService )
   .service( "displayListService", displayListService )
+  .run( recordFullStoryDisplayId )
   .name;
+
+function recordFullStoryDisplayId( $transitions, $window, $stateParams ) {
+  "ngInject";
+
+  $transitions.onSuccess( {
+    from: "*",
+    to: ( state ) => {
+      //only record on routes with display id as a route parameter
+      return !!state.params.displayId;
+    },
+  }, async () => {
+    $window.FS.setUserVars( {
+      displayId: $stateParams.displayId
+    } );
+    return true;
+  } );
+}
 
 export default displaysModule;
