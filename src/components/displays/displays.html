@@ -51,15 +51,7 @@
 
   <error-message message="$ctrl.errorMessage"></error-message>
 
-  <div ng-if="!$ctrl.loading && !$ctrl.displayList.length" class="panel panel-warning">
-    <div class="panel-heading">
-      <h2 class="panel-title">No Displays</h2>
-    </div>
-    <div class="panel-body">
-      No displays have been shared with <em>{{$ctrl.myEmail}}</em>.
-    </div>
-  </div>
-  <div class="panel panel-default" ng-if="!$ctrl.loading && $ctrl.displayList.length" ng-hide="$ctrl.addDisplay">
+  <div class="panel panel-default" ng-hide="$ctrl.addDisplay">
     <table class="table">
 
       <thead class="table-header">
@@ -72,8 +64,14 @@
 
       <div ng-if="$ctrl.loading" us-spinner></div>
       <tbody class="table-body">
-
-        <tr class="table-body__row" ng-repeat="display in $ctrl.displayList">
+        <tr ng-if="!$ctrl.loading && !$ctrl.displayList.length" style="text-align:center">
+          <td colspan="3">
+            <div >
+              No Displays have been shared with <em>{{$ctrl.myEmail}}</em>
+            </div>
+          </td>
+        </tr>
+        <tr class="table-body__row" ng-repeat="display in $ctrl.displayList" ng-if="!$ctrl.loading && $ctrl.displayList.length">
           <td class="table-body__cell">
             <a ui-sref="financialLists({displayId: display.$id})">
               <i class="ss-tv icon-left"></i><strong>{{display.displayName || display.nameObject.$value}}</strong>
