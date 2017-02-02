@@ -58,8 +58,23 @@ const UNPROTECTED_PATHS = [ "unauthorized.home",
 .service( "authService", AuthService )
 .factory( "touch", touchFactory )
 .run( setupRouteTransitions )
+.run( setupFullStoryInegration )
 .name;
 
+function setupFullStoryInegration( authService, $window ) {
+  "ngInject";
+
+  authService.firebaseAuthObject.$onAuthStateChanged( async ( user ) => {
+    if ( user ) {
+      const { displayName, email } = user;
+
+      $window.FS.identify( email, {
+        displayName,
+        email,
+      } );
+    }
+  } );
+}
 
 function setupRouteTransitions( $state, $transitions, authService ) {
   "ngInject";
