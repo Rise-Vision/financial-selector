@@ -80,7 +80,7 @@
           <td class="table-body__cell hidden-xs">{{display.$id}}</td>
           <td class="table-header__cell">
             <div class="btn-group" uib-dropdown is-open="status.isopen">
-              <button id="single-button" type="button" class="btn btn-xs btn-default" uib-dropdown-toggle ng-disabled="disabled">
+              <button ng-hide="$ctrl.myRole !== 'RiseAdmin'" id="single-button" type="button" class="btn btn-xs btn-default" uib-dropdown-toggle ng-disabled="disabled">
                 Actions <span class="caret"></span>
               </button>
               <ul class="dropdown-menu">
