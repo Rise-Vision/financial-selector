@@ -70,7 +70,7 @@ class DisplaysController {
         displayIdResult = await displayListService.getDisplayNameObjById( this.displaySearchText );
         nameResult = await displayListService.getDisplayByName( this.displaySearchText );
 
-        this.displayList = [].concat( displayIdResult || nameResult )
+        this.displayList = [].concat( displayIdResult || nameResult );
         break;
       default:
         this.displayList = await displayListService.getDisplayByName( this.displaySearchText );
