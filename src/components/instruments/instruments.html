@@ -94,7 +94,7 @@
   </div> <!--addInstruments-->
 
   <form ng-hide="$ctrl.showAddInstrument" class="hidden-xs">
-    <div class="input-group half-top add-bottom">
+    <div ng-hide="true" class="input-group half-top add-bottom">
       <span class="input-group-addon"><i class="fa fa-search"></i></span>
       <input class="form-control" ng-change="$ctrl.searchInstruments()" ng-model="$ctrl.searchKeyword" ng-model-options="{debounce: 600}" type="text" placeholder="Search Instruments" name="">
     </div>

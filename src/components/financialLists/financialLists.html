@@ -25,7 +25,7 @@
     </div>
   </div><!--row-->
 
-  <form ng-hide="$ctrl.showAddList" class="hidden-xs">
+  <form ng-hide="$ctrl.showAddList || true" class="hidden-xs">
     <div class="input-group half-top add-bottom">
       <span class="input-group-addon"><i class="fa fa-search"></i></span>
       <input class="form-control" type="text" placeholder="Search Financial Lists" name="">
@@ -33,7 +33,7 @@
   </form>
 
   <div class="row half-top visible-xs">
-    <div class="col-xs-8">
+    <div ng-hide="$ctrl.showAddList || true" class="col-xs-8">
       <form>
         <div class="input-group add-bottom">
           <span class="input-group-addon"><i class="fa fa-search"></i></span>
