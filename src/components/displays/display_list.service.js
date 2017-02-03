@@ -38,7 +38,9 @@ class displayListService {
       if ( !displayName.$value ) {
         return null;
       }
-      return { $id: displayId, displayName: displayName.$value };
+
+      displayName.did = displayId;
+      return displayName;
     }
 
     async function getMyDisplays() {
