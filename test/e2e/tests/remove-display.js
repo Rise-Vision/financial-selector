@@ -3,7 +3,7 @@ const assert = require( "assert" ),
   firebase = require( "firebase-admin" ),
   e2eUserPath = "users/kO4s1ZzjRIP7JVhBSjQ3Etgszpm2",
   testDisplayId = "87MMJ7XUXMDR",
-  testDisplayName = "Test_E2E_Financial_Selector_Remove_Display";
+  testDisplayName = "Test_E2E_Financial_Selector";
 
 module.exports = function() {
   describe( "Remove Display", function() {

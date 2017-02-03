@@ -25,7 +25,7 @@
     <div class="col-xs-7">
       <form ng-hide="$ctrl.addDisplay">
         <div class="input-group add-bottom">
-          <span class="input-group-addon"><i class="fa fa-search"></i></span>
+          <span class="input-group-addon"><i class="fa fa-search" ng-click="$ctrl.searchDisplays()"></i></span>
           <input class="form-control" type="text" ng-model="$ctrl.displaySearchText" ng-change="$ctrl.searchDisplays()" placeholder="Search Displays" name="">
         </div>
       </form>
@@ -44,7 +44,7 @@
 
   <form class="hidden-xs" ng-hide="$ctrl.addDisplay">
      <div class="input-group half-top add-bottom">
-      <span class="input-group-addon"><i class="fa fa-search"></i></span>
+      <span class="input-group-addon"><i class="fa fa-search" ng-click="$ctrl.searchDisplays()"></i></span>
       <input class="form-control" type="text" ng-model="$ctrl.displaySearchText" ng-change="$ctrl.searchDisplays()" placeholder="Search Displays" name="">
     </div>
   </form>
