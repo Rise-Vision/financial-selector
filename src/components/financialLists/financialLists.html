@@ -1,6 +1,6 @@
 <div class="container animated fadeIn">
 
-  <div class="row">
+  <div class="row add-bottom">
     <div class="col-sm-6 col-md-6 col-lg-6">
       <ol class="breadcrumb">
         <li><a ui-sref="displays"><i class="ss-home icon-left"></i> Displays</a></li>
@@ -8,7 +8,7 @@
 
       </ol>
     </div><!--col-->
-    <div class="col-sm-3 col-md-3 col-lg-3 hidden-xs" ng-class="{'pull-right': $ctrl.showAddList || $ctrl.myRole !== 'RiseAdmin'}">
+    <div style="margin-top:2px" class="col-sm-3 col-md-3 col-lg-3 hidden-xs" ng-class="{'pull-right': $ctrl.showAddList || $ctrl.myRole !== 'RiseAdmin'}">
       <a
 				ng-if="['DisplayAdmin', 'RiseAdmin'].includes($ctrl.myRole)"
         ui-sref="manageDisplayUsers({displayId: $ctrl.displayId})"
@@ -16,7 +16,7 @@
         Manage Users <i class="fa fa-users icon-right"></i>
       </a>
     </div>
-    <div class="col-sm-3 col-md-3 col-lg-3 hidden-xs">
+    <div style="margin-top:2px" class="col-sm-3 col-md-3 col-lg-3 hidden-xs">
       <a ng-hide="$ctrl.showAddList || $ctrl.myRole !== 'RiseAdmin'"
         ng-click="$ctrl.showAddList = true;"
         ui-sref="displayLists"

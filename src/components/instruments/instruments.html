@@ -7,7 +7,7 @@
 
 <div class="container animated fadeIn">
 
-  <div class="row">
+  <div class="row add-bottom">
     <div class="col-sm-9 col-md-9 col-lg-10">
       <ol class="breadcrumb">
         <li><a ui-sref="displays"><i class="ss-home icon-left"></i> Displays</a></li>
@@ -19,7 +19,7 @@
         <li class="active"><span>{{$ctrl.instrumentListObj.listName}}</span></li>
       </ol>
     </div><!--col-->
-    <div class="col-sm-3 col-md-3 col-lg-2 hidden-xs">
+    <div class="col-sm-3 col-md-3 col-lg-2 hidden-xs" style="margin-top:2px">
       <button ng-hide="$ctrl.showAddInstrument" ng-click="$ctrl.showAddInstrument = true" class="btn btn-primary btn-lg btn-block">Add Instrument <i class="fa fa-plus icon-right"></i></button>
     </div>
   </div><!--row--> 
