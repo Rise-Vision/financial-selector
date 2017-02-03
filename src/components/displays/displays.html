@@ -66,8 +66,8 @@
       <tbody class="table-body">
         <tr ng-if="!$ctrl.loading && !$ctrl.displayList.length" style="text-align:center">
           <td colspan="3">
-            <div >
-              No Displays have been shared with <em>{{$ctrl.myEmail}}</em>
+            <div>
+              {{$ctrl.displaySearchText ? 'No matches found' : 'No Displays have been shared with ' + $ctrl.myEmail}}
             </div>
           </td>
         </tr>
