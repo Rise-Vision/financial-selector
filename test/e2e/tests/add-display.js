@@ -1,13 +1,18 @@
 const e2eUserPath = "users/kO4s1ZzjRIP7JVhBSjQ3Etgszpm2",
-  assert = require("assert"),
+  assert = require( "assert" ),
   firebase = require( "firebase-admin" ),
-  testDisplayId = "G6B7ET3EHGD4";
+  testDisplayId = "G6B7ET3EHGD4",
+  { email: loginEmail } = require( "../private-keys/financial-selector/jenkins-creds.json" ),
+  { encodeForFirebaseProp } = require( "../../src/utils" );
 
 module.exports = () => {
   it( "should enable adding a display", () => {
     let expectedAddedDisplayName = "Test_E2E_Financial_Selector"
 
     browser.waitUntil( firebase.database().ref( e2eUserPath ).remove().then( () => true ) );
+    browser.waitUntil( firebase.database().ref( `users/${encodeForFirebaseProp( loginEmail )}` ).set( {
+      riseAdmin: true
+    } ).then( () => true ) );
 
     browser.waitForVisible( "button=Add Display" )
     browser.click( "button=Add Display" );
