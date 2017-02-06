@@ -6,11 +6,11 @@
   <error-message message="$ctrl.errorMessage"></error-message>
 
   <div style="padding:20px;" class="text-center">
-    <p>An invitation email for display
-      <strong>{{ $ctrl.displayId }}</strong>
-      was sent to
-      <strong>{{ $ctrl.email }}</strong>.
+    <p>
+      <strong>{{ $ctrl.email }}</strong> is now a User of the 
+      <strong>{{ $ctrl.displayId }}</strong> Display
     </p>
+    <a href="{{ $ctrl.mailTo }}" class="btn btn-primary">Send invitation email</a>
     <button class="btn btn-default" id="invite-success-ok-button" ng-click="$ctrl.ok()">OK</button>
   </div>
 
