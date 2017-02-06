@@ -8,7 +8,6 @@ import passwordFormComponent from "./auth-form-password/passwordForm.component";
 import passwordLoginComponent from "./auth-form-password/passwordLogin.component";
 import passwordSignUpComponent from "./auth-form-password/passwordSignUp.component";
 import forgetPasswordComponent from "./auth-form-password/forgetPassword.component";
-import needVerificationComponent from "./auth-form-password/needVerification.component";
 
 const UNPROTECTED_PATHS = [ "unauthorized.home",
     "unauthorized.passwordLogin",
@@ -44,15 +43,11 @@ const UNPROTECTED_PATHS = [ "unauthorized.home",
     resolve: {
       sent: () => true,
     }
-  } ).state( "unauthorized.needVerification", {
-    url: "/need-verification",
-    component: "needVerification",
   } );
 } )
 .component( "passwordForm", passwordFormComponent )
 .component( "passwordSignUp", passwordSignUpComponent )
 .component( "forgetPassword", forgetPasswordComponent )
-.component( "needVerification", needVerificationComponent )
 .component( "passwordLogin", passwordLoginComponent )
 .component( "authFormGoogle", authFormGoogleComponent )
 .service( "authService", AuthService )
@@ -82,7 +77,7 @@ function setupRouteTransitions( $state, $transitions, authService ) {
   $transitions.onBefore( {
     from: "*",
     to: function to( state ) {
-      return pathIsProtected( state.name ) && state.name !== "unauthorized.needVerification";
+      return pathIsProtected( state.name );
     }
   }, async () => {
     const newState = await authService.needRedirect();

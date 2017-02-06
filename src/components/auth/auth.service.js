@@ -15,7 +15,6 @@ class AuthService {
       loginWithGoogle,
       logout,
       getAuth,
-      sendEmailVerification,
       firebaseAuthObject,
       needRedirect,
       waitForAuthThen,
@@ -26,12 +25,6 @@ class AuthService {
 
     async function register( { email, password } ) {
       return await firebaseAuthObject.$createUserWithEmailAndPassword( email, password );
-    }
-
-    async function sendEmailVerification() {
-      const auth = await getAuth();
-
-      return await auth.sendEmailVerification();
     }
 
     function login( user ) {
@@ -92,8 +85,6 @@ class AuthService {
 
       if ( !auth ) {
         return "unauthorized.home";
-      } else if ( !auth.emailVerified ) {
-        return "unauthorized.needVerification";
       } else {
         return null;
       }
