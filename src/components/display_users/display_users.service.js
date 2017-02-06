@@ -31,7 +31,7 @@ class displayUsersService {
         userId = encodeForFirebaseProp( email );
 
       if ( displayWithinUserFBObj.role ) {
-        throw new Error( `An invitation is already sent to ${userId} for display ${displayId}` );
+        throw new Error( `An invitation is already sent to ${decodeForFirebaseProp( userId )} for display ${displayId}` );
       } else {
         Object.assign( displayWithinUserFBObj, { accepted: false, role } );
 

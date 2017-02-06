@@ -1,5 +1,5 @@
 class displayAddUserController {
-  constructor( $state, displayUsersService ) {
+  constructor( $scope, $state, displayUsersService ) {
     "ngInject";
 
     const ctrl = this;
@@ -24,7 +24,7 @@ class displayAddUserController {
       } catch ( e ) {
         ctrl.errorMessage = "failed to invite user: " + e.message;
         console.error( e );
-        $state.go( "^" );
+        $scope.$apply();
       }
       // go to a sibling state
     };
