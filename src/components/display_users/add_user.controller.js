@@ -22,7 +22,9 @@ class displayAddUserController {
 
         $state.go( "^.inviteSuccess", { userId, displayId } );
       } catch ( e ) {
-        ctrl.errorMessage = "failed to invite user: " + e.message;
+        ctrl.errorMessage = e.message.indexOf( "already sent" ) > -1 ?
+        `${email} is already a User for this Display` :
+        "failed to invite user: " + e.message;
         console.error( e );
         $scope.$apply();
       }
