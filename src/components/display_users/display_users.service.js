@@ -158,6 +158,7 @@ class displayUsersService {
 
     return {
       inviteUserToDisplay,
+      getDisplay,
       updateInvite,
       getUserDisplayRoleStatus,
       getUsersForDisplay,
