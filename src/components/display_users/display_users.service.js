@@ -20,28 +20,23 @@ class displayUsersService {
       ensureAdminRole( displayId );
       const userId = encodeForFirebaseProp( email ),
         //run in parallel
-        [ displayWithinUserFBObj, displayFBObj ] = await $q.all( [ getDisplayWithinUser( userId, displayId ), getDisplay( displayId ) ] );
+        displayWithinUserFBObj = await getDisplayWithinUser( userId, displayId );
 
-      await associateUserToDisplay( displayWithinUserFBObj, displayFBObj, role, email );
+      await associateUserToDisplay( displayWithinUserFBObj, displayId, role, email );
       return userId;
     }
 
-    async function associateUserToDisplay( displayWithinUserFBObj, displayFBObj, role, email ) {
-      const displayId = displayFBObj.$id,
-        userId = encodeForFirebaseProp( email );
+    async function associateUserToDisplay( displayWithinUserFBObj, displayId, role, email ) {
+      const userId = encodeForFirebaseProp( email ),
+        displayUserFBObj = await $firebaseObject( root.child( `displays/${displayId}/users` ) ).$loaded();
 
       if ( displayWithinUserFBObj.role ) {
         throw new Error( `An invitation is already sent to ${decodeForFirebaseProp( userId )} for display ${displayId}` );
       } else {
         Object.assign( displayWithinUserFBObj, { accepted: false, role } );
+        displayUserFBObj[ userId ] = true;
 
-        if ( !displayFBObj.users ) {
-          Object.assign( displayFBObj, { users: { [ userId ]: true } } );
-        } else if ( !displayFBObj.users[ userId ] ) {
-          displayFBObj.users[ userId ] = true;
-        }
-
-        await $q.all( [ displayWithinUserFBObj.$save(), displayFBObj.$save() ] );
+        await $q.all( [ displayWithinUserFBObj.$save(), displayUserFBObj.$save() ] );
       }
     }
 
