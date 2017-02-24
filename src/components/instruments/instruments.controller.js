@@ -26,13 +26,15 @@ class InstrumentsController {
 
     $scope.$watch( "$ctrl.instrumentListObj.instruments", ( newL ) => {
 
-      if ( newL ) {
-        const list = Object.keys( newL )
-        .map( ( $id ) => Object.assign( { $id }, newL[ $id ] ) )
-        .sort( ( i1, i2 ) => _numberify( i1.order ) - _numberify( i2.order ) );
-
-        this.instrumentList = list;
+      if ( !newL ) {
+        return this.instrumentList = {};
       }
+
+      const list = Object.keys( newL )
+      .map( ( $id ) => Object.assign( { $id }, newL[ $id ] ) )
+      .sort( ( i1, i2 ) => _numberify( i1.order ) - _numberify( i2.order ) );
+
+      this.instrumentList = list;
 
     }, true );
 
