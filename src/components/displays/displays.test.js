@@ -25,6 +25,9 @@ describe( "Displays", () => {
         },
         // ngChange needs this
         document: window.document,
+        angular: {
+          callbacks: window.angular.callbacks
+        }
       } );
     } );
   } );

@@ -1,4 +1,4 @@
-import confirmTemplate from "./confirm_dialog.html" ;
+import confirmTemplate from "./confirm_dialog.html";
 
 function confirmDialog( $uibModal, $q ) {
   "ngInject";
