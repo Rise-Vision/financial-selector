@@ -46,6 +46,9 @@ describe( "instruments", () => {
         firebase: mockFb,
         // ngChange needs this
         document: window.document,
+        angular: {
+          callbacks: window.angular.callbacks
+        }
       } );
     } );
   } );
