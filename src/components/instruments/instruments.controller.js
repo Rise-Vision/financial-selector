@@ -47,6 +47,12 @@ class InstrumentsController {
       this.instrumentSearch[ key ].isSelected = !this.instrumentSearch[ key ].isSelected;
     };
 
+    this.keyPressed = (keyEvent) => {
+      if (keyEvent.which === 13) {
+        this.searchInstruments();
+      }
+    }
+
     this.searchInstruments = () => {
       let promise = this.searchKeyword ?
       instrumentSearchService.keywordSearch( this.selectedCategory, this.searchKeyword ) :
