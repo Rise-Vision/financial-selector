@@ -24,6 +24,7 @@ class FinancialListsController {
         this.submittingList = false;
         this.newListName = "";
         this.showAddList = false;
+        $state.go( "instruments", { displayId: this.displayId, listId: this.financialLists[ this.financialLists.length - 1 ].$id } );
       } )
       .catch( ( err ) => {
         this.errorMessage = "Failed to add " + this.newListName;
