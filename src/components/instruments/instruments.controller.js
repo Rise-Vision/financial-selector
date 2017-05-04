@@ -61,7 +61,7 @@ class InstrumentsController {
       this.errorMessage = "";
       this.searching = true;
       promise.then( ( res ) => {
-        this.instrumentSearch = res;
+        this.instrumentSearch = angular.copy( res );
         this.searching = false;
       } )
       .catch( ( err ) => {
