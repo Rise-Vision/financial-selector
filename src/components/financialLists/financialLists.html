@@ -42,7 +42,7 @@
       </form>
     </div>
     <div class="col-xs-2">
-      <button ng-hide="$ctrl.showAddList" ui-sref="displayUsers" class="btn btn-primary btn-block"><span style="font-size: 13px; line-height: 20px">Users</span></button>
+      <button ng-hide="$ctrl.showAddList" ui-sref="manageDisplayUsers({displayId: $ctrl.displayId})" class="btn btn-primary btn-block"><span style="font-size: 13px; line-height: 20px">Users</span></button>
     </div>
     <div class="col-xs-2">
       <button ng-hide="$ctrl.showAddList" ng-click="$ctrl.showAddList = true" ui-sref="displayLists" class="btn btn-primary btn-block"><span style="font-size: 13px; line-height: 20px">+List</span></button>
