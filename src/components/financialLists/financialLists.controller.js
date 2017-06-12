@@ -1,6 +1,6 @@
 class FinancialListsController {
   constructor( financialListAddService, $state,
-    authService, displayValidationService, $async,
+    authService, displayValidationService, displaySaveService, $async,
   financialListRemoveService, displayUsersService, financialListListService, confirmDialog, timeZone ) {
     "ngInject";
 
@@ -62,6 +62,7 @@ class FinancialListsController {
         const { displayId } = this;
 
         try {
+          await displaySaveService.save( displayId );
           this.displayInfo = await displayValidationService.validateAndGet( displayId );
           this.financialLists = await financialListListService.list( this.displayId );
         } catch ( e ) {
