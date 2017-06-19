@@ -73,7 +73,7 @@
         </tr>
         <tr class="table-body__row" ng-repeat="display in $ctrl.displayList" ng-if="!$ctrl.loading && $ctrl.displayList.length">
           <td class="table-body__cell">
-            <a ui-sref="financialLists({displayId: display.$id})">
+            <a ui-sref="financialLists({displayId: display.did || display.$id})">
               <i class="ss-tv icon-left"></i><strong>{{display.nameObject ? display.nameObject.$value : display.$value || display.displayName}}</strong>
             </a>
           </td>
