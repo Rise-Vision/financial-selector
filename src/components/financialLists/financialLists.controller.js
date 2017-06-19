@@ -58,7 +58,7 @@ class FinancialListsController {
 
         try {
           this.myRole = await displayUsersService.myRoleFor( displayId );
-          if (this.myRole === "RiseAdmin" ) {
+          if ( this.myRole === "RiseAdmin" ) {
             await displaySaveService.save( displayId );
           }
           this.displayInfo = await displayValidationService.validateAndGet( displayId );
