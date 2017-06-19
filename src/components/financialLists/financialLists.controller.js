@@ -9,7 +9,6 @@ class FinancialListsController {
 
     this.$onInit = () => {
       _validateAndPopulateDisplayInfo();
-      loadMyRoleFor( this.displayId, this );
     };
 
     this.addList = () => {
@@ -54,15 +53,14 @@ class FinancialListsController {
       this.newListName = "";
     };
 
-    let loadMyRoleFor = $async( async( displayId, bindTo ) => {
-        bindTo.myRole = await displayUsersService.myRoleFor( displayId );
-      } ),
-
-      _validateAndPopulateDisplayInfo = $async( async() => {
+    let _validateAndPopulateDisplayInfo = $async( async() => {
         const { displayId } = this;
 
         try {
-          await displaySaveService.save( displayId );
+          this.myRole = await displayUsersService.myRoleFor( displayId );
+          if ( this.myRole === "RiseAdmin" ) {
+            await displaySaveService.save( displayId );
+          }
           this.displayInfo = await displayValidationService.validateAndGet( displayId );
           this.financialLists = await financialListListService.list( this.displayId );
         } catch ( e ) {
